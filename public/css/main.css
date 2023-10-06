@@ -1,0 +1,232 @@
+
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: #0a8f20 !important;
+    border: 0;
+}
+.main-bg{
+    background-color:#f1f5f7;
+}
+.main-form-row{
+    background-color: #cdd3c9;
+    margin-top: 80px !important;
+    padding-top: 10px;
+}
+.main-footer{
+ 
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color:gray !important;
+    background-color: whitesmoke !important;
+}
+.sidebar, aside{
+   
+    background-color: #056936 !important;
+    color: white !important;
+    font-style: normal !important;
+}
+.main-header{
+   background-color: #7ebb2b;
+}
+
+.nav-sidebar>.nav-item {
+    margin-bottom: 0;
+    padding-bottom: 15px;
+}
+.main-header a,.sidebar a, aside a{
+    color: white !important;
+}
+
+.main-header a:hover,.sidebar a:hover, aside a:hover{
+    color: #fdc119 !important;
+    transition: scale(1.0);
+    font-size: 16px;
+    transition: transform 5s;
+}
+.info-box:hover{
+    
+    cursor: pointer;
+    
+    transform: scale(1.1);
+    transition: transform 10s;
+    bottom: 5px;
+}
+
+.search-container {
+    position: relative;
+    margin-bottom: 20px; 
+  }
+  
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Floating label styles */
+  .floating-label {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    pointer-events: none;
+    padding: 5px;
+    font-size: 12px;
+    color: #666;
+    transition: 0.2s ease-out;
+  }
+  
+  /* Move the floating label up when the input field is focused or has value */
+  input[type="text"]:focus + .floating-label,
+  input[type="text"]:not(:placeholder-shown) + .floating-label {
+    top: -15px;
+    background-color: #fff;
+    padding: 0 5px;
+    font-size: 10px;
+  }
+  
+  /* Adjust the floating label's color when the input is focused */
+  input[type="text"]:focus + .floating-label {
+    color: #007bff;
+  }
+  .info-box .info-box-number{
+    font-size:25px !important;
+    font-style: normal;
+    font-weight: normal;
+  }
+  .info-box .info-box-text, .info-box .progress-description{
+    font-weight:bold !important;
+}
+  .info-box .info-box-icon{
+    width:50px !important;
+  }
+  .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.emoji {
+    cursor: pointer;
+    display: inline-block;
+    animation: wobble 10s ease infinite; 
+}
+@keyframes wobble {
+    0% { transform: translateX(0); }
+    15% { transform: translateX(-5px) rotate(-5deg); }
+    30% { transform: translateX(5px) rotate(5deg); }
+    45% { transform: translateX(-5px) rotate(-5deg); }
+    60% { transform: translateX(5px) rotate(5deg); }
+    75% { transform: translateX(-5px) rotate(-5deg); }
+    100% { transform: translateX(0); }
+}
+
+/* Apply the wobble animation to the emoji */
+.wobble {
+    animation: wobble 0.3s ease infinite;
+}
+@keyframes moveUpDown {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px); /* Adjust this value for the amount of movement */
+    }
+}
+.emoji1{
+    animation:moveUpDown 3s infinite;
+    display: inline-block;
+
+}
+
+/*--Admin--*/
+#admincard{
+    padding:20px;
+
+}
+
+/*---Notification Bells---*/
+
+#notification-bell {
+    position: relative;
+    display: inline-block;
+    color:green;
+}
+
+.notification-count {
+  position: absolute;
+    top: -12px;
+    right: 1; /* Adjust the right value to control the distance from the bell */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 10px;
+
+}
+
+.error invalid-feedback{
+    color:red;
+}
+
+/**---Logged In Users-----**/
+    .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    
+    .status-dot.active {
+        background-color: green; /* Green color for active status */
+    }
+    
+    .status-dot.inactive {
+        background-color: red; /* Red color for inactive status */
+    }
+/**---Logged In Users Status-----**/
+/*----Approver-----*/
+
+/**-----Create Form Hidden Fields-----**/
+.hidden {
+    display: none;
+}
+/* CSS classes for button background colors */
+    .leave-status-absent {
+        background-color: red;
+        color: white; /* Set text color to white for better visibility on red background */
+    }
+    
+    .leave-status-present {
+        background-color: green;
+        color: white; /* Set text color to white for better visibility on green background */
+    }
+
+
+
