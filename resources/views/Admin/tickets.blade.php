@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('Admin.app')
 @section('content')
 <div class="content-header">
    <div class="container-fluid">
@@ -40,29 +40,7 @@
                      <!---Search Form on Left---->
                      <div class="card-header">
                         <div class="card-title">
-                           <form id="searchForm" action="{{ route('ticket.search') }}" method="GET">
-                              <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="checkbox" name="approved" id="approved">
-                                 <label class="form-check-label" for="approved">Approved</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="checkbox" name="unapproved" id="unapproved">
-                                 <label class="form-check-label" for="unapproved">Unapproved</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="TicketStatus[]" id="open" value="Open">
-                                 <label class="form-check-label" for="open">Open</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="TicketStatus[]" id="pending" value="Pending">
-                                 <label class="form-check-label" for="pending">Pending</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="TicketStatus[]" id="closed" value="Closed">
-                                 <label class="form-check-label" for="closed">Closed</label>
-                              </div>
-                              <button type="submit" class="btn btn-sm btn-primary">Filter</button>
-                           </form>
+               
                         </div>
                         <div class="card-tools">
                            <form id="searchForm" action="{{ route('alltickets.index') }}" method="GET">
@@ -100,7 +78,13 @@
                                  <td>{{$item->id}}</td>
                                  <td>{{$item->Ticket_Urgency}}</td>
                                  <td>{{$item->section_head1}}
-                                 <td>{{$item->Record_No}}</td>
+                                 <td>
+                                    {{$item->Record_No}}
+                                    {{$item->pvNumber}}
+                                    {{$item->claimNumber}}
+                                 
+                                 
+                                 </td>
                                  <td>{{$item->HodApprovalStatus}}</td>
                                  @if($item->approver)
                                  <td>{{$item->approver->name}}</td>

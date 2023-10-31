@@ -12,6 +12,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Models\UserAssignment;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewTicketSubmittedNotification;
 use Illuminate\Support\Collection;
 use App\Models\TicketCategory;
@@ -61,9 +62,8 @@ class AssignTicketToAdmin implements ShouldQueue
 
             // Log the next admin user and ticket assignment
             Log::info('Ticket Category: ' . $this->ticket->TicketCategory);
-            Log::info('Assigning ticket ID ' . $this->ticket->id . ' to admin user ID ' . $nextAdminUser->id);
+            Log::info('Assigning ticket ID ' . $this->ticket->id . ' to admin user ID ' . $nextAdminUser->id. ' to admin user ID ' . $nextAdminUser->email);
             // Log the ticket category
-          //  // Replace 'ticketCategory' with the actual field name
             // Update the ticket with the assigned admin user
             $this->ticket->AssignedTo = $nextAdminUser->id;
             $this->ticket->save();
@@ -77,7 +77,12 @@ class AssignTicketToAdmin implements ShouldQueue
             // Handle any exceptions that occur during job execution
             Log::error('Error in AssignTicketToAdmin job: ' . $e->getMessage());
         }
+
+          // Dispatch the notification to the next admin user
+          Notification::send($nextAdminUser, new NewTicketSubmittedNotification($this->ticket));
     }
+
+
 
     protected function calculateNextAdminIndex($lastAssignedAdminId, $adminUsers)
     {
@@ -96,6 +101,16 @@ class AssignTicketToAdmin implements ShouldQueue
             // Calculate the index of the next admin user in a circular manner
             $nextIndex = ($currentIndex + 1) % $adminUsersCollection->count();
             return $nextIndex;
+        }
+    }
+    protected function dispatchNewTicketSubmittedNotificationToAdmin($adminUsers, $nextIndex)
+    {
+        $ticket = $this->ticket; // Assuming you have the $ticket instance available
+        $nextAdminUser = $adminUsers[$nextIndex]; // Assuming you have $nextAdminUser available
+
+        // Dispatch the notification to the next admin user
+        if ($nextAdminUser) {
+            $nextAdminUser->notify(new NewTicketSubmittedNotification($ticket));
         }
     }
 }

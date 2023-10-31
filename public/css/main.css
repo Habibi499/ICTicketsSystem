@@ -1,5 +1,54 @@
+/*---Corrections Categories Tree----*/
+.tree-box {
+    text-align: center;
+    background-color: #f7f7f7;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 2px solid #333;
+    border-radius: 8px;
+}
+.sub-box {
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.line {
+    position: absolute;
+    border: 2px solid #333;
+}
 
+.line-top-to-box1 {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 55px;
+    
+}
 
+.line-top-to-box2 {
+    top: 90%;
+    left: 10%;
+    width: 2px;
+    height: 75px;
+    transform: translateX(-50%);
+     transform: rotate(45deg);
+    transform-origin: right;
+}
+
+.line-top-to-box3 {
+   top: 73%;
+    left: 90%;
+    width: 2px;
+    height: 120px;
+    transform: translateX(-50%);
+     transform: rotate(-50deg);
+    transform-origin: right;
+}
+/*---Corrections Categories Tree End----*/
 .dropdown-item {
     display: block;
     width: 100%;
@@ -211,7 +260,7 @@
         background-color: red; /* Red color for inactive status */
     }
 /**---Logged In Users Status-----**/
-/*----Approver-----*/
+
 
 /**-----Create Form Hidden Fields-----**/
 .hidden {

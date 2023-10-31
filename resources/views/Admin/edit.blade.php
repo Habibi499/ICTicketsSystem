@@ -118,17 +118,26 @@
                     <div class="card-body">
                       
                       <div class="form-row topform">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                           <span class="topheader">Correction Type
                           <input type="text" name="Correction_Type" class="form-control1" id="RequesterName"  value="{{$ticket->Correction_Type}}" style="border: none !important; background:none; font-size:14px; width:80%;" readonly>           
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                           <span class="topheader">Policy No/PV No:</span>
                               <input type="text"  class="form-control1" id="RequesterName" value="{{ $ticket->Record_No }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>           
+                        </div>
+                        <div class="col-md-4">
+                            @if ($ticket->Correction_Type == 'Renewal')
+                          <span class="topheader">  Renewal No</span>
+                                <input type="text" class="form-control1" id="RequesterName" value="{{ $ticket->RenewalNo }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
+                            @elseif ($ticket->Correction_Type == 'Endorsement')
+                            <span class="topheader">Endorsement No</span>
+                                <input type="text" class="form-control1" id="RequesterName" value="{{ $ticket->EndorsementNo }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
+                            @else
+                                <input type="text" class="form-control1" id="RequesterName" value="{{ $ticket->Record_No }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
+                            @endif
                           </div>
                       </div>
-                   
-                      
                       <div class="form-row topform" style="border-top:1px solid rgb(203, 203, 203);">
                         <span class="topheader">Ticket Details:</span>
                         <textarea class="form-control" name="Correction_Details" id="CorrectionDetails" rows="8"  style="border: none !important; background:none; font-size:14px; width:100%;" readonly>{{$ticket->Correction_Details}}</textarea>

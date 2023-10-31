@@ -77,7 +77,36 @@
                   </div>
                </div>
                <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-6">
+                     <div class="card" id="fcard">
+                        <div class="card-header">{{ __('') }}</div>
+                        <div class="card-body">
+                           <div class="row justify-content-center">
+                              <div class="col-md-6 tree-box">
+                                  <p><i class="fa fa-check"></i>&ensp;Genesys Correction Forms</p>
+                                  <div class="line line-top-to-box1"></div>
+                                  <div class="line line-top-to-box2"></div>
+                                  <div class="line line-top-to-box3"></div>
+                              </div>
+                          </div>
+                          <div class="row justify-content-center">
+                              <div class="col-md-3 sub-box">
+                                  <a href="{{route('ticket.accountsform')}}">Accounts Corrections</a>
+                              </div>
+                              <div class="col-md-3 sub-box">
+                                 <a href="{{route('ticket.create')}}">UnderWriting or Re-insurance</a> 
+                              </div>
+                              <div class="col-md-3 sub-box">
+                                 <a href="{{route('ticket.create')}}">Claims or Legal</a>
+                              </div>
+                          </div>
+                      </div>
+                          
+                        </div>
+                     </div>
+                
+
+                 <!-- <div class="col-md-4">
                      <div class="card" id="fcard">
                         <div class="card-header">{{ __('') }}</div>
                         <div class="card-body">
@@ -87,7 +116,9 @@
                            </a>
                         </div>
                      </div>
-                  </div>
+                  </div>-->
+                  
+
                   <div class="col-md-4">
                      <div class="card" id="fcard">
                         <div class="card-header">{{ __('') }}</div>

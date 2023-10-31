@@ -130,7 +130,7 @@
                         </div>
                         <div class="col-md-6">
                           <span class="topheader">Policy No/PV No:</span>
-                              <input type="text" name="section_head1" class="form-control1" id="RequesterName" value="{{ $ticket->Record_No }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>           
+                              <input type="text" name="section_head1" class="form-control1" id="RequesterName" value="{{ $ticket->Record_No }}{{ $ticket->pvNumber }}{{ $ticket->claimNumber }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>           
                           </div>
                       </div>
                    

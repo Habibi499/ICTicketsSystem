@@ -20,8 +20,8 @@ class ApproverController extends Controller
         
         $user = auth()->user(); // Get the logged-in user
         
-        //if($user->role_id==2)
-        //{
+        if($user->role_id==2)
+        {
                             $user = auth()->user(); // Get the logged-in user
                             
                             $approvedTicketCount = Ticket::where('UserID', $user->id)
@@ -41,10 +41,10 @@ class ApproverController extends Controller
                             
                         
                             return view('Approver.index', compact('tickets','approvedTicketCount','UnapprovedTicketCounts'));
-                   // }
-                    //else{
-                        //abort(403);
-                    //}
+                    }
+                    else{
+                        abort(403);
+                    }
                 }
 
             
@@ -95,7 +95,7 @@ class ApproverController extends Controller
                           
                             // Dispatch the jobs with the next admin user
                             dispatch(new SendTicketApprovedorNotification($ticket, 'approved'));
-                            dispatch(new AssignTicketToAdmin($ticket, $adminUsers));
+                            dispatch(new AssignTicketToAdmin($ticket));
                             if ($user instanceof \Illuminate\Database\Eloquent\Model) {
                                 $user->last_assigned_admin_id = $nextAdminUser->id;
                                 $user->save();

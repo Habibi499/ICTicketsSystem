@@ -39,24 +39,43 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{route('ticket.create')}}" class="nav-link">
-                    <i class="nav-icon far fa-address-card"></i>
-                   
-                    <p>
-                        {{ __('Correction Form') }}
-                    </p>
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-edit"></i>
+                  <p>
+                Correction Forms
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
                 </a>
-            </li>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('ticket.accountsform')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Accounts/Administration</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('ticket.claimsform')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Claims/legal </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('ticket.create')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Underwriting </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('ticket.create')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Re-Insurance/Marine </p>
+                    </a>
+                  </li>
+                
+                </ul>
+              </li>
 
-            <li class="nav-item">
-                <a href="{{route('ticket.create')}}" class="nav-link">
-                   
-                    <i class="fa fa-print"></i>
-                    <p>
-                        {{ __('Toner Request') }}
-                    </p>
-                </a>
-            </li>
+       
 
             <li class="nav-item">
                 <a href="{{ route('ticket.index') }}" class="nav-link">

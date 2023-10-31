@@ -147,7 +147,7 @@
                                  <td>{{$item->id}}</td>
                                  <td>{{$item->Ticket_Urgency}}</td>
                                  <td>{{$item->section_head1}}
-                                 <td>{{$item->Record_No}}</td>
+                                 <td>{{$item->Record_No}}{{$item->pvNumber}}{{$item->claimNumber}}</td>
                                  <td>{{$item->HodApprovalStatus}}</td>
                                  @if($item->approver)
                                  <td>{{$item->approver->name}}</td>

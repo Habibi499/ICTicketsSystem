@@ -47,7 +47,7 @@ class NewPasswordChangeApprovalNotification extends Notification
         ->line('Requester Name : '. $this->ticket->section_head1)
         ->line('Ticket Title : '.$this->ticket->Record_No)
         ->line('What is required : '.$this->ticket->Correction_details)
-        ->action('View Ticket', route('tickets.show', $this->ticket->id))
+        ->action('View Ticket', 'http://192.192.1.23'.'/'.'Tickets'.'/'. $this->ticket->id)
         ->line('Thank you for your attention.');
     }
 

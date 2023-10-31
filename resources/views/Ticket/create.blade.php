@@ -53,22 +53,35 @@
                   </div>
                </div>
                <div class="form-row">
+                  
                   <div class="col-md-4">
                      <div class="form-group">
-                        <label for="CorrectionType">Correction Type</label>
-                        <select class="form-control" id="CorrectionType" name="Correction_Type">
-                           <option value="">---Select---</option>
-                           <option value="New Business" @if(old('Correction_Type') == 'New Business') selected @endif>New Business</option>
-                           <option value="Renewal" @if(old('Correction_Type') == 'Renewal') selected @endif>Renewal</option>
-                           <option value="Endorsement" @if(old('Correction_Type') == 'Endorsement') selected @endif>Endorsements</option>
-                           <option value="Accounts" @if(old('Correction_Type') == 'Accounts') selected @endif>Accounts</option>
-                           <option value="Accounts" @if(old('Correction_Type') == 'Claims') selected @endif>Claims</option>
-                        </select>
-                        @error('Correction_Type')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                         <label for="CorrectionCategory">Correction Category</label>
+                         <select class="form-control" id="CorrectionCategory" name="CorrectionCategory">
+                             <option value="">---Select---</option>
+                             <option value="Underwriting" @if(old('CorrectionCategory') == 'Underwriting') selected @endif>Underwriting</option>
+                             <option value="Marine" @if(old('CorrectionCategory') == 'Marine') selected @endif>Marine</option>
+                             <option value="Re-Insurance" @if(old('CorrectionCategory') == 'Re-Insurance') selected @endif>Re-Insurance</option>
+                         </select>
+                         @error('CorrectionCategory')
+                         <span class="text-danger">{{ $message }}</span>
+                         @enderror
                      </div>
-                  </div>
+                 </div>
+                 <div class="col-md-4">
+                     <div class="form-group">
+                         <label for="CorrectionType">Correction Type</label>
+                         <select class="form-control" id="CorrectionType" name="Correction_Type">
+                             <option value="">---Select---</option>
+                             <option value="NewBusiness" @if(old('Correction_Type') == 'New Business') selected @endif>New Business</option>
+                             <option value="Renewal" @if(old('Correction_Type') == 'Renewal') selected @endif>Renewal</option>
+                             <option value="Endorsement" @if(old('Correction_Type') == 'Endorsement') selected @endif>Endorsements</option>
+                         </select>
+                         @error('Correction_Type')
+                         <span class="text-danger">{{ $message }}</span>
+                         @enderror
+                     </div>
+                 </div>
                   <div class="col-md-4">
                      <div class="form-group">
                         <label for="Ticket_Urgency">Urgency/priority</label>
@@ -80,40 +93,58 @@
                      </div>
                   </div>
 
-                  <div class="col-md-4">
-                     <div class="form-group">
-                        <label for="RecordNo">Policy Number</label>
-                        <input type="text" name="Record_No" class="form-control" id="RecordNo" placeholder="Record No" value="{{old('Record_No')}}">
-                        @error('Record_No')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                     </div>
-                  </div>
-               </div>
             
+               </div>
+               <div class="form-row">
+                  <div class="col-md-6" id="RecordNoField">
+                    
+                        
+                     <label for="RecordNo">Policy Code</label>
+                     <input type="text" name="Record_No" class="form-control" id="RecordNo" placeholder="Record No" value="{{old('Record_No')}}">
+                     @error('Record_No')
+                     <span class="text-danger">{{ $message }}</span>
+                     @enderror
+                 
+               </div>
+                  <div class="col-md-6">
                <div id="endorsementField" class="hidden">
                   <label for="endorsementNumber">Endorsement Number:</label>
                   <input type="text" class="form-control" id="endorsementNumber" name="EndorsementNo">
               </div>
             
-           
-              <div id="renewalField" class="hidden">
-                  <label for="renewalNumber">Renewal Number:</label>
-                  <input type="text" class="form-control" id="renewalNumber" name="RenewalNo" >
-                 
+             
+                        <div id="renewalField" class="hidden">
+                              <label for="renewalNumber">Renewal Number:</label>
+                              <input type="text" class="form-control" id="renewalNumber" name="RenewalNo" >
+                           
+                        </div>
+                  </div>
               </div>
-
-              <div id="accountsField" class="hidden">
-               <label for="pvNumber">Payment Voucher Number</label>
-               <input type="text" class="form-control" id="pvNumber" name="pvNumber" >
-              
+              <div class="form-row">
+               <div class="col-md-6">
+                  <div id="accountsField" class="hidden">   
+                     <label for="pvNumber">PV Number:</label>
+                      <input type="text" class="form-control" id="pvNumber" name="pvNumber" placeholder="Enter PV Number">
+                  </div>
+               </div>
+               <div class="col-md-6">
+                     <div id="pvTypeField" class="hidden">
+                           <label for="pvType">PV Type:</label>
+                         
+                           <select class="form-control" id="pvType" name="pvType">
+                              <option value="">---Select---</option>
+                              <option value="Policy Related">Policy Related</option>
+                              <option value="Property Related">Property Related</option>
+                           </select>
+                     </div>
+               </div>
              </div>
-
+           
              <div id="claimsField" class="hidden">
-               <label for="pvNumber">Claim Number</label>
+               <label for="claimsField">Claim Number</label>
                <input type="text" class="form-control" id="claimNumber" name="claimNumber" >
-              
              </div>
+
           
                <div class="form-row">
                   <div class="col">
@@ -209,6 +240,7 @@
 
              // Validation logic
              var RecordNo = $('#RecordNo').val();
+             var CorrectionCategory = $('#CorrectionCategory').val();
              var CorrectionType = $('#CorrectionType').val();
              var CorrectionDetails = $('#CorrectionDetails').val();
              var formFile = $('#formFile').val();
@@ -224,13 +256,13 @@
                  $('#CorrectionType').next('.error').remove();
              }
 
-             // Check if RecordNo is empty
-             if (RecordNo.trim() === '') {
-                 $('#RecordNo').next('.error').remove();
-                 $('#RecordNo').after('<span class="error">Please Enter Policy Number</span>');
+             // Check if CorrectionCategory is empty 
+             if (CorrectionCategory.trim() === '') {
+                 $('#CorrectionCategory').next('.error').remove();
+                 $('#CorrectionCategory').after('<span class="error">Please Select the Correction Category</span>');
                  isValid = false;
              } else {
-                 $('#RecordNo').next('.error').remove();
+                 $('#CorrectionCategory').next('.error').remove();
              }
 
              // Check if CorrectionDetails is empty
@@ -282,90 +314,5 @@
          }
      });
 </script>
-
-<script>
-   $(document).ready(function() {
-       const selection = $('#CorrectionType');
-       const endorsementField = $('#endorsementField');
-       const renewalField = $('#renewalField');
-       const endorsementNumberInput = $('#endorsementNumber');
-       const renewalNumberInput = $('#renewalNumber');
-       const endorsementNumberError = $('#endorsementNumberError');
-       const renewalNumberError = $('#renewalNumberError');
-       const accountsField = $('#accountsField'); // Add this line
-       const claimsField = $('#claimsField'); // Add this line
-       const pvNumberInput = $('#pvNumber'); // Add this line
-       const claimNumberInput = $('#claimNumber'); // Add this line
-
-       // ...
-
-       selection.on('change', function() {
-           if (selection.val() === 'Endorsement') {
-               endorsementField.show();
-               renewalField.hide();
-               endorsementNumberInput.attr('required', 'required');
-               endorsementNumberError.show();
-               renewalNumberInput.removeAttr('required');
-               renewalNumberError.hide();
-               endorsementNumberInput[0].setCustomValidity('');
-               renewalNumberInput[0].setCustomValidity('');
-               accountsField.hide(); // Hide accounts field
-               claimsField.hide(); // Hide claims field
-               pvNumberInput.removeAttr('required'); // Remove required attribute from PV Number
-               claimNumberInput.removeAttr('required'); // Remove required attribute from Claim Number
-           } else if (selection.val() === 'Renewal') {
-               endorsementField.hide();
-               renewalField.show();
-               endorsementNumberInput.removeAttr('required');
-               endorsementNumberError.hide();
-               renewalNumberInput.attr('required', 'required');
-               renewalNumberError.show();
-               endorsementNumberInput[0].setCustomValidity('');
-               renewalNumberInput[0].setCustomValidity('');
-               accountsField.hide(); // Hide accounts field
-               claimsField.hide(); // Hide claims field
-               pvNumberInput.removeAttr('required'); // Remove required attribute from PV Number
-               claimNumberInput.removeAttr('required'); // Remove required attribute from Claim Number
-           } else if (selection.val() === 'Accounts') {
-               accountsField.show(); // Show accounts field
-               claimsField.hide(); // Hide claims field
-               endorsementField.hide();
-               renewalField.hide();
-               endorsementNumberInput.removeAttr('required');
-               endorsementNumberError.hide();
-               renewalNumberInput.removeAttr('required');
-               renewalNumberError.hide();
-               endorsementNumberInput[0].setCustomValidity('');
-               renewalNumberInput[0].setCustomValidity('');
-               pvNumberInput.attr('required', 'required'); // Make PV Number required
-               claimNumberInput.removeAttr('required'); // Remove required attribute from Claim Number
-           } else if (selection.val() === 'Claims') {
-               accountsField.hide(); // Hide accounts field
-               claimsField.show(); // Show claims field
-               endorsementField.hide();
-               renewalField.hide();
-               endorsementNumberInput.removeAttr('required');
-               endorsementNumberError.hide();
-               renewalNumberInput.removeAttr('required');
-               renewalNumberError.hide();
-               endorsementNumberInput.removeAttr('required'); // Remove required attribute from PV Number
-               claimNumberInput.attr('required', 'required'); // Make Claim Number required
-           } else {
-               endorsementField.hide();
-               renewalField.hide();
-               accountsField.hide(); // Hide accounts field
-               claimsField.hide(); // Hide claims field
-               endorsementNumberInput.removeAttr('required');
-               endorsementNumberError.hide();
-               renewalNumberInput.removeAttr('required');
-               renewalNumberError.hide();
-               endorsementNumberInput.removeAttr('required'); // Remove required attribute from PV Number
-               claimNumberInput.removeAttr('required'); // Remove required attribute from Claim Number
-           }
-       });
-   });
-</script>
-
-
 
 @endsection

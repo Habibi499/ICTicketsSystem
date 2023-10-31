@@ -42,9 +42,39 @@
                {{ __('Admin Home') }}
                </a>
             </li>
+                <!--Dropdown Menu -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link" data-toggle="dropdown" href="{{route('printer.index')}}">
+                  <i class="fas fa-print"></i>&ensp;printers
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                     <a href="{{route('printer.index')}}" class="dropdown-item">
+                        <i class="fa fa-print mr-2"></i>&ensp;All Printers
+                       
+                        </a>
+                     <div class="dropdown-divider"></div>
+                     <a href="{{route('printer.create')}}" class="dropdown-item">
+                     <i class="fa fa-user mr-2"></i>&ensp;Add Printer
+         
+                     </a>
+                     <div class="dropdown-divider"></div>
+                     <a href="{{route('printer.updatetoners')}}" class="dropdown-item">
+                     <i class="fa fa-upload mr-2"></i>&ensp;Update Toner Quantities
+         
+                     </a>
+                     <div class="dropdown-divider"></div>
+                     <a href="{{route('printer.assigntoners')}}" class="dropdown-item">
+                     <i class="fas fa-print mr-2"></i>&ensp; Assign Toner
+                     </a>
+               </li>
               <!-- Right navbar -->
          <ul class="navbar-nav ml-auto">
-     
+            <li class="nav-item">
+               <a href="{{ route('alltickets.index') }}" class="nav-link">
+               <i class="fa fa-book"></i>&ensp;
+               {{ __('All Tickets') }}
+               </a>
+            </li>
             <li class="nav-item">
                <a href="{{ route('alltickets.index') }}" class="nav-link">
                <i class="fa fa-book"></i>&ensp;

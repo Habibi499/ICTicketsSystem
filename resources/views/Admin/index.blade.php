@@ -6,9 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-              <style>
-            
-                </style>
+             
                 
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-info btn-sm">Dashboard</button>
@@ -29,7 +27,7 @@
                     <i class="fas fa-bell fa-1.5x"></i>
                     <span class="badge badge-danger badge-pill notification-count">{{$OpenTicketCount}}</span>
                 </div>
-                <!--All UnAttended Tickets in ICT End-->
+                All UnAttended Tickets in ICT End-->
 
             <!--Modal--->
             <div id="statusModal" class="modal fade" tabindex="-1" role="dialog">
@@ -87,7 +85,7 @@
         <!-- Main row -->
         <div class="row">
             <!-- Left col -->
-            <div class="col-md-7">
+            <div class="col-md-8">
             
 
 
@@ -134,7 +132,13 @@
                                         <td>{{$MyAssignedTicket->id}}</td>
                                         <td>{{$MyAssignedTicket->section_head1}}</td>
                                         <td>{{$MyAssignedTicket->HodApprovalStatus}}</td>
-                                        <td>{{$MyAssignedTicket->Record_No}}</td>
+
+                                        <td>{{$MyAssignedTicket->Record_No}}
+                                            {{$MyAssignedTicket->pvNumber}}
+                                            {{$MyAssignedTicket->claimNumber}}
+                                      </td>
+
+
                                         @if ($MyAssignedTicket->created_at)
                                         <td>{{ $MyAssignedTicket->created_at->format('Y-m-d H:i:s') }}</td>
                                         @else
@@ -168,7 +172,7 @@
                 <!-- /.card -->
             </div>
             <!-- /.col -->
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="card" style="height:420px; overflow-auto ">
                     <div class="card-header border-transparent">
                         <h3 class="card-title"><strong>Tickets Statistics</strong></h3>
@@ -257,8 +261,12 @@
                                             <td>{{$DepartmentAssignedTicket->id}}</td>
                                             <td>{{$DepartmentAssignedTicket->section_head1}}</td>
                                             <td>{{$DepartmentAssignedTicket->HodApprovalStatus}}</td>
-                                            <td>{{$DepartmentAssignedTicket->Record_No}}</td>
-                                            @if ($DepartmentAssignedTicket->created_at)
+                                            
+                                            <td>{{$DepartmentAssignedTicket->Record_No}}
+                                                {{$DepartmentAssignedTicket->pvNumber}}
+                                                {{$DepartmentAssignedTicket->claimNumber}}</td>
+                                           
+                                                @if ($DepartmentAssignedTicket->created_at)
                                             <td>{{ $DepartmentAssignedTicket->created_at->format('Y-m-d H:i:s') }}</td>
                                             @else
                                             <p>No date available</p>

@@ -43,7 +43,7 @@ class RegisterController extends Controller
         ]);
 
         // Attach selected ticket categories to the user
-        $user->ticketCategories()->attach($data['ticket_categories']);
+       // $user->ticketCategories()->attach($data['ticket_categories']);
 
         return $user;
     }

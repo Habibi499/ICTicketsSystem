@@ -42,11 +42,9 @@ public function __construct(Ticket $ticket)
             ->line('A New Ticket Has has been Submitted,Please process it.Here is ticket Summary.')
             ->line('Ticket No:'. $this->ticket->id)
             ->line('Requester:'.$this->ticket->section_head1)
-            
             ->line('Ticket Title:'.$this->ticket->Correction_Type)
-            
             ->line('Record No:'.$this->ticket->Record_No)
-           
+            ->action('View Ticket', 'http://192.192.1.23'.'/'. $this->ticket->id)
 
             ->action('View Ticket', route('tickets.show', $this->ticket->id))
             ->line('Thank you.')

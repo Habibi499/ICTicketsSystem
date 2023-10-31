@@ -18,7 +18,8 @@ class Ticket extends Model
         "Requester_Name", "Section_Head","Correction_Type", "Ticket_Urgency", "TicketStatus","Record_No","Correction_Details",
         "HodApprovalStatus","UserID","DepartmentID","Approver_id","HodApproverName",
         "section_head1","Assignedto","ITTechnicianComments","TicketCategory","documents","Solvedby",
-        "rejectionReason","RenewalNo","EndorsementNo"
+        "rejectionReason","RenewalNo","EndorsementNo","claimNumber","pvNumber",
+        "correction_category","correction_sub_category"
        
     ];
     public function createdByUser()

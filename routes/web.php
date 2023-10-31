@@ -33,6 +33,19 @@ Route::middleware('auth')->group(function () {
     //Route::put('/admin/status/{user}', 'AdminStatusController@update')->name('admin.status.update');
     Route::put('/admin/status/{user}', [App\Http\Controllers\AdminStatusController::class, 'update'])->name('admin.status.update');
    
+    //Printers and Cartridges
+    Route::get('/printers', [\App\Http\Controllers\PrinterController::class, 'index'])->name('printer.index');
+    Route::get('/printers/create',[App\Http\Controllers\PrinterController::class,'create'])->name('printer.create');
+    Route::post('/printers',[App\Http\Controllers\PrinterController::class,'store'])->name('printer.post');
+    Route::get('/printers/assigntoners',[App\Http\Controllers\TonerController::class,'allocationForm'])->name('printer.assigntoners');
+    Route::post('/printers/assigntoners',[App\Http\Controllers\TonerController::class,'allocate'])->name('toner.allocate');
+    Route::get('pdf/generate-pdf', [\App\Http\Controllers\PrinterController::class, 'generatePDF'])->name('pdf.generate-pdf');
+   
+    Route::get('/printers/updatetoners', [\App\Http\Controllers\UpdateTonerStockController::class, 'index'])->name('printer.updatetoners');
+
+    Route::post('/printers/updatetoners/edit', [\App\Http\Controllers\UpdateTonerStockController::class, 'update'])->name('printer.updatetoners.edit');
+    //Printers and Catriges End
+
     Route::get('Admin/active', [\App\Http\Controllers\showActiveLoginsController::class, 'showActiveLogins'])->name('admin.active');
     //Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
@@ -57,6 +70,12 @@ Route::middleware('auth')->group(function () {
    //Search
     Route::get('/Tickets', [\App\Http\Controllers\TicketController::class, 'index'])->name('ticket.index');
     Route::get('/Tickets/create',[\App\Http\Controllers\TicketController::class,'create'])->name('ticket.create');
+    Route::get('/Tickets/accountsform',[\App\Http\Controllers\AccountsTicketController::class,'create'])->name('ticket.accountsform');
+    Route::get('/Tickets/claimsform',[\App\Http\Controllers\ClaimsCorrectionFormController::class,'create'])->name('ticket.claimsform');
+    
+    Route::get('/Tickets/newstaffForm',[\App\Http\Controllers\NewStaffFormController::class,'create'])->name('ticket.newstaffForm');
+
+
     Route::post('/Tickets','App\Http\Controllers\TicketController@store')->name("ticket.post");
     Route::get('/Tickets/passwordchange', [\App\Http\Controllers\PasswordChangeController::class, 'index'])->name('passwordchange.index');
     Route::post('/Tickets/passwordchange', [\App\Http\Controllers\PasswordChangeController::class, 'store'])->name('passwordchange.post');

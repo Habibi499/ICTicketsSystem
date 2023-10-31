@@ -118,8 +118,8 @@
 @vite('resources/js/app.js')
 <!-- AdminLTE App -->
 <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
-
-
+<script src="{{ asset('js/FormDropdowns.js') }}" defer></script>
+<script src="{{ asset('js/accountsformvallidation.js') }}" defer></script>
 
 
 <!-- Latest compiled JavaScript -->

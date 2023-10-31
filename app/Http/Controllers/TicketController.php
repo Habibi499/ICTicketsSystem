@@ -66,19 +66,24 @@ class TicketController extends Controller
 
         $ticket = Ticket::create([
             'section_head1' => $request->input('section_head1'),
+            'DepartmentID'=>$user->department_id,
             'Section_Head' => $request->input('Section_Head'),
-            'Correction_Type'=> $request->input('Correction_Type'),
-            'Ticket_Urgency' => $request->input('Ticket_Urgency'),
-            'TicketStatus' => 'Open',
             'TicketCategory'=>1,
-            'Record_No'=>$request->input('Record_No'),
-            'RenewalNo'=>$request->input('RenewalNo'),
+            'correction_category'=>$request->input('CorrectionCategory'),
+            'correction_sub_category'=>$request->input('CorrectionTypeSub'),
+            'Correction_Type'=> $request->input('Correction_Type'),
             'EndorsementNo'=>$request->input('EndorsementNo'),
+            'RenewalNo'=>$request->input('RenewalNo'),
+            'pvNumber'=>$request->input('pvNumber'),
+            'claimNumber'=>$request->input('claimNumber'),
+            'Record_No'=>$request->input('Record_No'),
             
+            'TicketStatus' => 'Open',
+            'Ticket_Urgency' => $request->input('Ticket_Urgency'),
             'Correction_Details'=> $request->input('Correction_Details'),
             'HodApproverName'=> $chosenApproverUserId,
             'HodApprovalStatus' => 'UnApproved',
-            'DepartmentID'=>$user->department_id,
+           
             'UserID'=> $user->id,
             'documents' => $fileName, // Save the filename in the database
             
