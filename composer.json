@@ -54,9 +54,12 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [],
+            "version": "1.0.0"  
         }
     },
+
+    
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
