@@ -65,7 +65,7 @@
                </div>
                <div class="form-row">
                   
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                      <div class="form-group">
                          <label for="CorrectionCategory">Correction Category</label>
                          <select class="form-control" id="CorrectionCategory" name="CorrectionCategory">
@@ -79,7 +79,10 @@
                          @enderror
                      </div>
                  </div>
-                 <div class="col-md-6">
+
+                 <input type="text" class="form-control" name="Correction_Dept" value="Claims/Legal" hidden>
+                 
+                 <div class="col-md-4">
                      <div class="form-group">
                          <label for="CorrectionType">Correction Type</label>
                          <select class="form-control" id="CorrectionType" name="Correction_Type">
@@ -95,27 +98,28 @@
                      </div>
                  </div>
 
+                 <div class="col-md-4" id="RecordNoField">
+                  <label for="RecordNo">Claim Number</label>
+                  <input type="text" name="claimNumber" class="form-control" id="RecordNo" placeholder="Claim Number" value="{{old('Record_No')}}">
+                  @error('Record_No')
+                  <span class="text-danger">{{ $message }}</span>
+                  @enderror
+            </div>
+         
+
               
                </div>
 
                <div class="form-row">
-          
+         
+                      <div class="col-md-6" id="paymentVoucherField" class="hidden">
+                         <label for="paymentVoucher">Payment Voucher Number</label>
+                         <input type="text" name="pvNumber" class="form-control" id="paymentVoucher" placeholder="Payment Voucher Number" value="{{ old('pvNumber') }}">
+                      </div>
 
             
                </div>
-               <div class="form-row">
-                  <div class="col-md-12" id="RecordNoField">
-                    
-                        
-                     <label for="RecordNo">Claim Number</label>
-                     <input type="text" name="claimNumber" class="form-control" id="RecordNo" placeholder="Claim Number" value="{{old('Record_No')}}">
-                     @error('Record_No')
-                     <span class="text-danger">{{ $message }}</span>
-                     @enderror
-                 
-               </div>
             
-              </div>
      
                <div class="form-row">
                   <div class="col">
@@ -199,11 +203,9 @@
    <!-- /.row -->
 </div>
 <!-- /.container-fluid -->
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<!-- ... Your previous HTML content ... -->
 
-<!-- Update this script to select the correct dropdown element by its ID -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 <script>
    $(document).ready(function() {
          $('#TicketForm').submit(function(e) {
@@ -218,7 +220,7 @@
              var HodApprovalName = $('#HodApprovalName').val();
              var isValid = true;
 
-             // Check if CorrectionType is empty
+             // Check For empty Fields
              if (CorrectionType.trim() === '') {
                  $('#CorrectionType').next('.error').remove();
                  $('#CorrectionType').after('<span class="error">Please Select the Correction Type</span>');
@@ -227,7 +229,7 @@
                  $('#CorrectionType').next('.error').remove();
              }
 
-             // Check if CorrectionCategory is empty 
+             
              if (CorrectionCategory.trim() === '') {
                  $('#CorrectionCategory').next('.error').remove();
                  $('#CorrectionCategory').after('<span class="error">Please Select the Correction Category</span>');
@@ -236,7 +238,23 @@
                  $('#CorrectionCategory').next('.error').remove();
              }
 
-             // Check if CorrectionDetails is empty
+               if (RecordNo.trim() === '') {
+                 $('#RecordNo').next('.error').remove();
+                 $('#RecordNo').after('<span class="error">Please Enter Claim Number</span>');
+                 isValid = false;
+             } else {
+                 $('#RecordNo').next('.error').remove();
+             }
+               
+               if (CorrectionDetails.trim() === '') {
+                 $('#CorrectionDetails').next('.error').remove();
+                 $('#CorrectionDetails').after('<span class="error">Please provide details of your correction request</span>');
+                 isValid = false;
+             } else {
+                 $('#CorrectionDetails').next('.error').remove();
+             }
+
+             
              if (CorrectionDetails.trim() === '') {
                  $('#CorrectionDetails').next('.error').remove();
                  $('#CorrectionDetails').after('<span class="error">Please provide details of your correction request</span>');
@@ -282,36 +300,18 @@
      });
 </script>
 <script>
- $('#CorrectionType').change(function() {
-         
-         var selectedOption = $(this).val();
-        $('.category-dropdown').hide(); // Hide all category options in CorrectionTypeSub
-        $('#CorrectionTypeSub').val(''); // Clear the selected value in CorrectionTypeSub
-        $('#CorrectionTypeSub option:first').prop('selected', true); // Set the default option as selected in CorrectionTypeSub
+ $('#paymentVoucherField').addClass('hidden');
 
-           $('#CorrectionTypeSub option:selected').removeAttr('selected'); // Clear the selected option
-          
-           if(selectedOption === 'Transactions') {
-               $('#PremiumRelated, #Others, #Reversals').show();
-           }
-           else if (selectedOption === 'Receipts') {
-               $('#PremiumRelated, #Others, #Reversals').show();
-           } else if (selectedOption === 'Payments') {
-               $('#PolicyRelated, #Others, #PaymentReversal,#ReversalofReversal,#ApprovalSheet').show();
-           } else if (selectedOption === 'Reports') {
-               $('#Reports').show();
-           }else if (selectedOption === 'Petty_Cash') {
-               $('#PettyCashVoucher, #PettyCashReversal').show();
-           }
-           else if(selectedOption === 'Property'){
-               $('#PropertyReversals,#Propertypayments').show();
-           }
-           
-           else if (selectedOption === 'Debit-or-Credit') {
-               $('#OtherDrCrNotes, #PolicyRelatedDrCrNotes, #OtherDRCRApproval').show();
-           }
-           
-       });
+ 
+ $('#CorrectionType').change(function () {
+   var selectedCorrectionType = $(this).val();
+     if ( selectedCorrectionType === 'Payments') {
+      $('#paymentVoucherField').removeClass('hidden');
+   }
+  else{
+   $('#paymentVoucherField').addClass('hidden');
+  }
+});
 
    </script>
    

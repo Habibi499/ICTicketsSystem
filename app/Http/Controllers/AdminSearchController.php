@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\User;
+use PDF;
 
 class AdminSearchController extends Controller
 {
@@ -29,7 +30,11 @@ class AdminSearchController extends Controller
         
         $totalRecords = $filteredItems->total();// Total Records From search
         //Search Form Ends
-         
+        
+    // Create a PDF view with the search results
+    $pdf = PDF::loadView('pdf', ['filteredItems' => $filteredItems]);
+             // Generate and return the PDF
+    return $pdf->download('search-results.pdf');
         return $totalRecords;
     }
 }

@@ -49,7 +49,7 @@ class TicketRejectedNotification extends Notification
                     ->line('Requester Name : '. $this->ticket->section_head1)
                     ->line('Ticket Title : '.$this->ticket->TicketCategory)
               
-                    ->action('View Ticket', route('tickets.show', $this->ticket->id))
+                    ->action('View Ticket', 'http://192.192.1.25'.'/Tickets'.'/'. $this->ticket->id)
                     ->line('Consider opening another ticket')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');

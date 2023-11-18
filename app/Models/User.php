@@ -62,7 +62,8 @@ class User extends Authenticatable
         'department_id',
         'password',
         'role_id',
-        'LeaveStatus'
+        'LeaveStatus',
+        'first_login',
         
        
     ];

@@ -81,8 +81,11 @@
               <form id="rejectForm" action="/approver/{{$ticket->id}}" method="POST">
                   @csrf
                   @method('PUT')
-                  <input type="hidden" name="HodApprovalStatus" value="reject">
-                  
+                  <input type="hidden" class="form-control" name="HodApprovalStatus" value="rejected">
+                  <input type="hidden" class="form-control" name="TicketStatus" value="closed">
+                  <input type="hidden" class="form-control" name="Assignedto" value="87">
+                  <input type="hidden" class="form-control" name="Solvedby" value="Rejected at Approval Level">
+
                   <!-- Input field for the rejection reason -->
                   <div class="form-group">
                       <label for="rejectionReason">Rejection Reason:</label>
@@ -106,10 +109,7 @@
               @method('PUT') 
 
          
-         
-
-
-
+        
             <div class="card-body">
               <div class="row approvalrow" >
                 <div class="col-md-8 mx-md-auto animate__animated animate__fadeInDown">
@@ -143,10 +143,24 @@
                         <span class="topheader">Attachments:</span>&ensp;&ensp;
                         <td>
                           @if($ticket->documents)
-                          <a href="{{ asset('uploads/' . $ticket->documents) }}" target="_blank">View Documents Attached</a>
-                           @else
-                          No document associated with this ticket.
-                           @endif
+                          @php
+                            $attachments = explode(',', $ticket->documents);
+                            $totalAttachments = count($attachments);
+                           @endphp
+                        <span class="topheader">Attachment(s) Associated with ticket: {{ $totalAttachments }} 
+                      
+                        </span>&ensp;&ensp;
+                            <td>
+                              <ul>
+                                @foreach($attachments as $index => $attachment)
+                                    <li>
+                                        <a href="{{ asset('uploads/' . $attachment) }}" target="_blank">View Document {{ $index + 1 }}</a>
+                                    </li>
+                                @endforeach
+                                  </ul>
+                          @else
+                              No documents associated with this ticket.
+                          @endif
                           </td>
                       </div>
                 

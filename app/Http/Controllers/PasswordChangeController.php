@@ -60,10 +60,12 @@ class PasswordChangeController extends Controller
 
                                   // Create a new Ticket record with the provided data
             $pass = Ticket::create([
+    
                 'section_head1' => $request->input('Section_Head1'),
                 'Section_Head' => $request->input('Section_Head'),
                 'TicketStatus' => 'Open',
-                //'Assignedto' => $nextAdminUser->id, // Assign the ticket to the selected admin user
+                //'Assignedto' => 'TTTT', // Assign the ticket to the selected admin user
+                'SystemName'=>$request->input('SystemName'),
                 'Correction_Type' => 'Password-Change',
                 'Correction_Details' => 'Requester UserName' . $request->input('UserName'),
                 'Record_No' => 'Password Change',
@@ -74,6 +76,8 @@ class PasswordChangeController extends Controller
                 'UserID' => $user->id,
                 'TicketCategory' => $request->input('TicketCategory'),
             ]);
+
+            
                               // Dispatch the jobs with the next admin user
                 
             dispatch(new AssignTicketToAdmin($pass));

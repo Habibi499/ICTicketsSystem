@@ -24,6 +24,7 @@ class PasswordChangeValidationRequest extends FormRequest
         return [
             'SystemName' => 'required|string|max:255',
             'UserName' => 'required|string|max:255',
+            
         ];
     }
     public function messages(): array

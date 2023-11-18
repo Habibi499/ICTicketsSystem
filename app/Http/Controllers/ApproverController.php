@@ -20,7 +20,7 @@ class ApproverController extends Controller
         
         $user = auth()->user(); // Get the logged-in user
         
-        if($user->role_id==2)
+        if($user->role_id==2 )
         {
                             $user = auth()->user(); // Get the logged-in user
                             

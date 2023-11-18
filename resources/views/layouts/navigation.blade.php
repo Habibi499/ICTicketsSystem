@@ -47,18 +47,18 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{route('ticket.accountsform')}}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Accounts/Administration</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{route('ticket.claimsform')}}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Claims/legal </p>
-                    </a>
-                  </li>
+                    <li class="nav-item">
+                        <span class="nav-link" style="pointer-events: none;">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Accounts/Administration</p>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link" style="pointer-events: none;">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Claims/legal</p>
+                        </span>
+                    </li>
                   <li class="nav-item">
                     <a href="{{route('ticket.create')}}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
@@ -104,24 +104,6 @@
                 </a>
             </li>
 
-
-           <!-- <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-circle nav-icon"></i>
-                    <p>
-                        Two-level menu
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview" style="display: none;">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Child menu</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>-->
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

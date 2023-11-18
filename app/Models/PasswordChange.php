@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PasswordChange extends Model
 {
     use HasFactory;
-    protected $table = 'password_changes';
+    protected $table = 'invoices';
         protected $fillable = [
             "Section_Head1", "Section_Head","DepartmentID", "UserID", "TicketStatus","AssignedTo",
-            "HodApprovalStatus",
+            "HodApprovalStatus","SystemName",
     ];
 }

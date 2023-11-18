@@ -5,9 +5,8 @@
    color:red !important;
    }
    .hidden {
-    display: none;
-}
-
+   display: none;
+   }
 </style>
 <!-- Content Header (Page header) -->
 <div class="content-header">
@@ -53,35 +52,34 @@
                   </div>
                </div>
                <div class="form-row">
-                  
                   <div class="col-md-4">
                      <div class="form-group">
-                         <label for="CorrectionCategory">Correction Category</label>
-                         <select class="form-control" id="CorrectionCategory" name="CorrectionCategory">
-                             <option value="">---Select---</option>
-                             <option value="Underwriting" @if(old('CorrectionCategory') == 'Underwriting') selected @endif>Underwriting</option>
-                             <option value="Marine" @if(old('CorrectionCategory') == 'Marine') selected @endif>Marine</option>
-                             <option value="Re-Insurance" @if(old('CorrectionCategory') == 'Re-Insurance') selected @endif>Re-Insurance</option>
-                         </select>
-                         @error('CorrectionCategory')
-                         <span class="text-danger">{{ $message }}</span>
-                         @enderror
+                        <label for="CorrectionCategory">Correction Category</label>
+                        <select class="form-control" id="CorrectionCategory" name="Correction_Dept">
+                           <option value="">---Select---</option>
+                           <option value="Underwriting" @if(old('CorrectionCategory') == 'Underwriting') selected @endif>Underwriting</option>
+                           <option value="Marine" @if(old('CorrectionCategory') == 'Marine') selected @endif>Marine</option>
+                           <option value="Re-Insurance" @if(old('CorrectionCategory') == 'Re-Insurance') selected @endif>Re-Insurance</option>
+                        </select>
+                        @error('CorrectionCategory')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                      </div>
-                 </div>
-                 <div class="col-md-4">
+                  </div>
+                  <div class="col-md-4">
                      <div class="form-group">
-                         <label for="CorrectionType">Correction Type</label>
-                         <select class="form-control" id="CorrectionType" name="Correction_Type">
-                             <option value="">---Select---</option>
-                             <option value="NewBusiness" @if(old('Correction_Type') == 'New Business') selected @endif>New Business</option>
-                             <option value="Renewal" @if(old('Correction_Type') == 'Renewal') selected @endif>Renewal</option>
-                             <option value="Endorsement" @if(old('Correction_Type') == 'Endorsement') selected @endif>Endorsements</option>
-                         </select>
-                         @error('Correction_Type')
-                         <span class="text-danger">{{ $message }}</span>
-                         @enderror
+                        <label for="CorrectionType">Correction Type</label>
+                        <select class="form-control" id="CorrectionType" name="Correction_Type">
+                           <option value="">---Select---</option>
+                           <option value="NewBusiness" @if(old('Correction_Type') == 'New Business') selected @endif>New Business</option>
+                           <option value="Renewal" @if(old('Correction_Type') == 'Renewal') selected @endif>Renewal</option>
+                           <option value="Endorsement" @if(old('Correction_Type') == 'Endorsement') selected @endif>Endorsements</option>
+                        </select>
+                        @error('Correction_Type')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                      </div>
-                 </div>
+                  </div>
                   <div class="col-md-4">
                      <div class="form-group">
                         <label for="Ticket_Urgency">Urgency/priority</label>
@@ -92,60 +90,48 @@
                         </select>
                      </div>
                   </div>
-
-            
                </div>
                <div class="form-row">
                   <div class="col-md-6" id="RecordNoField">
-                    
-                        
                      <label for="RecordNo">Policy Code</label>
                      <input type="text" name="Record_No" class="form-control" id="RecordNo" placeholder="Record No" value="{{old('Record_No')}}">
                      @error('Record_No')
                      <span class="text-danger">{{ $message }}</span>
                      @enderror
-                 
-               </div>
+                  </div>
                   <div class="col-md-6">
-               <div id="endorsementField" class="hidden">
-                  <label for="endorsementNumber">Endorsement Number:</label>
-                  <input type="text" class="form-control" id="endorsementNumber" name="EndorsementNo">
-              </div>
-            
-             
-                        <div id="renewalField" class="hidden">
-                              <label for="renewalNumber">Renewal Number:</label>
-                              <input type="text" class="form-control" id="renewalNumber" name="RenewalNo" >
-                           
-                        </div>
-                  </div>
-              </div>
-              <div class="form-row">
-               <div class="col-md-6">
-                  <div id="accountsField" class="hidden">   
-                     <label for="pvNumber">PV Number:</label>
-                      <input type="text" class="form-control" id="pvNumber" name="pvNumber" placeholder="Enter PV Number">
-                  </div>
-               </div>
-               <div class="col-md-6">
-                     <div id="pvTypeField" class="hidden">
-                           <label for="pvType">PV Type:</label>
-                         
-                           <select class="form-control" id="pvType" name="pvType">
-                              <option value="">---Select---</option>
-                              <option value="Policy Related">Policy Related</option>
-                              <option value="Property Related">Property Related</option>
-                           </select>
+                     <div id="endorsementField" class="hidden">
+                        <label for="endorsementNumber">Endorsement Number:</label>
+                        <input type="text" class="form-control" id="endorsementNumber" name="EndorsementNo">
                      </div>
+                     <div id="renewalField" class="hidden">
+                        <label for="renewalNumber">Renewal Number:</label>
+                        <input type="text" class="form-control" id="renewalNumber" name="RenewalNo" >
+                     </div>
+                  </div>
                </div>
-             </div>
-           
-             <div id="claimsField" class="hidden">
-               <label for="claimsField">Claim Number</label>
-               <input type="text" class="form-control" id="claimNumber" name="claimNumber" >
-             </div>
-
-          
+               <div class="form-row">
+                  <div class="col-md-6">
+                     <div id="accountsField" class="hidden">   
+                        <label for="pvNumber">PV Number:</label>
+                        <input type="text" class="form-control" id="pvNumber" name="pvNumber" placeholder="Enter PV Number">
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div id="pvTypeField" class="hidden">
+                        <label for="pvType">PV Type:</label>
+                        <select class="form-control" id="pvType" name="pvType">
+                           <option value="">---Select---</option>
+                           <option value="Policy Related">Policy Related</option>
+                           <option value="Property Related">Property Related</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <div id="claimsField" class="hidden">
+                  <label for="claimsField">Claim Number</label>
+                  <input type="text" class="form-control" id="claimNumber" name="claimNumber" >
+               </div>
                <div class="form-row">
                   <div class="col">
                      <div class="form-group">
@@ -170,12 +156,17 @@
                   @enderror
                </div>
                <div class="mb-3">
-                  <label for="formFile" class="form-label">Attachment</label>
-                  <input class="form-control" type="file" id="formFile" name="documents" value="{{old('documents')}}" >
+                  <label for="formFile" class="form-label">Please add supporting document(s)</label>
+                  <input class="form-control" type="file" id="formFile" name="documents[]" value="{{old('documents')}}"  multiple>
                   @error('documents')
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                </div>
+               @if (session('document_error'))
+               <div class="alert alert-danger">
+                  {{ session('document_error') }}
+               </div>
+               @endif
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
@@ -203,7 +194,7 @@
                </div>
             </div>
             <!--Saving Page Contents-->
-            <!-- HTML for your loading modal -->
+        
             <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel">
                <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -219,100 +210,12 @@
             </div>
             <!--Loading Icon-->
          </div>
-         <!-- /.card -->
+      
       </div>
-      <!--/.col (left) -->
-      <!-- right column -->
-      <!--/.col (right) -->
    </div>
    <!-- /.row -->
 </div>
-<!-- /.container-fluid -->
-<!-- jQuery library -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<!-- ... Your previous HTML content ... -->
-
-<!-- Update this script to select the correct dropdown element by its ID -->
-<script>
-   $(document).ready(function() {
-         $('#TicketForm').submit(function(e) {
-             e.preventDefault(); // Prevent the form from submitting initially
-
-             // Validation logic
-             var RecordNo = $('#RecordNo').val();
-             var CorrectionCategory = $('#CorrectionCategory').val();
-             var CorrectionType = $('#CorrectionType').val();
-             var CorrectionDetails = $('#CorrectionDetails').val();
-             var formFile = $('#formFile').val();
-             var HodApprovalName = $('#HodApprovalName').val();
-             var isValid = true;
-
-             // Check if CorrectionType is empty
-             if (CorrectionType.trim() === '') {
-                 $('#CorrectionType').next('.error').remove();
-                 $('#CorrectionType').after('<span class="error">Please Select the Correction Type</span>');
-                 isValid = false;
-             } else {
-                 $('#CorrectionType').next('.error').remove();
-             }
-
-             // Check if CorrectionCategory is empty 
-             if (CorrectionCategory.trim() === '') {
-                 $('#CorrectionCategory').next('.error').remove();
-                 $('#CorrectionCategory').after('<span class="error">Please Select the Correction Category</span>');
-                 isValid = false;
-             } else {
-                 $('#CorrectionCategory').next('.error').remove();
-             }
-
-             // Check if CorrectionDetails is empty
-             if (CorrectionDetails.trim() === '') {
-                 $('#CorrectionDetails').next('.error').remove();
-                 $('#CorrectionDetails').after('<span class="error">Please provide details of your correction request</span>');
-                 isValid = false;
-             } else {
-                 $('#CorrectionDetails').next('.error').remove();
-             }
-
-             // Check if HodApprovalName is empty
-             if (HodApprovalName.trim() === '') {
-                 $('#HodApprovalName').next('.error').remove();
-                 $('#HodApprovalName').after('<span class="error">Please select Correction form Approver</span>');
-                 isValid = false;
-             } else {
-                 $('#HodApprovalName').next('.error').remove();
-             }
-
-             // Check if formFile is empty
-             if (formFile.trim() === '') {
-                 $('#formFile').next('.error').remove();
-                 $('#formFile').after('<span class="error">Please note that Attachment document is required</span>');
-                 isValid = false;
-             } else {
-                 $('#formFile').next('.error').remove();
-             }
-
-             // Valid Form? , submit it
-             if (isValid) {
-                 // The Bootstrap modal
-                 $('#confirmationModal').modal('show');
-
-                 // Form Submission
-                 $('#confirmButton').click(function() {
-                     $('#confirmationModal').modal('hide');
-                     // Form is confirmed, submit it
-                     $('#TicketForm')[0].submit();
-                     $('#loadingModal').modal('show');
-                 });
-             }
-         });
-
-         // Function to validate email format
-         function isValidEmail(email) {
-             var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-             return emailRegex.test(email);
-         }
-     });
-</script>
-
+<script src="{{ asset('js/underwritingformvalidation.js') }}" defer></script>
 @endsection

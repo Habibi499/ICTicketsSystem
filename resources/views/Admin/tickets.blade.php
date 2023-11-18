@@ -1,5 +1,6 @@
 @extends('Admin.app')
 @section('content')
+
 <div class="content-header">
    <div class="container-fluid">
       <div class="row mb-2">
@@ -61,12 +62,13 @@
                            <thead>
                               <tr>
                                  <th>Ticket_No</th>
-                                 <th>Ticket_Urgency</th>
+                               
                                  <th>Requester</th>
                                  <th>Ticket Details</th>
-                                 <th>Approved Status</th>
+                                 <th>Approval Status</th>
                                  <th>Selected Approver</th>
-                                 <th>Assigned to</th>
+                                 <th>Auto-Assigned to</th>
+                                 <th>Solved By</th>
                                  <th>Ticket Status</th>
                                  <th>Created on</th>
                                  <th>View</th>
@@ -76,13 +78,13 @@
                               @foreach ($filteredItems as $item)
                               <tr>
                                  <td>{{$item->id}}</td>
-                                 <td>{{$item->Ticket_Urgency}}</td>
+                                 
                                  <td>{{$item->section_head1}}
                                  <td>
                                     {{$item->Record_No}}
                                     {{$item->pvNumber}}
                                     {{$item->claimNumber}}
-                                 
+                                   {{$item->chequeNumber}}
                                  
                                  </td>
                                  <td>{{$item->HodApprovalStatus}}</td>
@@ -96,6 +98,7 @@
                                  @else
                                  <td></td>
                                  @endif
+                                 <td>{{$item->Solvedby}}</td>
                                  <td>{{$item->TicketStatus}}</td>
                                  @if ($item->created_at)
                                  <td>{{ $item->created_at->format('Y-m-d H:i:s') }}</td>
@@ -106,6 +109,14 @@
                               </tr>
                               @endforeach
                            </tbody>
+
+                           @if ($totalRecords > 0)
+    <form action="{{ route('alltickets.index') }}" method="get">
+        @csrf
+        <input type="hidden" name="query" value="{{ request('query') }}">
+        <button type="submit" name="downloadPDF" value="1">Download Search Results as PDF</button>
+    </form>
+@endif
                         </table>
                         <div class="card-footer clearfix">
                            Total Records on your Search: {{$totalRecords}}

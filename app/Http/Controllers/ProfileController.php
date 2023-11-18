@@ -12,6 +12,11 @@ class ProfileController extends Controller
         return view('auth.profile');
     }
 
+    public function firstlogin()
+    {
+        return view('auth.firstlogin');
+    }
+
     public function update(ProfileUpdateRequest $request)
     {
         if ($request->password) {
@@ -21,8 +26,9 @@ class ProfileController extends Controller
         auth()->user()->update([
             'name' => $request->name,
             'email' => $request->email,
+            'first_login'=>1,
         ]);
 
-        return redirect()->back()->with('success', 'Profile updated.');
+        return redirect()->route('ticket.index')->with('success', 'Profile updated.');
     }
 }

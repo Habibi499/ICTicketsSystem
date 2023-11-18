@@ -1,233 +1,335 @@
 @extends('Admin.app')
-
 @section('content')
-
-  
-  <!-- Content Wrapper. Contains page content -->
-
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h5 class="m-0">Analytics</h5>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Home</a></li>
-              <li class="breadcrumb-item"><a href="{{route('admin.statistics')}}">Analysis</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Info boxes -->
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Total Tickets</span>
-                <span class="info-box-number">
-                    {{$ticketsCount}}
-                  <small></small>
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Approved Tickets</span>
-                <span class="info-box-number">{{$approvedTicketCount }}</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
-
-          <div class="col-12 col-sm-6 col-md-3">
-
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-users"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Rejected Tickets Count</span>
-                <span class="info-box-number">{{$RejectedTicketCounts }}</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-
-
-         
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-thumbs-down"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Unapproved</span>
-                <span class="info-box-number">{{$UnapprovedTicketCounts}}</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-
-
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-close"></i></span>
-
-              <div class="info-box-content">
-               
-
-                <span class="info-box-text">Approved and open</span>
-                <span class="info-box-number">{{$OpenTicketCount }}</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-
-          
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">AssignedTicketCount</span>
-                <span class="info-box-number">{{$AssignedTicketCount}}</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          
-        </div>
-        <!-- /.row -->
-        <div class="row">
-        <div class="col-12 col-sm-6 col-md-3">
-         
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-check"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Total Closed Tickets</span>
-                <span class="info-box-number">{{$ClosedTicketCount}}</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>  
-        <div class="col-12 col-sm-6 col-md-3">  
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-check"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Total Pending Tickets</span>
-                <span class="info-box-number">{{$PendingTicketCount}}</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <!-- Main row -->
-        <div class="row">
-          
-          <!-- Left col -->
-          <div class="col-md-9">
-            <!-- MAP & BOX PANE -->
-      
-    
-
-            <!-- TABLE: LATEST ORDERS -->
+<div class="content-header">
+   <div class="container-fluid">
+      <div class="row mb-2">
+         <div class="col-sm-6">
+            <h5 class="m-0">ITickets System Analytics</h5>
+         </div>
+         <!-- /.col -->
+         <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+             <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Home</a></li>
+             <li class="breadcrumb-item"><a href="{{route('admin.statistics')}}">Analysis</a></li>
+             <li class="breadcrumb-item"><a href="{{route('admin.ticketlifecycle')}}">Tickets Life Cycle</a></li>
+             <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+       </div>
+         <!-- /.col -->
+      </div>
+      <!-- /.row -->
+   </div>
+   <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-md-6 col-lg-6">
             <div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">Latest Approved Tickets</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <div class="table-responsive">
-    
-                
-                </div>
-                <!-- /.table-responsive -->
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-
-                <a href="{{route('alltickets.index')}}" class="btn btn-sm btn-secondary float-right">View All  Tickets</a>
-              </div>
-              <!-- /.card-footer -->
+               <div class="card-header border-transparent">
+                  <h3 class="card-title">All Tickets Analysis</h3>
+                  <div class="card-tools">
+                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                     <i class="fas fa-minus"></i>
+                     </button>
+                     <button type="button" class="btn btn-tool" data-card-widget="remove">
+                     <i class="fas fa-times"></i>
+                     </button>
+                  </div>
+               </div>
+               <!-- /.card-header -->
+               <div class="card-body p-0">
+                  <div class="table-responsive">
+                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                     <canvas id="myBarChart1" width="400" height="200"></canvas>
+                     <script>
+                        // Get the counts from the adminStats3 array
+                        var TotalTicketsCount = {{ $adminStats3['TotalTicketsCount'] ?? 0 }};
+                        var approvedCount = {{ $adminStats3['approvedCount'] ?? 0 }};
+                        var solvedCount = {{ $adminStats3['solvedCount'] ?? 0 }};
+                        var unsolvedCount = {{ $adminStats3['unsolvedCount'] ?? 0 }};
+                        var rejectedbySupervisorCount = {{ $adminStats3['rejectedbySupervisorCount'] ?? 0 }};
+                        // Use Chart.js to create the first bar graph
+                        var ctx1 = document.getElementById('myBarChart1').getContext('2d');
+                        var myBarChart1 = new Chart(ctx1, {
+                            type: 'bar',
+                            data: {
+                                labels: ['All Tickets','Rejected By Supervisor','Approved','Solved', 'Unsolved'],
+                                datasets: [{
+                                    label: 'My Ticket Stats',
+                                    data: [TotalTicketsCount,rejectedbySupervisorCount, approvedCount,solvedCount, unsolvedCount],
+                                    backgroundColor: [
+                                        'rgba(0, 202, 255)',
+                                        'rgba(255, 106, 76)',
+                                        'rgba(255, 170, 51)',
+                                        'rgba(122, 193, 66)',
+                                        'rgba(255, 205, 86, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(0, 202, 255)',
+                                        'rgba(255, 106, 76)',
+                                        'rgba(255, 170, 51)',
+                                        'rgba(122, 193, 66)',
+                                        'rgba(255, 205, 86, 1)'
+                                    ],
+                                    borderWidth: 0
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                     </script>
+                  </div>
+                  <!-- /.table-responsive -->
+               </div>
             </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-
-          <div class="col-md-3">
-            <!-- Info Boxes Style 2 -->
-     
-         
-   
-   
-            <!-- /.info-box -->
-            <div class="info-box mb-3 bg-warning">
-            <span class="info-box-icon"><i class="fa fa-user"></i></span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">All Registered Users</span>
-                <span class="info-box-number">{{$UsersCount }}</span>
+         </div>
+         <div class="col-md-6">
+            <div class="card">
+               <div class="card-header border-transparent">
+                  <h3 class="card-title">Tickets By Category Analysis</h3>
+                  <div class="card-tools">
+                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                     <i class="fas fa-minus"></i>
+                     </button>
+                     <button type="button" class="btn btn-tool" data-card-widget="remove">
+                     <i class="fas fa-times"></i>
+                     </button>
+                  </div>
+               </div>
+               <!-- Create a canvas element to render the second bar graph -->
+               <div class="card-body p-0">
+                  <div class="table-responsive">
+                     <canvas id="myBarChart2" width="400" height="200"></canvas>
+                     <script>
+                        // Get the data from the controller
+                        var categories = {!! json_encode($barGraphData['categories']) !!};
+                        var solvedCounts = {!! json_encode($barGraphData['solvedCounts']) !!};
+                        var unsolvedCounts = {!! json_encode($barGraphData['unsolvedCounts']) !!};
+                        var totalCounts = {!! json_encode($barGraphData['totalCounts']) !!};
+                        var rejectedbySupervisorCounts = {!! json_encode($barGraphData['rejectedbySupervisorCounts']) !!};
+                        var approvedbySupervisorCounts = {!! json_encode($barGraphData['approvedbySupervisorCounts']) !!};
+                        
+                        // Use Chart.js to create the second bar graph
+                        var ctx2 = document.getElementById('myBarChart2').getContext('2d');
+                        var myBarChart2 = new Chart(ctx2, {
+                            type: 'bar',
+                            data: {
+                                labels: categories,
+                                datasets: [
+                                  {
+                                        label: 'Total Tickets',
+                                        data: totalCounts,
+                                        backgroundColor: 'rgba(0, 202, 255)',
+                                        borderColor: 'rgba(0, 202, 255)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Approved by Supervisor',
+                                        data: approvedbySupervisorCounts,
+                                        backgroundColor: 'rgba(37, 94, 52, 0.5)',
+                                        borderColor: 'rgba(37, 94, 52, 0.5)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Rejected by Supervisor',
+                                        data: rejectedbySupervisorCounts,
+                                        backgroundColor:'rgba(255, 106, 76)',
+                                       
+                                        borderWidth: 1
+                                    },
+                                    
+                                    {
+                                        label: 'Solved Tickets',
+                                        data: solvedCounts,
+                                        backgroundColor: 'rgba(122, 193, 66)',
+                                        borderColor: 'rgba(122, 193, 66)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Unsolved Tickets',
+                                        data: unsolvedCounts,
+                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderWidth: 1
+                                    },
+                             
+                                  
+                                ]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                     </script>
+                  </div>
+               </div>
             </div>
-            <!-- /.info-box-content -->
+         </div>
+      </div>
+   </div>
+<div class="row">
+  <div class="col-md-6 col-lg-6 col-sm-12">
+ 
+      <div class="card" style="height:420px; overflow-hidden;">
+         <div class="card-header border-transparent">
+            <h3 class="card-title"><strong>ICT Team Statistics</strong></h3>
+            <div class="card-tools">
+               <button type="button" class="btn btn-tool" data-card-widget="collapse">
+               <i class="fas fa-minus"></i>
+               </button>
+               <button type="button" class="btn btn-tool" data-card-widget="remove">
+               <i class="fas fa-times"></i>
+               </button>
             </div>
-   
-            <!-- /.info-box -->
-
-            
-
-
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
+         </div>
+         <!-- /.card-header -->
+         <div class="card-body p-0">
+            <div style="width: 100%; height:100%; ">
+               <canvas id="adminChart"></canvas>
+            </div>
+            <script>
+               // Data for the chart (assuming you've passed this data from your controller)
+               var adminStats = {!! json_encode($adminStats) !!};
+               
+               // Initialize arrays to store data
+               var adminNames = [];
+               var assignedTickets = [];
+               var solvedTickets = [];
+               var solvedTicketsby = [];
+               
+               // Populate arrays with data
+               @foreach ($adminStats as $adminStat)
+                   adminNames.push("{{ $adminStat['admin_name'] }}");
+                   assignedTickets.push({{ $adminStat['assigned_tickets'] }});
+                   solvedTickets.push({{ $adminStat['solved_tickets']  }});
+               @endforeach
+               
+               // Get the canvas element $solvedTicketsby 
+               var ctx = document.getElementById('adminChart').getContext('2d');
+               
+               // Create the chart as a horizontal bar chart
+               var myChart = new Chart(ctx, {
+               type: 'bar', // Change the chart type to 'horizontalBar'
+               data: {
+               labels: adminNames,
+               datasets: [{
+               label: 'Assigned Tickets',
+               data: assignedTickets,
+               backgroundColor: 'rgba(255, 170, 51)',
+               borderColor: 'rgba(75, 192, 192, 1)',
+               
+               }, 
+               
+               {
+               label: 'Solved Tickets',
+               data: solvedTickets,
+               backgroundColor: 'rgba(122, 193, 66)',
+               
+               borderWidth: 1
+               }]
+               },
+               options: {
+               responsive: true,
+               maintainAspectRatio: false,
+               scales: {
+               x: {
+               beginAtZero: true
+               },
+               y: {
+               beginAtZero: true,
+               ticks: {
+               callback: function (value, index, values) {
+               if (value === 0 || value === 1) {
+               return value;
+               }
+               return value * 10;
+               }
+               }
+               }
+               }
+               }
+               });
+            </script>
+         </div>
+      </div>
+ 
+   </div>
+<div class="col-md-6 col-lg-6">
+   <div class="card" style="height:420px; overflow-auto; font-size:14px;">
+    <div class="card-header border-transparent">
+        <h3 class="card-title"><strong>Tickets Attended to by ICT Team</strong></h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+            </button>
         </div>
-        <!-- /.row -->
-      </div><!--/. container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+    </div>
+    
+    <div class="card-body p-0"> <!-- /.card-header -->
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+              <tr>
+                <th>#</th>
+                  <th>Staff Name</th>
+                  <th>Assigned </th>
+                  <th>Solved </th>
+                
+              </tr>
+          </thead>
+          <tbody>
+              @php
+                  // Sort admins based on assigned_tickets in descending order
+                  $sortedAdminData = collect($adminStats)->sortByDesc('assigned_tickets')->values()->all();
+                  $counter = 1;
+              @endphp
+              @foreach($sortedAdminData as $admin)
+                  <tr>
+                    <td>{{ $counter++ }}</td>
+                      <td>{{ $admin['admin_name'] }}</td>
+                      <td>{{ $admin['assigned_tickets'] }}</td>
+                      <td>{{ $admin['solved_tickets'] }}</td>
+                      
+                  </tr>
+              @endforeach
+          </tbody>
+          <tfoot>
+              <tr>
+                  <th>Totals</th>
+                  <th>{{ array_sum(array_column($adminStats, 'assigned_tickets')) }}</th>
+                  <th>{{ array_sum(array_column($adminStats, 'solved_tickets')) }}</th>
+                  <th>{{ array_sum(array_column($adminStats, 'solved_tickets')) - array_sum(array_column($adminStats, 'solved_ticketsby')) }}</th>
+              </tr>
+          </tfoot>
+      </table>
+      </div><!-- /.table-responsive -->
+    </div> <!-- /.card-body -->
+   
+  </div><!-- /.card -->
+</div><!---Row---->
 
-  <!-- Control Sidebar -->
+</div>
+  </div>
+</div>
+   </div><!--/. container-fluid -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<!-- Control Sidebar -->
 @endsection

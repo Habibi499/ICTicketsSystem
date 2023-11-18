@@ -29,8 +29,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware('auth')->group(function () {
    Route::get('/admin/status/{user}/edit', [App\Http\Controllers\AdminStatusController::class, 'edit'])->name('admin.status.edit');
-    //Route::get('/admin/status/{user}/edit','AdminStatusController@edit')->name('admin.status.edit');
-    //Route::put('/admin/status/{user}', 'AdminStatusController@update')->name('admin.status.update');
     Route::put('/admin/status/{user}', [App\Http\Controllers\AdminStatusController::class, 'update'])->name('admin.status.update');
    
     //Printers and Cartridges
@@ -47,18 +45,18 @@ Route::middleware('auth')->group(function () {
     //Printers and Catriges End
 
     Route::get('Admin/active', [\App\Http\Controllers\showActiveLoginsController::class, 'showActiveLogins'])->name('admin.active');
-    //Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
-    //Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+ 
     Route::get('/approver/Hod', [\App\Http\Controllers\HodController::class, 'index'])->name('hod.index');
     Route::get('/approver/DepartmentUnapproved', [\App\Http\Controllers\HodController::class, 'allunapproved'])->name('hod.departmentunapproved');
-   // Route::get('/active-logins', 'LoginRecordController@showActiveLogins');
+
     
 
     Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::get('profile/firstlogin', [\App\Http\Controllers\ProfileController::class, 'firstlogin'])->name('profile.firstlogin');
 
     Route::get('Tickets/myunapprovedtickets', [\App\Http\Controllers\UnApprovedTicketsController::class, 'index'])->name('unapprovedTickets.index');
     Route::get('Tickets/myapprovedtickets',[App\Http\Controllers\MyApprovedTicketsController::class,'index'])->name('approvedTickets.index');
@@ -89,7 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/approver/{ticket}', [ApproverController::class, 'update'])->name('approver.update');
     Route::post('/approver',[\App\Http\Controllers\ApproverController::class,'post'])->name("approver.post");
     
-
+    Route::get('/Admin/ticketlifecycle',[\App\Http\Controllers\TicketLifeCycleController::class,'index'])->name('admin.ticketlifecycle');
     Route::get('/Admin/statistics',[\App\Http\Controllers\AdminStatisticsController::class,'index'])->name('admin.statistics');
     Route::get('/Admin',[\App\Http\Controllers\AdminController::class,'index'])->name('admin.index');
     Route::get('/Admin/tickets',[\App\Http\Controllers\AllTicketsController::class,'index'])->name('alltickets.index');
@@ -97,6 +95,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/Admin/{ticket}', [AdminController::class, 'update'])->name('admin.update');
     Route::post('/Admin',[\App\Http\Controllers\AdminController::class,'post'])->name("admin.post");
     
+    //Locked Tickets Relaese
+    Route::post('/Admin/{ticket}/release',[\App\Http\Controllers\AdminController::class,'release'])->name("admin.release");
+    Route::get('/Admin/AutoReleaseTicket',[\App\Http\Controllers\AdminController::class,'AutoReleaseTicket'])->name('admin.AutoReleaseTicket');
+    Route::post('/Admin/{ticket}/escalate',[\App\Http\Controllers\AdminController::class,'escalate'])->name('admin.escalate');
+
+   
     Route::get('/Technician',[\App\Http\Controllers\TechnicianController::class,'index'])->name('technician.index');
     Route::get('/Technician/{ticket}/edit',[\App\Http\Controllers\TechnicianController::class,'edit'])->name('technician.edit');
     Route::get('/Technician/{ticket}', [\App\Http\Controllers\TechnicianController::class, 'show'])->name('technician.show');

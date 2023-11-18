@@ -43,7 +43,8 @@ class TicketSolvedNotification extends Notification
         ->line('Technician: ' .  $this->ticket->Solvedby)
         ->line('Technician\'s Comment: ' .  $this->ticket->ITTechnicianComments)
         ->line('Policy Code: ' .  $this->ticket->Record_No)
-         ->action('View Ticket', route('tickets.show', ['ticket' => $this->ticket->id]))
+        // ->action('View Ticket', route('tickets.show', ['ticket' => $this->ticket->id]))
+         ->action('View Ticket', 'http://192.192.1.25'.'/Tickets'.'/'. $this->ticket->id)
         ->line('Thank you for using our application.')
         ->bcc('webmaster@occidental-ins.com'); // Send a copy to the specific email
 }

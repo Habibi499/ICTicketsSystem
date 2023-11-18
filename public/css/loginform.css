@@ -1,0 +1,32 @@
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+#login-form {
+    background-color: rgb(237, 238, 237);
+    padding: 10px;
+}
+
+.form-outline {
+    position: relative;
+}
+
+.form-outline label {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    opacity: 0.5;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.form-outline input:focus + label,
+.form-outline input:not(:placeholder-shown) + label {
+    top: -20px;
+    font-size: 12px;
+    opacity: 1;
+}

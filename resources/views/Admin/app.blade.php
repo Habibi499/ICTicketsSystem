@@ -75,12 +75,7 @@
                {{ __('All Tickets') }}
                </a>
             </li>
-            <li class="nav-item">
-               <a href="{{ route('alltickets.index') }}" class="nav-link">
-               <i class="fa fa-book"></i>&ensp;
-               {{ __('All Tickets') }}
-               </a>
-            </li>
+       
             <!--Dropdown Menu -->
             <li class="nav-item dropdown">
                <a class="nav-link" data-toggle="dropdown" href="#">
@@ -153,7 +148,7 @@
       &copy; R.
       </div>
       <!-- Default to the left -->
-      <strong>Copyright &copy; 2023 OIC Digital factory</strong>
+      <strong>Copyright &copy; 2023 OIC Digital factory | ITickets Version 1.0.0</strong>
       </footer>
       </div>
       <!-- ./wrapper -->

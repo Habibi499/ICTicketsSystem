@@ -47,7 +47,7 @@ class NewTicketNotification extends Notification
             ->line('Record No:'.$this->ticket->Record_No)
 
             //->action('View Ticket', route('tickets.show', $this->ticket->id))
-            ->action('View Ticket', 'http://192.192.1.23'.'/'.'Tickets'.'/'. $this->ticket->id)
+            ->action('View Ticket', 'http://192.192.1.25'.'/'.'Tickets'.'/'. $this->ticket->id)
             ->line('Thank you.')
             ->salutation('ICT Help Desk Team');
     }

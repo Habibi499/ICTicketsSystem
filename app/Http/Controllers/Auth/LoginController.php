@@ -33,13 +33,19 @@ class LoginController extends Controller
     protected $redirectTo = 'Tickets';
     protected function authenticated(Request $request, $user)
     {
-        if ($user->role_id==2) {
-            return redirect()->route('approver.index');
-        } 
-        else if($user->role_id==3){
-            return redirect()->route('admin.index');
+        if ($user->first_login !== '1') {
+            // Set the first_login field to false to indicate that the user has changed their password
+            $user->update(['first_login' => false]);
+    
+            // Redirect the user to the password change page
+            return redirect()->route('profile.firstlogin');
         }
-         else {
+    
+        if ($user->role_id == 2) {
+            return redirect()->route('approver.index');
+        } elseif ($user->role_id == 3) {
+            return redirect()->route('admin.index');
+        } else {
             return redirect()->route('ticket.index');
         }
     }

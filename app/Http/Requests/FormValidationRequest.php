@@ -22,27 +22,13 @@ class FormValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'section_head1' => 'required|string|max:255',
-            'Section_Head' => 'required|string|max:255',
-            'Correction_Type' => 'required|string|max:255',
-            'Ticket_Urgency' => 'required|string|max:255',
-            //'Record_No' => 'required|string|max:255',
-            'Correction_Details' => 'required|string',
-            
-            'documents' => 'required|file|max:10240', // Example: Max file size of 10MB
+      
         ];
     }
     public function messages(): array
     {
         return [
-            'Correction_Type.required' => 'Please Select the Correction Type',
-            'Ticket_Urgency.required' => 'Please Select Ticket Urgency',
-            'Record_No.required' => 'Please Enter Policy Number',
-            'Correction_Details.required' => 'Please provide details of your correction request',
-            'documents.required' => 'Please note that Attachment document is required',
-             'documents.file' => 'Please note that Attachment document is required',
-           'HodApproverName'=>'Please Select your correction form Approver',
-            'documents.max' => 'Please note that Attachment document is required', // Example: Max file size of 10MB
+       
         ];
     }
 }

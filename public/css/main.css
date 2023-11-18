@@ -269,13 +269,20 @@
 /* CSS classes for button background colors */
     .leave-status-absent {
         background-color: red;
-        color: white; /* Set text color to white for better visibility on red background */
+        color: white; 
     }
     
     .leave-status-present {
         background-color: green;
-        color: white; /* Set text color to white for better visibility on green background */
+        color: white; 
     }
 
+    .login-box, .register-box {
+        width: 550px !important;
 
+    }
+/*----Admin Panel Tables----*/
+.myticketsassignedtickets,.DepartmentTickets{
+	font-size: 15px;
+}
 

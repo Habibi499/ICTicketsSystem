@@ -38,7 +38,7 @@ class NewTicketApprovalNotification extends Notification
             ->line('Ticket Title : '.$this->ticket->TicketCategory)
             ->line('Ticket Details : '.$this->ticket->Correction_Details)
             ->line('Rejected By : '.$this->approver)
-            ->action('View Ticket', 'http://192.192.1.23'.'/'.'Tickets'.'/'. $this->ticket->id)
+            ->action('View Ticket', 'http://192.192.1.25'.'/'.'Tickets'.'/'. $this->ticket->id)
             ->line('Thank you for your attention.');
     }
 

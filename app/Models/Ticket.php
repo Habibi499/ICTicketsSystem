@@ -12,37 +12,70 @@ class Ticket extends Model
 {
     use HasFactory;
 
-    protected $table = 'invoices'; 
+    protected $table = "invoices";
 
     protected $fillable = [
-        "Requester_Name", "Section_Head","Correction_Type", "Ticket_Urgency", "TicketStatus","Record_No","Correction_Details",
-        "HodApprovalStatus","UserID","DepartmentID","Approver_id","HodApproverName",
-        "section_head1","Assignedto","ITTechnicianComments","TicketCategory","documents","Solvedby",
-        "rejectionReason","RenewalNo","EndorsementNo","claimNumber","pvNumber",
-        "correction_category","correction_sub_category"
-       
+        "Requester_Name",
+        "Section_Head",
+        "Correction_Type",
+        "Ticket_Urgency",
+        "TicketStatus",
+        "Record_No",
+        "Correction_Details",
+        "HodApprovalStatus",
+        "UserID",
+        "DepartmentID",
+        "Approver_id",
+        "HodApproverName",
+        "section_head1",
+        "Assignedto",
+        "ITTechnicianComments",
+        "TicketCategory",
+        "documents",
+        "Solvedby",
+        "rejectionReason",
+        "RenewalNo",
+        "EndorsementNo",
+        "claimNumber",
+        "pvNumber",
+        "Correction_Dept",
+        "correction_category",
+        "correction_sub_category",
+        "SystemName",
+        "worker_id",
+        "AdminStatus",
+        "EscalatorComments",
+        "Payment-Mode",
+        "CorrectionCategory",
+        "Payment_Mode",
+        "chequeNumber",
+        "ReceiptNo",
+        "ReferenceNumber",
+        "PettyVoucherNum",
+        "DrCrNumber",
+        "PettyCashVoucherNum",
+        "ReversalNo",
+        "pvNumber",
     ];
     public function createdByUser()
     {
-        return $this->belongsTo(User::class, 'UserID');
+        return $this->belongsTo(User::class, "UserID");
     }
     //Approver
     public function approver()
     {
-        return $this->belongsTo(User::class, 'HodApproverName'); 
+        return $this->belongsTo(User::class, "HodApproverName");
     }
-   //Assigned Admin Relationship
-   public function assignedAdmin()
-        {
-            return $this->belongsTo(User::class, 'Assignedto');
-        }
-
+    //Assigned Admin Relationship
+    public function assignedAdmin()
+    {
+        return $this->belongsTo(User::class, "Assignedto");
+    }
 
     public function ticketCategory()
     {
-        return $this->belongsTo(TicketCategory::class, 'ticketcategory');
+        return $this->belongsTo(TicketCategory::class, "ticketcategory");
     }
-       
 
     use Notifiable;
 
@@ -55,5 +88,4 @@ class Ticket extends Model
     {
         $this->notify(new TicketRejectedNotification());
     }
-
 }
