@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Ticket;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use App\Models\systemRights;
+use App\Models\ActivityLog;
 use App\Models\PasswordChange;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -46,15 +49,64 @@ class RequestedTicketsController extends Controller
             })
             ->orderBy('id', 'desc')
             ->paginate(10); 
+        //Rights 
+        $MyRightsTickets = systemRights::join(DB::raw('(SELECT MAX(id) as max_id, ticket_No 
+                            FROM system_rights_requisition
+                            GROUP BY ticket_No) as subquery'),
+                            function ($join) {
+                            $join->on('system_rights_requisition.id', '=', 'subquery.max_id');
+                            })
+                            ->where('system_rights_requisition.userID', '=', $user->id)
+                            ->select('system_rights_requisition.*')
+                            ->orderBy("subquery.max_id", "desc")
+                            ->paginate(10);
+
+
         
         $totalRecords = $filteredItems->total();// Total Records From search
         //Search Form Ends
          
-        return view('Ticket.mytickets', compact('tickets','approvedTicketCount','UnapprovedTicketCount',
+        return view('Ticket.mytickets', compact('tickets','MyRightsTickets','approvedTicketCount','UnapprovedTicketCount',
                     'AssignedTicketCount','filteredItems','totalRecords'));
     }
     
-  
+    public function myRightsrequestshow(){
+        //Rights 
+         $user = auth()->user(); 
+        //Approved Tickets
+        $approvedTicketCount = Ticket::where('UserID', $user->id)
+                              ->where('HodApprovalStatus', 'Approved')
+                                ->count();
+        //Assigned Tickets 
+        $AssignedTicketCount= Ticket::where('UserID',$user->id)
+                                ->where('HodApprovalStatus','Approved')
+                                ->whereNotNull('Assignedto')
+                                ->count();
+        //UnApproved Tickets
+         $UnapprovedTicketCount= Ticket::where('UserID',$user->id)
+                                        ->where('HodApprovalStatus','UnApproved')
+                                        ->count();
+        //Total Tickets Count
+        $tickets = Ticket::where('UserID', $user->id)
+                            ->orderBy('id', 'desc')
+                            ->paginate(10);
+
+
+         $MyRightsTickets = systemRights::join(DB::raw('(SELECT MAX(id) as max_id, ticket_No 
+         FROM system_rights_requisition
+         GROUP BY ticket_No) as subquery'),
+         function ($join) {
+         $join->on('system_rights_requisition.id', '=', 'subquery.max_id');
+         })
+         ->where('system_rights_requisition.userID', '=', $user->id)
+         ->select('system_rights_requisition.*')
+         ->orderBy("subquery.max_id", "desc")
+         ->paginate(10);
+
+         return view('Ticket.myrightstickets', compact('tickets','MyRightsTickets','approvedTicketCount','UnapprovedTicketCount',
+                    'AssignedTicketCount'));
+    }
+
     //Search by Filtering Conditions
     public function search(Request $request)
     {
@@ -98,11 +150,12 @@ class RequestedTicketsController extends Controller
         return view('Ticket.mytickets', compact('filteredItems','tickets','approvedTicketCount','UnapprovedTicketCount','totalRecords','AssignedTicketCount'));
     }
     
-
+   
     
     public function show($id){
 
-        $ticket = Ticket::findOrFail($id);
-        return view('Ticket.show',compact("ticket"));
+        $ticket = Ticket::with('activityLogs')->findOrFail($id);
+
+        return view('Ticket.show', compact('ticket'));
     }
 }

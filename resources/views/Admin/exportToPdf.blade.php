@@ -41,7 +41,7 @@
          <tbody>
             <tr>
                <td><strong>Request Category:</strong></td>
-               <td>{{ $item->correction_category  }}</td>
+               <td>{{ $item->TicketCategory  }}</td>
             </tr>
             <tr>
                <td><strong>Correction Type:</strong></td>
@@ -57,7 +57,7 @@
             </tr>
             <tr>
                <td><strong>Requested  By:</strong></td>
-               <td>  {{ $item->section_head1 }}</td>
+               <td>  {{ $item->section_head1}}</td>
             </tr>
             <tr>
                <td><strong>Approval:</strong></td>
@@ -65,15 +65,15 @@
             </tr>
             <tr>
                <td><strong>Approved By:</strong></td>
-               <td>{{ $item->section_head1 }}</td>
+               <td>{{ $item->approver->name  }}</td>
             </tr>
             <tr>
                <td><strong>Correction Category:</strong></td>
-               <td>    {{ $item->correction_category}}</td>
+               <td>    {{ $item->Correction_Dept}}</td>
             </tr>
             <tr>
                <td><strong>Policy No:</strong></td>
-               <td>   {{ $item->Record_No}}</td>
+               <td>{{ $item->Record_No}}</td>
             </tr>
        
             <tr>
@@ -84,21 +84,47 @@
                <td><strong>Endorsement Number:</strong></td>
                <td> {{ $item->EndorsementNo}}</td>
                @else
-               <td> {{ $item->Record_No}}</td>
+              
                @endif
             </tr>
             <tr style="height:20px;">
                <td><strong>What is Required</strong></td>
                <td> {{ $item->Correction_Details}}</td>
             </tr>
+            
             <tr>
                <td><strong>Done By (IT Staff)</strong></td>
-               <td>    {{ $item->Solvedby}}</td>
+               <td>{{ $item->Solvedby}}</td>
+            </tr>
+            <tr>
+               <td><strong>Comments</strong></td>
+               <td>{{ $item->ITTechnicianComments}}</td>
             </tr>
             <tr>
                <td><strong>Date Completed</strong></td>
-               <td>   {{ $item->updated_at->format('Y-m-d H:i:s')}}</td>
+               <td>{{ $item->updated_at->format('Y-m-d H:i:s')}}</td>
             </tr>
+            @if($item->documents)
+            @php
+              $attachments = explode(',', $item->documents);
+              $totalAttachments = count($attachments);
+             @endphp
+          <td><strong>{{ $totalAttachments }}: Document(s) Associated with ticket:</td></strong> 
+        
+          </span>&ensp;&ensp;
+              <td>
+                <ul>
+                  @foreach($attachments as $index => $attachment)
+                      <li>
+                          <a href="{{ asset('uploads/' . $attachment) }}" target="_blank">View Document {{ $index + 1 }}</a>
+                      </li>
+                  @endforeach
+                    </ul>
+            @else
+                No documents associated with this ticket.
+            @endif
+            </td>
+           
          </tbody>
 
          @endforeach

@@ -1,0 +1,162 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  h2 {font-family:arial; color:#056936; text-transform:uppercase; font-size:16px; font-weight:normal;
+    margin-bottom:20px;
+    width: 100%; height:50px; background:#F1F2F4;  
+    position:absolute; top:0px; left:0px;margin: 0px;
+    padding: 18px;
+    text-align: center;
+  }
+
+  
+  .form_wrap {
+    height: auto;
+    width: 80%;
+    background: white;
+    margin: 50px auto;
+    
+    padding: 90px 0px 50px 100px;
+    outline: 5px solid rgba(0,0,0,0.1);
+    position:relative;
+  }
+  
+  /* Input form Style */
+  
+  input[type="text"],input[type="date"],input[type="number"]{
+    border: 1px solid #123706;
+    border-radius: 2px;
+    height: 47px;
+    color: #000000;
+    font-size: 14px;
+    padding-left: 20px;
+    box-shadow: none;  
+  }
+  input[type="number"]{
+    width: 100% !important;
+  }
+  #textarea {
+    border: 1px solid #123706;
+    border-radius: 2px;
+    
+    color: #000000;
+    font-size: 14px;
+    padding-left: 20px;
+    box-shadow: none;
+}
+
+  input:focus + label, input:valid + label{
+    font-size: 12px;
+    color: #044424;
+    top: -5px;
+    left:10px;
+    background: #ffffff;
+    padding: 0px 5px 0px 5px;
+  }
+  .form-label{
+    font-size: 14px;
+    color: #044424;
+  }
+  .input_wrap {
+    margin-right:40px;
+    height:auto; 
+    position:relative;
+  }
+  
+  .input_wrap label {
+    font-family:arial;
+    font-size:14px;
+    color: #043810;
+    padding: 14px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+    pointer-events: none;
+  
+  }
+  
+  input[type="text"]:focus {outline:none;}
+
+  #second-row{
+    top:40px;
+  }
+
+  input:hover {
+    border-color: #043810;
+
+  }
+
+  /* Remove the outline when the input is focused */
+  input:focus {
+    outline: none;
+  }
+  .topform{
+    background-color: #e2f2e3;
+    border-bottom: 2px;
+    border-color: black;
+  }
+  .viewtickettopform{
+    background-color: #e2f2e3;
+    border-bottom: 2px;
+    border-color: black;
+    padding-left: 12px;
+    
+  }
+  .topheader{
+    font-size:12px;
+    font-weight: 600;
+  }
+
+  .animate-slow {
+        animation-duration: 60s; /* Adjust the duration as needed for your desired speed */
+    }
+
+  .approvalrow{
+    margin-bottom: 20px;
+    color:#1c533d;
+  }
+  .fa, .fas {
+    font-weight: 600;
+}
+.middleTicketDetailsform{
+    padding-left:20px;
+}
+#UserAvatar{
+    background: #db6b57;
+    padding-left: 6px;
+    position: relative;
+    font-size: 14px;
+    margin-right: -5%;
+    top: -2%;
+}
+#TechnicianAvatar{
+    background: #1e293b;
+    color: white;
+    padding-left: 6px;
+    position: relative;
+    font-size: 14px;
+    min-height: 40px;
+    margin-right: -5%;
+    top: 60%;
+}
+#TechnicianComments{
+    top:60%;
+    position: relative;
+    background-color: #ececec;
+    font-size: 13px;
+    padding: 20px;
+}
+.card-body {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height:500px;
+    padding: 1.25rem;
+    overflow: auto;
+}

@@ -1,0 +1,27 @@
+input:hover {
+    border-color: transparent;
+    }
+    input:focus {
+    outline: none;
+    }
+    .topform{
+    background-color: #e2f2e3;
+    border-bottom: 2px;
+    border-color: black;
+    }
+    .topheader{
+    font-size:12px;
+    }
+    .animate-slow {
+    animation-duration: 60s; /* Adjust the duration as needed for your desired speed */
+    }
+    .approvalrow{
+    margin-bottom: 20px;
+    color:#1c533d;
+    }
+    #CorrectionType{
+    border: none !important;
+    background:none;
+    font-size:12px; 
+    width:80%;
+    }

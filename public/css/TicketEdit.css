@@ -1,0 +1,151 @@
+input:hover {
+    border-color: transparent;
+  }
+ 
+  /* Remove the outline when the input is focused */
+  input:focus {
+    outline: none;
+  }
+ 
+  .viewtickettopform{
+    background-color: #e2f2e3;
+ 
+  }
+  .topheader{
+    font-size:10px;
+    font-weight: 600;
+  }
+ 
+  .animate-slow {
+        animation-duration: 60s; /* Adjust the duration as needed for your desired speed */
+    }
+ 
+  .approvalrow{
+    margin-bottom: 20px;
+    color:#1c533d;
+  }
+  .fa, .fas {
+    font-weight: 600;
+ }
+ .middleTicketDetailsform{
+    padding-left:20px;
+ }
+ #UserAvatar{
+    background: #db6b57;
+    padding-left: 6px;
+    position: relative;
+    font-size: 14px;
+    margin-right: -5%;
+    top: -2%;
+ }
+ #TechnicianAvatar{
+    background: #1e293b;
+    color: white;
+    padding-left: 6px;
+    position: relative;
+    font-size: 14px;
+    min-height: 40px;
+    margin-right: -5%;
+    top: 30%;
+ }
+ #TechnicianComments{
+    top:40%;
+    position: relative;
+    background-color: #ececec;
+    font-size: 13px;
+    padding: 20px;
+ }
+ #UserComments{
+ 
+    position: relative;
+    background-color: #cce3d3;
+    font-size: 13px;
+    padding: 20px;
+ }
+ .card-body {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height:500px;
+    padding: 1.25rem;
+    overflow: auto;
+ }
+ #TicketDetails{
+  height: 500px;
+  overflow: auto;
+ }
+ #Type-Department-Section{
+  border-bottom: 1px solid rgb(248, 255, 251);
+ }
+ #CorrectionType{
+  border: none !important;
+  background:none;
+  font-size:10px; 
+  width:80%;
+ }
+ #Type-Department-Section{
+  border: 1px solid rgb(248, 255, 251);
+  background-color:#e2f2e3;
+ }
+ .topformdetails{
+   background-color:rgb(168, 201, 157);
+   border-radius:2px;
+   padding:1px;
+   margin:10px;
+ }
+    .topform{
+    background-color: #e2f2e3;
+ 
+    }
+    .topform1{
+    background-color: rgb(237, 238, 237);;
+ 
+    }
+    .topheader{
+    font-size:11px;
+    }
+    .animate-slow {
+    animation-duration: 60s; /* Adjust the duration as needed for your desired speed */
+    }
+    .approvalrow{
+    margin-bottom: 20px;
+    color:#1c533d;
+    }
+    .viewtickettopform{
+    background-color: #e2f2e3;
+    border-bottom: 2px;
+    border-color: black;
+    }
+    #UserAvatar{
+    background: #db6b57;
+    padding-left: 6px;
+    position: relative;
+    font-size: 14px;
+    margin-right: -5%;
+    top: -2%;
+    position: relative;
+    z-index:1;
+    }
+    #TechnicianAvatar{
+    background: #1e293b;
+    color: white;
+    padding-left: 6px;
+    position: relative;
+    font-size: 13px;
+    margin-right: -5%;
+    top: -2%;
+    position: relative;
+    z-index:1;
+    }
+    #TechnicianAvatar2{
+    background: #1e293b;
+    color: white;
+    padding-left: 6px;
+    position: relative;
+    font-size: 13px;
+    margin-right: -5%;
+    top:4%;
+    position: relative;
+    z-index:1;
+    }
+ 

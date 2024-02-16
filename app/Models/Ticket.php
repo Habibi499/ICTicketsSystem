@@ -21,6 +21,7 @@ class Ticket extends Model
         "Ticket_Urgency",
         "TicketStatus",
         "Record_No",
+        "Policy_code",
         "Correction_Details",
         "HodApprovalStatus",
         "UserID",
@@ -36,8 +37,11 @@ class Ticket extends Model
         "rejectionReason",
         "RenewalNo",
         "EndorsementNo",
+        "Endorsement_Code",
         "claimNumber",
         "pvNumber",
+        "DemandNoteNo",
+        "JVNumber",
         "Correction_Dept",
         "correction_category",
         "correction_sub_category",
@@ -45,7 +49,7 @@ class Ticket extends Model
         "worker_id",
         "AdminStatus",
         "EscalatorComments",
-        "Payment-Mode",
+        "Payment_Mode",
         "CorrectionCategory",
         "Payment_Mode",
         "chequeNumber",
@@ -55,7 +59,18 @@ class Ticket extends Model
         "DrCrNumber",
         "PettyCashVoucherNum",
         "ReversalNo",
+        "ReversalDate",
         "pvNumber",
+        "ReportName",
+        "ReopeningComments",
+        "Reopened",
+        "NewAdditionaldocument",
+        "ITTechnicianReply",
+        "ticket_No",
+        "hiddenApproverName",
+        "AssignedtoName",
+       
+
     ];
     public function createdByUser()
     {
@@ -77,6 +92,7 @@ class Ticket extends Model
         return $this->belongsTo(TicketCategory::class, "ticketcategory");
     }
 
+
     use Notifiable;
 
     public function sendInvoiceApprovedNotification()
@@ -88,4 +104,15 @@ class Ticket extends Model
     {
         $this->notify(new TicketRejectedNotification());
     }
+    // In Ticket.php (Ticket model)
+    public function systemRightsRequisition()
+    {
+        return $this->hasOne(systemRights::class, 'ticket_No', 'ticket_No');
+    }
+
+    public function activityLogs()
+    {
+        return $this->hasMany(ActivityLog::class,'record_id');
+    }
+
 }

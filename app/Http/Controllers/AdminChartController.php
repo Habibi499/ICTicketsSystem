@@ -19,16 +19,25 @@ class AdminChartController extends Controller
             $adminName = $admin->name;
             $assignedTickets = Ticket::where("Assignedto", $admin->id)->count();
             $solvedTickets = Ticket::where("Solvedby", $admin->name)
-                ->where("TicketStatus", "closed")
+                                    ->where("TicketStatus", "closed")
+                                    ->count();
+            $rejectedTickets = Ticket::where("Solvedby", $admin->name)
+                ->where("TicketStatus", "rejected")
                 ->count();
-            $rejectedTickets = Ticket::where("Solvedby", $admin->id)
-                ->where("TicketStatus", "closed")
-                ->count();
+            $Escalatedto = Ticket::where("EScalatedto", $admin->id)
+
+            ->count();
+            $OpenTickets = Ticket::where("Assignedto", $admin->id)
+            ->where("TicketStatus", "open")
+            ->count();
             // each admin array
             $adminData[] = [
                 "admin_name" => $adminName,
                 "assigned_tickets" => $assignedTickets,
+                "rejected_Tickets"=> $rejectedTickets,
                 "solved_tickets" => $solvedTickets,
+                "open_tickets"=>  $OpenTickets,
+                "Escalated_to"=> $Escalatedto,
             ];
         }
         return $adminData;

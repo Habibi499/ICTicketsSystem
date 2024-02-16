@@ -1,17 +1,17 @@
 @extends('Admin.app')
 @section('content')
-
+<meta http-equiv="refresh" content="30">
 <div class="content-header">
    <div class="container-fluid">
       <div class="row mb-2">
          <div class="col-sm-6">
-            <h4 class="m-0"><i class="fas fa-chart-line"></i>&ensp;&ensp;All Approved and Open Tickets</h4>
+            <h4 class="m-0"><i class="fas fa-chart-line"></i>&ensp;&ensp;All Tickets</h4>
          </div>
          <!-- /.col -->
          <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Home</a></li>
-               <li class="breadcrumb-item">My Tickets</li>
+               <li class="breadcrumb-item">All Tickets</li>
             </ol>
          </div>
          <!-- /.col -->
@@ -61,9 +61,11 @@
                         <table id="example1" class="table table-bordered table-striped">
                            <thead>
                               <tr>
+                                 <th>#</th>
                                  <th>Ticket_No</th>
                                
                                  <th>Requester</th>
+                            
                                  <th>Ticket Details</th>
                                  <th>Approval Status</th>
                                  <th>Selected Approver</th>
@@ -71,6 +73,7 @@
                                  <th>Solved By</th>
                                  <th>Ticket Status</th>
                                  <th>Created on</th>
+                                 <th>Docs</th>
                                  <th>View</th>
                               </tr>
                            </thead>
@@ -78,14 +81,25 @@
                               @foreach ($filteredItems as $item)
                               <tr>
                                  <td>{{$item->id}}</td>
-                                 
-                                 <td>{{$item->section_head1}}
+                                 <td>{{$item->ticket_No}}</td>
+                                 <td>{{$item->section_head1}}</td>
+                             
                                  <td>
                                     {{$item->Record_No}}
                                     {{$item->pvNumber}}
                                     {{$item->claimNumber}}
-                                   {{$item->chequeNumber}}
-                                 
+                                    {{$item->chequeNumber}}
+                                    {{$item->ReferenceNumber}}
+                                    {{$item->ReceiptNo}}
+                                    {{$item->DrCrNumber}}
+                                    {{$item->JVNumber}}
+                                    {{$item->DemandNoteNo}}
+                                    {{$item->ReportName}}
+                                    {{$item->PettyCashNo}}
+                                    {{$item->PettyCashVoucherNum}}
+                                    {{$item->ReversalNo}}
+                                    {{$item->RReversalNo}}
+                                  
                                  </td>
                                  <td>{{$item->HodApprovalStatus}}</td>
                                  @if($item->approver)
@@ -105,18 +119,26 @@
                                  @else
                                  <td>No date available</td>
                                  @endif
+                      
+                                    <td>
+                                       @if ($item->documents)
+                                          <i class="fas fa-paperclip" style="color: #ff00ae;"></i>
+                                       @endif
+                                    </td>
+
+
                                  <td><a href="{{route('tickets.show',$item->id)}}">View</a></td>
                               </tr>
                               @endforeach
                            </tbody>
 
                            @if ($totalRecords > 0)
-    <form action="{{ route('alltickets.index') }}" method="get">
-        @csrf
-        <input type="hidden" name="query" value="{{ request('query') }}">
-        <button type="submit" name="downloadPDF" value="1">Download Search Results as PDF</button>
-    </form>
-@endif
+                           <form action="{{ route('alltickets.index') }}" method="get">
+                              @csrf
+                              <input type="hidden" name="query" value="{{ request('query') }}">
+                              <button type="submit" name="downloadPDF" value="1">Download Search Results as PDF</button>
+                           </form>
+                        @endif
                         </table>
                         <div class="card-footer clearfix">
                            Total Records on your Search: {{$totalRecords}}

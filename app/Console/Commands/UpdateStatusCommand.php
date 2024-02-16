@@ -3,8 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log; // Add this line
 
 use App\Models\User;
+
 class UpdateStatusCommand extends Command
 {
     /**
@@ -19,26 +21,33 @@ class UpdateStatusCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Set all Technicians to Absent when it reaches 5:00 PM';
 
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
         // Get all users whose status needs to be updated
         $users = User::where('LeaveStatus', 'present')->get();
-        //Log::info('UpdateStatusCommand started');
+          // Log information about 'present' users
+          foreach ($users as $user) {
+            Log::info("Present User: {$user->id}, Name: {$user->name}, Email: {$user->email}");
+        }
+
       
-        // Check if the current time is 17:00 (5:00 PM)
-        if (now()->hour >= 19) {
-            foreach ($users as $user) {
+        Log::info('UpdateStatusCommand started');
+        foreach ($users as $user) {
+            try {
                 $user->update([
-                    'status' => 'absent',
+                    'LeaveStatus' => 'absent',
                 ]);
+            } catch (\Exception $e) {
+                Log::error("Error updating user {$user->id}: " . $e->getMessage());
             }
         }
-          // Your update logic here
-          //Log::info('UpdateStatusCommand finished');
+        // Log information about users updated to 'absent'
+        Log::info("User Updated to Absent: {$user->id}, Name: {$user->name}, Email: {$user->email}");
+        
+        // Your update logic here
+        Log::info('UpdateStatusCommand finished');
     }
+    
 }

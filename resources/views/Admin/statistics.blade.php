@@ -289,7 +289,9 @@
                   <th>Staff Name</th>
                   <th>Assigned </th>
                   <th>Solved </th>
-                
+                  <th>Rejected </th>  
+                  <th>Unattended</th>
+                 
               </tr>
           </thead>
           <tbody>
@@ -304,16 +306,24 @@
                       <td>{{ $admin['admin_name'] }}</td>
                       <td>{{ $admin['assigned_tickets'] }}</td>
                       <td>{{ $admin['solved_tickets'] }}</td>
+                      <td>{{ $admin['rejected_Tickets'] }}</td>
+                      <td>{{ $admin['open_tickets'] }}</td>
+                  
+                     
                       
                   </tr>
               @endforeach
           </tbody>
+          
           <tfoot>
               <tr>
-                  <th>Totals</th>
-                  <th>{{ array_sum(array_column($adminStats, 'assigned_tickets')) }}</th>
-                  <th>{{ array_sum(array_column($adminStats, 'solved_tickets')) }}</th>
-                  <th>{{ array_sum(array_column($adminStats, 'solved_tickets')) - array_sum(array_column($adminStats, 'solved_ticketsby')) }}</th>
+               <th>Totals</th>
+               <th></th>
+               <th>{{ array_sum(array_column($adminStats, 'assigned_tickets')) }}</th>
+               <th>{{ array_sum(array_column($adminStats, 'solved_tickets')) }}</th>
+               <th>{{ array_sum(array_column($adminStats, 'rejected_Tickets')) }}</th>
+               <th>{{ array_sum(array_column($adminStats, 'open_tickets')) }}</th>
+          
               </tr>
           </tfoot>
       </table>

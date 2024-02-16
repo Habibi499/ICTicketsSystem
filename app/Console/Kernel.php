@@ -15,7 +15,11 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('update-status')->dailyAt('19:50');
 
-        $schedule->command('tickets:check-status')->everyMinute();
+        //$schedule->command('tickets:check-status')->dailyAt('13:00');
+        $schedule->command('tickets:close')->everyMinute(); // Adjust frequency 
+        $schedule->command('app:update-status-command')->dailyAt('16:58');
+        $schedule->command('tickets:check-unassigned')->everyMinute();
+
     }
 
     /**

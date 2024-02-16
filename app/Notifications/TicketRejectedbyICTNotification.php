@@ -39,8 +39,8 @@ class TicketRejectedbyICTNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-        ->subject('Ticket No  ' . $this->ticket->id. '  Rejecetd by ICT')
-        ->line('Your Request has been rejected by your ICT Admin')
+        ->subject('Ticket No  ' . $this->ticket->id. '  Declined by ICT')
+        ->line('Your Request has been Declined by your ICT Admin')
         ->line('Ticket Number: ' . $this->ticket->id)
         ->line('Technician: ' .  $this->ticket->Solvedby)
         ->line('Technician\'s Comment: ' .  $this->ticket->ITTechnicianComments)
@@ -50,6 +50,7 @@ class TicketRejectedbyICTNotification extends Notification
          ->line('Please Consider Reopening the ticket')
         ->line('Thank you for using our application.')
         ->bcc('webmaster@occidental-ins.com'); // Send a copy to the specific email
+        //->cc('roslyne.obondi@occidental-ins.com');
     }
 
     /**

@@ -41,7 +41,7 @@ class AssignTicketToAdmin implements ShouldQueue
             $ticketCategoryIds = TicketCategory::whereIn('id', [1, 2])->pluck('id')->toArray();
 
             $adminUsers = User::where('role_id', 3)
-            ->where('leavestatus', 'present')
+            ->where('LeaveStatus', 'present')
             ->whereHas('ticket_categories', function ($query) use ($ticketCategoryIds) {
                 $query->whereIn('ticket_categories.id', $ticketCategoryIds);
             })
@@ -69,10 +69,19 @@ class AssignTicketToAdmin implements ShouldQueue
             $this->ticket->save();
 
             // Update the last_assigned_admin_id for the user
-            UserAssignment::updateOrCreate(
-                ['user_id' => $this->ticket->UserID],
-                ['last_assigned_admin_id' => $nextAdminUser->id]
-            );
+            //UserAssignment::updateOrCreate(
+              //  ['user_id' => $this->ticket->UserID],
+              //  ['last_assigned_admin_id' => $nextAdminUser->id]
+            //);
+
+// Update the last_assigned_admin_id for the user only if the admin is present
+if ($nextAdminUser->LeaveStatus == 'present') {
+    UserAssignment::updateOrCreate(
+        ['user_id' => $this->ticket->UserID],
+        ['last_assigned_admin_id' => $nextAdminUser->id]
+    );
+}
+
         } catch (\Exception $e) {
             // Handle any exceptions that occur during job execution
             Log::error('Error in AssignTicketToAdmin job: ' . $e->getMessage());

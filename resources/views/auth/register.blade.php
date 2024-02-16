@@ -35,8 +35,9 @@
                         <option value="7">  Reinsurance  </option>
                         <option value="8">  Mombasa  </option>
                         <option value="9">  Kisumu  </option>
-                        <option value="10">  Internal Audit  </option>
-                        <option value="11">  Credit Control  </option>
+                        <option value="10"> Internal Audit  </option>
+                        <option value="11"> Credit Control  </option>
+                        <option value="12"> Marketing  </option>
                   </select>
                 </div>
 

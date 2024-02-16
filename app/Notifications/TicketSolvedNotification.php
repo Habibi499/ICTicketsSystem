@@ -35,15 +35,26 @@ class TicketSolvedNotification extends Notification
      */
 
     public function toMail($notifiable)
-{
+    {
+            $subject = 'Ticket No ' . $this->ticket->id;
+
+            if ($this->ticket->ITTechnicianReply  !== null) {
+                $subject .= 'Re-Solved';
+            } else{
+                $subject .= 'Solved';
+            }
+
+        $comment = $this->ticket->ITTechnicianReply !== null
+        ? 'Technician\'s Reply: ' . $this->ticket->ITTechnicianReply
+        : 'Technician\'s Comment: ' . $this->ticket->ITTechnicianComments;
+       
     return (new MailMessage)
-        ->subject('Ticket No  ' . $this->ticket->id. '  Solved')
+         ->subject($subject)
         ->line('Your ticket has been solved.')
         ->line('Ticket Number: ' . $this->ticket->id)
         ->line('Technician: ' .  $this->ticket->Solvedby)
-        ->line('Technician\'s Comment: ' .  $this->ticket->ITTechnicianComments)
+        ->line($comment)
         ->line('Policy Code: ' .  $this->ticket->Record_No)
-        // ->action('View Ticket', route('tickets.show', ['ticket' => $this->ticket->id]))
          ->action('View Ticket', 'http://192.192.1.25'.'/Tickets'.'/'. $this->ticket->id)
         ->line('Thank you for using our application.')
         ->bcc('webmaster@occidental-ins.com'); // Send a copy to the specific email

@@ -124,20 +124,62 @@
                     <div class="card-body">
                       
                       <div class="form-row topform">
-                        <div class="col-md-6">
-                          <span class="topheader">Correction Type
-                          <input type="text" name="Correction_Type" class="form-control1" id="RequesterName"  value="{{$ticket->Correction_Type}}" style="border: none !important; background:none; font-size:14px; width:80%;" readonly>           
-                        </div>
-                        <div class="col-md-6">
-                          <span class="topheader">Policy No/PV No:</span>
-                              <input type="text" name="section_head1" class="form-control1" id="RequesterName" value="{{ $ticket->Record_No }}{{ $ticket->pvNumber }}{{ $ticket->claimNumber }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>           
+                        <div class="form-row viewtickettopform">
+                          <div class="col-md-12" style="font-size:10px; ">
+                              <span style="background-color:rgb(168, 201, 157);border-radius:2px; padding:1px;margin:10px;">
+                              Created on:&ensp; <span class="fa fa-clock"></span> {{$ticket->created_at->format('Y-m-d H:i:s')}} 
+                              &ensp;&ensp;&ensp;&ensp;By&ensp;<span class="fa fa-user"></span>  {{$ticket->section_head1}}
+                              </span>  
+                              <span style="background-color:rgb(168, 201, 157);border-radius:2px; padding:2px;margin-bottom:10px;">
+                              Update:&ensp; <span class="fa fa-clock"></span> {{$ticket->updated_at->format('m-d H:i:s')}}
+                              </span> 
                           </div>
+                          <br><br>
+                          <div class="col-md-12">
+                             <span class="topheader">Correction Type:
+                            <input type="text" name="Correction_Type" class="form-control1" id="CorrectionType"  value="{{$ticket->Correction_Type}}" style="border: none !important; background:none; font-size:14px; width:80%;" readonly>           
+                            <hr>
+                          </div>
+                
+                          <div class="col-md-4">
+                            @if ($ticket->Record_No  == 'Password Change')
+                            <span class="topheader">System Name</span>
+                            <input type="text" class="form-control1" id="RecordNo" value="{{ $ticket->SystemName}}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
+                            @elseif ($ticket->Correction_Type == 'Endorsement')
+                            <span class="topheader">Policy Number</span>
+                            <input type="text" class="form-control1" id="RecordNo" value="{{ $ticket->Record_No  }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
+                            @else
+                            <span class="topheader">Policy Number</span>
+                            <input type="text" class="form-control1" id="RecordNo" value="{{ $ticket->Record_No }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
+                            @endif 
+                          </div>
+                  
+                          <div class="col-md-4">
+                              @if ($ticket->Correction_Type == 'Renewal')
+                              <span class="topheader">  Renewal No</span>
+                              <input type="text" class="form-control1" id="RequesterName" value="{{ $ticket->RenewalNo }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
+                              @elseif ($ticket->Correction_Type == 'Endorsement' || $ticket->Correction_Type == 'Authorization For Bypass of Cancellation')
+                              <span class="topheader">Endorsement No</span>
+                              <input type="text" class="form-control1" id="RequesterName" value="{{ $ticket->EndorsementNo }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
+                              @else
+                              @endif
+                          </div>
+                          @if ($ticket->Correction_Type == 'Authorization For Bypass of Cancellation')
+                            <div class="col-md-4">
+                              <span class="topheader">Endorsement Code</span>
+                              <input type="text" class="form-control1" id="RequesterName" value="{{ $ticket->Endorsement_Code }} "style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
+                            </div>
+                          @else
+                          @endif
+                          <hr>
+                        </div>
+                  
                       </div>
                    
                       
                       <div class="form-row topform" style="border-top:1px solid rgb(203, 203, 203);">
                         <span class="topheader">Ticket Details:</span>
-                        <textarea class="form-control" name="Correction_Details" id="CorrectionDetails" rows="8"  style="border: none !important; background:none; font-size:14px; width:80%;" readonly>{{$ticket->Correction_Details}}</textarea>
+                        <textarea class="form-control" name="Correction_Details" id="CorrectionDetails" rows="4"  style="border: none !important; background:none; font-size:14px; width:80%;" readonly>{{$ticket->Correction_Details}}</textarea>
                       </div>
                       <div class="form-row topform" style="border-top:1px solid rgb(203,203,203);">
                         <span class="topheader">Attachments:</span>&ensp;&ensp;

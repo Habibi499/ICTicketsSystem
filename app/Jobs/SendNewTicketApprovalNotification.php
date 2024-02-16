@@ -29,20 +29,21 @@ class SendNewTicketApprovalNotification implements ShouldQueue
     }
 
 
-    /**
-     * Execute the job.
-     */
     public function handle(): void
     {
-        
-      // Get all users with role_id 2 in the same department
-      $approvers = User::where('department_id', $this->user->department_id)
-      ->where('role_id', 2)
-      ->get();
+        // Get the chosen approver's user
+        $approverUserId = $this->ticket->HodApproverName;
 
-        // Send the notification to each approver
-        foreach ($approvers as $approver) {
+        // Fetch the user with the specified id
+        $approver = User::find($approverUserId);
+
+        // Check if the approver has rights
+        if ($approver && $approver->role_id == 2) {
+            // Send the notification to the specified approver
             Notification::send($approver, new NewPasswordChangeApprovalNotification($this->ticket, $this->user));
-     }  
+        } else {
+            Log::error("Error sending notification. Approver not found or incorrect role_id. Ticket ID: {$this->ticket->id}");
+        }
     }
+
 }

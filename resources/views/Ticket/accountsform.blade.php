@@ -82,7 +82,7 @@
               <div class="col-md-4">
                <div class="form-group">
                    <label for="correctionType">Correction Type</label>
-                   <select class="form-control" id="correctionType" name="Correction_Type">
+                   <select class="form-control" id="correctionType" name="Correction_Type" required>
                      <option value="">----Select Type-----</option>
                    </select>
                  
@@ -92,7 +92,7 @@
                       <div class="col-md-4">
                      <div class="form-group">
                          <label for="dropdown3">Category</label>
-                         <select class="form-control" id="dropdown3" name="correction_sub_category">
+                         <select class="form-control" id="dropdown3" name="correction_sub_category" >
                            <option value="">Select Type</option>
                          </select>
                      </div>
@@ -102,7 +102,7 @@
            
                <div class="col-md-6" id="paymentmodeField">
                 <label for="dropdown4">Payment Mode</label>
-                <select id="dropdown4" name="Payment-Mode" class="form-control hidden">
+                <select id="dropdown4" name="Payment_Mode" class="form-control hidden">
                     <option value="">----Select Payment Mode-----</option>
                 </select>
             </div>
@@ -112,7 +112,14 @@
                 <label for="chequeNumber">Cheque Number</label>
                 <input type="text" name="chequeNumber" class="form-control" id="chequeNumber" placeholder="Cheque Number" value="{{ old('chequeNumber') }}">
                 </div>
-                
+
+                <div class="col-md-6" id="chequePrintedField" class="form-group hidden">
+                  <label for="chequeNumber">Is Cheque Printed?</label>
+                   <select name="Check-Status" class="form-control">Cheque Status
+                   <option value="printed">Printed</option>
+                   <option value="Not Printed">Not Printed</option>
+                  </select>
+               </div>
                 <div class="col-md-6" id="ReferenceNumberField" class="form-group hidden">
                 <label for="ReferenceNumber">Reference Number</label>
                 <input type="text" name="ReferenceNumber" class="form-control" id="ReferenceNumber" placeholder="Refence Number" value="{{ old('ReferenceNumber') }}">
@@ -120,7 +127,8 @@
 
                  <div class="col-md-6" id="paymentVoucherField" class="hidden">
                     <label for="paymentVoucher">Payment Voucher Number</label>
-                    <input type="text" name="pvNumber" class="form-control" id="paymentVoucher" placeholder="Payment Voucher Number" value="{{ old('PettycashVoucher') }}">
+                    <input type="text" name="pvNumber" class="form-control" id="paymentVoucher" 
+                    placeholder="Payment Voucher Number" value="{{ old('PettycashVoucher') }}" maxlength="6">
                  </div>
 
                  <div class="col-md-6" id="DrCrNoteField" class="hidden">
@@ -133,15 +141,37 @@
                     <input type="text" name="PettyCashVoucherNum" class="form-control" id="PettyCashNumber" placeholder="Enter Petty Cash Voucher Number" value="{{ old('PettyCashVoucherNum') }}">
                  </div>
 
-                 <div class="col-md-12" id="ReversalNoField" class="hidden">
+                 <div class="col-md-6" id="ReversalNoField" class="hidden">
                     <label for="ReversalNo">Reversal Number</label>
                     <input type="text" name="ReversalNo" class="form-control" id="ReversalNo" placeholder="Enter Reversal Number" value="{{ old('ReversalNo') }}">
                  </div>
 
                  <div class="col-md-12" id="ReceiptNoField" class="hidden">
                     <label for="ReceiptNo">Receipt Number</label>
-                    <input type="text" name="ReceiptNo" class="form-control" id="ReceiptNo" placeholder="Enter Receipt Number" value="{{ old('Enter Debit/Credit Note Number') }}">
+                    <input type="text" name="ReceiptNo" class="form-control" id="ReceiptNo" placeholder="Enter Receipt Number" 
+                    value="{{ old('Enter Debit/Credit Note Number') }}" maxlength="6">
                  </div>
+
+                 <div class="col-md-12" id="JVNoField" class="hidden">
+                     <label for="JVNo">Journal Voucher Number</label>
+                     <input type="text" name="JVNumber" class="form-control" id="JVNo" placeholder="Enter JV Number" value="{{ old('JVNo') }}" maxlength="6">
+                  </div>
+
+                  <div class="col-md-12" id="DemandNoteNoField" class="hidden">
+                     <label for="JVNo">Demand Note Number</label>
+                     <input type="text" name="DemandNoteNo" class="form-control" id="DemandNoteNo" placeholder="Demand Note Number" value="{{ old('DemandNoteNo') }}">
+                  </div>
+
+                  <div class="col-md-6" id="ReversalDateField" class="hidden">
+                     <label for="ReversalDate">Enter Date to Which it should be Reversal</label>
+                     <input type="date" name="ReversalDate" class="form-control" id="ReversalDate"  value="{{ old('ReversalDate') }}">
+                  </div>
+
+                  <div class="col-md-12" id="ReportNameField" class="hidden">
+                     <label for=" ReportName">Report Name</label>
+                     <input type="text" name=" ReportName" class="form-control" id=" ReportName" placeholder="Enter Report Name" value="{{ old(' ReportNameF') }}">
+                  </div>
+                 
               </div>
      
                <div class="form-row">
@@ -168,12 +198,17 @@
                   @enderror
                </div>
                <div class="mb-3">
-                  <label for="formFile" class="form-label">Attachment</label>
-                  <input class="form-control" type="file" id="formFile" name="documents" value="{{old('documents')}}" >
+                  <label for="formFile" class="form-label">Please add supporting document(s)</label>
+                  <input class="form-control" type="file" id="formFile" name="documents[]" value="{{old('documents')}}"  multiple>
                   @error('documents')
                   <span class="text-danger">{{$message}}</span>
                   @enderror
                </div>
+               @if (session('document_error'))
+               <div class="alert alert-danger">
+                  {{ session('document_error') }}
+               </div>
+               @endif
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
@@ -291,27 +326,27 @@ correctionCategory.addEventListener("change", function () {
    dropdown4.innerHTML = ""; // Clear the third dropdown
    if (selectedCategory === "transactions") {
       // Populate the second dropdown based on the 'transactions' category
-      const transactionTypes = ["--Please Select--", "Payments", "Receipts", "Petty-Cash", "Debit-or-Credit-Notes", "Journal-Voucher"];
+      const transactionTypes = ["--Please Select--", "Payments", "Receipts", "Petty-Cash", "Debit-or-Credit-Notes", 
+      "Journal-Voucher"];
       transactionTypes.forEach(type => {
          const option = document.createElement("option");
          option.text = type;
          correctionType.add(option);
       });
    } else if (selectedCategory === "property") {
-      const propertyTypes = ["--Please Select--","Property-Receipts", "Property-Payments", "Property-Payment-Reversals"];
+      const propertyTypes = ["--Please Select--","Property-Receipts", "Property-Payments", "Property-Payment-Reversals", "Property-Approval-Sheet","Rent-Demand-Note","Journal"];
       propertyTypes.forEach(type => {
          const option = document.createElement("option");
          option.text = type;
          correctionType.add(option);
       });
    } else if (selectedCategory === "reports") {
-      const reportOption = document.createElement("option");
-      reportOption.text = "Reports";
-      correctionType.add(reportOption);
-
-      const reportOption2 = document.createElement("option");
-      reportOption2.text = "Reports";
-      dropdown3.add(reportOption2);
+      const reportTypes = ["--Please Select--","Reports"];
+      reportTypes.forEach(type => {
+         const option = document.createElement("option");
+         option.text = type;
+         correctionType.add(option);
+      });
    }
 });
 
@@ -343,8 +378,16 @@ correctionType.addEventListener("change", function () {
          dropdown3.add(option);
       });
    } else if (selectedType === "Debit-or-Credit-Notes") {
-      const debitCreditNoteSubTypes = ["Other-Dr-Cr-Notes", "Policy-Related-Dr-Cr-Notes"];
+      const debitCreditNoteSubTypes = ["---Please Select---","Approval-Sheet","Other-Dr-Cr-Notes", "Policy-Related-Dr-Cr-Notes"];
       debitCreditNoteSubTypes.forEach(type => {
+         const option = document.createElement("option");
+         option.text = type;
+         dropdown3.add(option);
+      });
+   }
+    else if (selectedType === "Journal-Voucher") {
+      const JVSubTypes = ["---Please Select---","JV Accounts", "JV Statements"];
+      JVSubTypes.forEach(type => {
          const option = document.createElement("option");
          option.text = type;
          dropdown3.add(option);
@@ -376,6 +419,30 @@ correctionType.addEventListener("change", function () {
          dropdown3.add(option);
       });
    }
+   else if (selectedType === "Rent-Demand-Note") {
+      const PropertypaymentsSubTypes = ["----Select---","Rent-Demand-Note"];
+      PropertypaymentsSubTypes.forEach(type => {
+         const option = document.createElement("option");
+         option.text = type;
+         dropdown3.add(option);
+      });
+   }
+   else if (selectedType === "Journal") {
+      const JVSubTypes = ["---Please Select---","Journal Voucher"];
+      JVSubTypes.forEach(type => {
+         const option = document.createElement("option");
+         option.text = type;
+         dropdown3.add(option);
+      });
+   }
+   else if (selectedType === "Reports") {
+      const JVSubTypes = ["---Please Select---","Reports"];
+      JVSubTypes.forEach(type => {
+         const option = document.createElement("option");
+         option.text = type;
+         dropdown3.add(option);
+      });
+   }
 });
 
 dropdown3.addEventListener("change", function () {
@@ -394,9 +461,9 @@ dropdown3.addEventListener("change", function () {
 
 });
 
-
 // Hide all  by default
 $('#chequeNumberField').addClass('hidden');
+$('#chequePrintedField').addClass('hidden');
 $('#ReferenceNumberField').addClass('hidden');
 $('#paymentVoucherField').addClass('hidden');
 $('#DrCrNoteField').addClass('hidden');
@@ -405,7 +472,11 @@ $('#paymentmode').addClass('hidden');
 $('#PettyCashField').addClass('hidden');
 $('#Reports').addClass('hidden');
 $('#ReversalNoField').addClass('hidden');
+$('#ReversalDateField').addClass('hidden');
 $('#ReceiptNoField').addClass('hidden');
+$('#JVNoField').addClass('hidden');
+$('#DemandNoteNoField').addClass('hidden');
+$('#ReportNameField').addClass('hidden');
 
 $('#correctionType').change(function () {
    var selectedCorrectionType = $(this).val();
@@ -415,40 +486,79 @@ $('#correctionType').change(function () {
       $('#dropdown4').removeClass('hidden');
       $('#chequeNumberField').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#PettyCashField').addClass('hidden');
       $('#DrCrNoteField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
       $('#ReceiptNoField').addClass('hidden');
-      
-   }else if (selectedCorrectionType === 'Property-Receipts') {
+      $('#JVNoField').addClass('hidden');
+      $('#DemandNoteNoField').addClass('hidden');
+      $('#ReversalNoField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
+   }
+   else if(selectedCorrectionType === 'Property-Payment-Reversals'){
+      $('#paymentmode').removeClass('hidden');
+      $('#paymentmodeField').removeClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
+      $('#dropdown4').removeClass('hidden');
+      $('#ReversalDateField').removeClass('hidden');
+      $('#chequeNumberField').addClass('hidden');
+      $('#ReferenceNumberField').addClass('hidden');
+      $('#PettyCashField').addClass('hidden');
+      $('#DrCrNoteField').addClass('hidden');
+      $('#ReversalNoField').addClass('hidden');
+      $('#ReceiptNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#DemandNoteNoField').addClass('hidden');
+      $('#ReversalNoField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
+   }
+   else if (selectedCorrectionType === 'Property-Receipts') {
      $('#ReceiptNoField').removeClass('hidden');
       $('#dropdown4').addClass('hidden');
       $('#chequeNumberField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
       $('#paymentmodeField').addClass('hidden');
       $('#PettyCashField').addClass('hidden');
       $('#DrCrNoteField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
-      
+      $('#JVNoField').addClass('hidden');
+      $('#DemandNoteNoField').addClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
    }else if (selectedCorrectionType === 'Payments') {
       $('#dropdown4').removeClass('hidden');
       $('#chequeNumberField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
       $('#paymentmodeField').removeClass('hidden');
       $('#PettyCashField').addClass('hidden');
       $('#DrCrNoteField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
       $('#ReceiptNoField').addClass('hidden');
+      $('#DemandNoteNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
    } else if (selectedCorrectionType === 'Debit-or-Credit-Notes') {
       $('#DrCrNoteField').removeClass('hidden');
       $('#paymentmodeField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#chequeNumberField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#PettyCashField').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
+      $('#ReceiptNoField').addClass('hidden');
+      $('#DemandNoteNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
    } else if (selectedCorrectionType === 'Petty-Cash') {
       $('#PettyCashField').removeClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#chequeNumberField').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
@@ -457,48 +567,96 @@ $('#correctionType').change(function () {
       $('#DrCrNoteField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
       $('#ReceiptNoField').addClass('hidden');
-   } else if (selectedCorrectionType === 'Journal-Voucher') {
+      $('#DemandNoteNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
+   } else if (selectedCorrectionType === 'Journal-Voucher' || selectedCorrectionType === 'Journal') {
       $('#PettyCashField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#chequeNumberField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
       $('#paymentmodeField').addClass('hidden');
       $('#dropdown4').addClass('hidden');
       $('#DrCrNoteField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
       $('#ReceiptNoField').addClass('hidden');
+      $('#DemandNoteNoField').addClass('hidden');
+      $('#JVNoField').removeClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
    }else if (selectedCorrectionType === 'Receipts') {
       $('#ReceiptNoField').removeClass('hidden');
       $('#PettyCashField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#paymentmodeField').addClass('hidden');
       $('#dropdown4').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
+      $('#DemandNoteNoField').addClass('hidden');
+      $('#DrCrNoteField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
    }
    else if (selectedCorrectionType === 'Receipts' && selectedType === 'Others') {
     $('#ReceiptNoField').removeClass('hidden');
     $('#PettyCashField').addClass('hidden');
+    $('#chequePrintedField').addClass('hidden');
     $('#paymentVoucherField').addClass('hidden');
     $('#paymentmodeField').addClass('hidden');
     $('#dropdown4').addClass('hidden');
     $('#ReferenceNumberField').addClass('hidden');
     $('#ReversalNoField').addClass('hidden');
+    $('#ReversalDateField').addClass('hidden');
+    $('#DemandNoteNoField').addClass('hidden');
+    $('#DrCrNoteField').addClass('hidden');
+    $('#JVNoField').addClass('hidden');
+    $('#ReportNameField').addClass('hidden');
 }
    else if (selectedCorrectionType === 'Reports') {
+      $('#ReportNameField').removeClass('hidden');
       $('#PettyCashField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
+      $('#chequeNumberField').addClass('hidden');
       $('#paymentmodeField').addClass('hidden');
       $('#dropdown4').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
+      $('#ReceiptNoField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
+      $('#DemandNoteNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#DrCrNoteField').addClass('hidden');
+   }
+   else if (selectedCorrectionType === 'Rent-Demand-Note') {
+      $('#PettyCashField').addClass('hidden');
+      $('#paymentVoucherField').addClass('hidden');
+      $('#paymentmodeField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
+      $('#dropdown4').addClass('hidden');
+      $('#ReferenceNumberField').addClass('hidden');
+      $('#ReversalNoField').addClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#DemandNoteNoField').removeClass('hidden');
+      $('#ReportNameField').addClass('hidden');
+      $('#DrCrNoteField').addClass('hidden');
    }
      
    else {
       $('#chequeNumberField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#DemandNoteNoField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
+      $('#DrCrNoteField').addClass('hidden');
    }
 });
 
@@ -506,26 +664,53 @@ $('#dropdown3').change(function () {
    var selectedType = $(this).val();
    if (selectedType === 'Reversal-of-Reversal') {
     $('#ReversalNoField').removeClass('hidden');
+    $('#ReversalDateField').removeClass('hidden');
       $('#chequeNumberField').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#paymentmodeField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#DrCrNoteField').addClass('hidden');
    }
    
-   else if (selectedType === "Policy-Related" || selectedType === "Others" || selectedType === "Payment-Reversal"){
+   else if (selectedType === "Policy-Related" || selectedType === "Others"){
     $('#paymentmodeField').removeClass('hidden');
+    $('#ReferenceNumberField').removeClass('hidden');
+    $('#ReversalDateField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#chequeNumberField').addClass('hidden');
-      $('#ReferenceNumberField').removeClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
-   }   else if (selectedType === "Approval-Sheet"){
+      $('#JVNoField').addClass('hidden');
+      $('#DrCrNoteField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
+   }  
+   else if(selectedType === "Payment-Reversal"){
+      $('#paymentmodeField').removeClass('hidden');
+      $('#ReferenceNumberField').removeClass('hidden');
+      $('#ReversalDateField').removeClass('hidden');
+      $('#paymentVoucherField').addClass('hidden');
+      $('#chequeNumberField').addClass('hidden');
+      $('#paymentVoucherField').addClass('hidden');
+      $('#ReversalNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#DrCrNoteField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
+
+   }
+   
+      else if (selectedType === "Approval-Sheet"){
     $('#paymentmodeField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#chequeNumberField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#ReportNameField').addClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
    }
 
    
@@ -535,19 +720,26 @@ $('#dropdown4').change(function () {
    var selectedPaymentMode = $(this).val();
    if (selectedPaymentMode === 'Cheque') {
       $('#chequeNumberField').removeClass('hidden');
+      $('#chequePrintedField').removeClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
-      $('#paymentVoucherField').addClass('hidden');
+      $('#paymentVoucherField').removeClass('hidden');
       $('#ReversalNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
    } else if (selectedPaymentMode === 'Cash') {
       $('#chequeNumberField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#ReferenceNumberField').removeClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
    } else {
       $('#chequeNumberField').addClass('hidden');
+      $('#chequePrintedField').addClass('hidden');
       $('#ReferenceNumberField').addClass('hidden');
       $('#paymentVoucherField').addClass('hidden');
       $('#ReversalNoField').addClass('hidden');
+      $('#JVNoField').addClass('hidden');
+      $('#ReversalDateField').addClass('hidden');
    }
 }); 
 </script>

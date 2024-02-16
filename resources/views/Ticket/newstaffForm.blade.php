@@ -1,315 +1,608 @@
-@extends('layouts.app')
-@section('content')
-<style>
-   .error{
-   color:red !important;
-   }
+@extends('layouts.app') @section('content') <style>
    .hidden {
-    display: none;
-}
-
+     display: none;
+   }
+    
+   .category-checkbox {
+     margin-bottom: 5px;
+   }
+    
+   .crud-checkbox {
+     margin-bottom: 5px;
+     margin-right: 2%;
+   }
+    
+   .card-success {
+     max-height: 700px;
+     max-width: 90%;
+     overflow-x: auto;
+   }
 </style>
-<!-- Content Header (Page header) -->
-<div class="content-header">
-   <div class="container-fluid">
-      <div class="row mb-2">
-         <div class="col-sm-6">
-            <h5 class="m-0">New Staff Form</h5>
-         </div>
-         <!-- /.col -->
-         <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-               <li class="breadcrumb-item"><a href="{{route('ticket.index')}}">Home</a></li>
-               <li class="breadcrumb-item">New Staff Form</li>
-            </ol>
-         </div>
-         <!-- /.col -->
-      </div>
-      <!-- /.row -->
-   </div>
-   <!-- /.container-fluid -->
-</div>
-<!-- /.content-header -->
-<div class="container-fluid">
-   <div class="row justify-content-center">
-      <!-- left column -->
-      <div class="col-md-8">
-         <div class="card card-success">
-            <!-- /.card-header -->
-            <!-- form start -->
-            <form id="TicketForm" action="{{route("ticket.post")}}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="card-body">
-               <div class="form-row">
-                  <div class="col-md-6">
-                     <div class="form-group">
-                        <label for="RequesterName">Requested By</label>
-                        <input type="text" name="section_head1" class="form-control" id="RequesterName" value=" {{ Auth::user()->name }}" readonly>           
-                     </div>
-                  </div>
-              
-               </div>
-               <div class="form-row">
-                  
-                  <div class="col-md-4">
-                     <div class="form-group">
-                         <label for="CorrectionCategory">Correction Category</label>
-                         <select class="form-control" id="CorrectionCategory" name="CorrectionCategory">
-                             <option value="">---Select---</option>
-                             <option value="Underwriting" @if(old('CorrectionCategory') == 'Underwriting') selected @endif>Underwriting</option>
-                             <option value="Marine" @if(old('CorrectionCategory') == 'Marine') selected @endif>Marine</option>
-                             <option value="Re-Insurance" @if(old('CorrectionCategory') == 'Re-Insurance') selected @endif>Re-Insurance</option>
-                         </select>
-                         @error('CorrectionCategory')
-                         <span class="text-danger">{{ $message }}</span>
-                         @enderror
-                     </div>
-                 </div>
-                 <div class="col-md-4">
-                     <div class="form-group">
-                         <label for="CorrectionType">Correction Type</label>
-                         <select class="form-control" id="CorrectionType" name="Correction_Type">
-                             <option value="">---Select---</option>
-                             <option value="NewBusiness" @if(old('Correction_Type') == 'New Business') selected @endif>New Business</option>
-                             <option value="Renewal" @if(old('Correction_Type') == 'Renewal') selected @endif>Renewal</option>
-                             <option value="Endorsement" @if(old('Correction_Type') == 'Endorsement') selected @endif>Endorsements</option>
-                         </select>
-                         @error('Correction_Type')
-                         <span class="text-danger">{{ $message }}</span>
-                         @enderror
-                     </div>
-                 </div>
-                  <div class="col-md-4">
-                     <div class="form-group">
-                        <label for="Ticket_Urgency">Urgency/priority</label>
-                        <select class="form-control" id="Ticket_Urgency" name="Ticket_Urgency">
-                           <option value="Low">Low</option>
-                           <option value="Medium">Medium</option>
-                           <option value="High">High</option>
-                        </select>
-                     </div>
-                  </div>
-
-            
-               </div>
-               <div class="form-row">
-                  <div class="col-md-6" id="RecordNoField">
-                    
-                        
-                     <label for="RecordNo">Policy Code</label>
-                     <input type="text" name="Record_No" class="form-control" id="RecordNo" placeholder="Record No" value="{{old('Record_No')}}">
-                     @error('Record_No')
-                     <span class="text-danger">{{ $message }}</span>
-                     @enderror
-                 
-               </div>
-                  <div class="col-md-6">
-               <div id="endorsementField" class="hidden">
-                  <label for="endorsementNumber">Endorsement Number:</label>
-                  <input type="text" class="form-control" id="endorsementNumber" name="EndorsementNo">
-              </div>
-            
-             
-                        <div id="renewalField" class="hidden">
-                              <label for="renewalNumber">Renewal Number:</label>
-                              <input type="text" class="form-control" id="renewalNumber" name="RenewalNo" >
-                           
-                        </div>
-                  </div>
-              </div>
-              <div class="form-row">
-               <div class="col-md-6">
-                  <div id="accountsField" class="hidden">   
-                     <label for="pvNumber">PV Number:</label>
-                      <input type="text" class="form-control" id="pvNumber" name="pvNumber" placeholder="Enter PV Number">
-                  </div>
-               </div>
-               <div class="col-md-6">
-                     <div id="pvTypeField" class="hidden">
-                           <label for="pvType">PV Type:</label>
-                         
-                           <select class="form-control" id="pvType" name="pvType">
-                              <option value="">---Select---</option>
-                              <option value="Policy Related">Policy Related</option>
-                              <option value="Property Related">Property Related</option>
-                           </select>
-                     </div>
-               </div>
-             </div>
+<div class="container mt-4 ">
+    <div class="col-md-12 mx-auto">
+        <P class="text-success mt-4"><strong>System Rights Requisition Form</strong></p>
+    </div>
+   <div class="card card-success mt-5">
+    <form method="POST" action="{{ route('submitForm') }}">
+        @csrf
+            <div class="form-row ml-4 mr-5">
+                <div class="col-md-4">
+                   <div class="form-group">
+                      <label for="RequesterName">Requested By</label>
+                      <input type="text" name="Requester_Name" class="form-control" id="RequesterName" value=" {{ Auth::user()->name }}" readonly>           
+                   </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="RequesterName">Requested For</label>
+                    <input type="text" name="Requested_For" class="form-control" id="RequesterName" placeholder="Name of person Requiring Rights" required>           
+                    <input type="text" name="departmentID" class="form-control" id="HOD" value="{{Auth::user()->department_id}}" hidden>
+                    <input type="text" name="Department" class="form-control" id="HOD" value="{{$departmentName}}" hidden>
+                    <input type="text" name="Section_Head" class="form-control" id="HOD" value="{{ $headOfDepartment}}" hidden>
+                     <input type="text" name="UserID" class="form-control" id="HOD"  value="{{Auth::user()->id }}" hidden>
+                    </div>
+                <div class="col-md-4">
            
-             <div id="claimsField" class="hidden">
-               <label for="claimsField">Claim Number</label>
-               <input type="text" class="form-control" id="claimNumber" name="claimNumber" >
-             </div>
-
-          
-               <div class="form-row">
-                  <div class="col">
-                     <div class="form-group">
-                        <label for="CorrectionDetails">What is Required</label>
-                        <textarea class="form-control" name="Correction_Details" id="CorrectionDetails" rows="2" >{{old('Correction_Details')}}</textarea>
-                     </div>
-                     @error('Correction_Details')
-                     <span class="text-danger">{{$message}}</span>
-                     @enderror
-                  </div>
-               </div>
+                    <label for="approver">Select Approver</label>
+                    <select class="form-control" id="HodApprovalName" name="HodApproverName" required>
+                       <option value="">---Select---</option>
+                       @foreach($approvers as $approver)
+                       <option value="{{$approver->id}}">{{$approver->name}}</option>
+                       
+                       @endforeach
+                    </select>
+                    @error('HodApprovalName')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                      <!-- Add a hidden input field for the approver name -->
                <div class="form-group">
-                  <label for="approver">Select Approver</label>
-                  <select class="form-control" id="HodApprovalName" name="HodApproverName">
-                     <option value="">---Select---</option>
-                     @foreach($approvers as $approver)
-                     <option value="{{$approver->id}}">{{$approver->name}}</option>
-                     @endforeach
-                  </select>
-                  @error('HodApprovalName')
-                  <span class="text-danger">{{$message}}</span>
-                  @enderror
-               </div>
-               <div class="mb-3">
-                  <label for="formFile" class="form-label">Attachment</label>
-                  <input class="form-control" type="file" id="formFile" name="documents" value="{{old('documents')}}" >
-                  @error('documents')
-                  <span class="text-danger">{{$message}}</span>
-                  @enderror
-               </div>
+                <label for="hiddenApproverName" style="display: none;">Hidden Approver Name</label>
+                <input type="hidden" id="hiddenApproverName" name="hiddenApproverName" value="">
+             </div>
+             </div>
+       <ul class="nav nav-tabs " id="myTabs">
+           <li class="nav-item">
+               <a class="nav-link active" id="tab1" data-toggle="tab" href="#contentTab1">New Business</a>
+           </li>
+           <li class="nav-item">
+               <a class="nav-link" id="tab2" data-toggle="tab" href="#contentTab2">Endorsements</a>
+           </li>
+           <li class="nav-item">
+               <a class="nav-link" id="tab3" data-toggle="tab" href="#contentTab3">Renewals</a>
+           </li>
+           <li class="nav-item">
+               <a class="nav-link" id="tab3" data-toggle="tab" href="#contentTab4">Matatu</a>
+           </li>
+           <li class="nav-item">
+                <a class="nav-link" id="tab3" data-toggle="tab" href="#contentTab5">U/W Reports</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab6" data-toggle="tab" href="#contentTab6">Accounts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab7" data-toggle="tab" href="#contentTab7">Claims</a>
+            </li>
+       </ul>
+       <div class="tab-content">
+    
+     
+           <div class="tab-pane fade show active" id="contentTab1">
+            <div class="row ml-4">
+                <!-- Motor Category -->
+                <div class="col-md-2">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="motorCheckbox" name="vehicleType[]" value="MOTOR">
+                        <label class="form-check-label" for="motorCheckbox">Motor</label>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                
+                     
+                     <div id="motorDetails" class="hidden">
+                         
+                     </div>
+                </div>
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-               <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-            </form>
-            <!-- Request to Submit Form or Not -->
-            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-               <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                     </div>
-                     <div class="modal-body">
-                        Are you sure you want to submit this form?
-                     </div>
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                        <button type="button" class="btn btn-primary" id="confirmButton">Yes</button>
-                     </div>
+               <!-- Fire Category -->
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="fireCheckbox" name="vehicleType[]" value="FIRE">
+                           <label class="form-check-label" for="fireCheckbox">Fire</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="fireDetails" class="hidden">
+                           <!-- Fire Categories -->
+                       </div>
+                   </div>
+               </div>
+               <!-- Misc Category -->
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="MiscCheckbox" name="vehicleType[]" value="Misc">
+                           <label class="form-check-label" for="MiscCheckbox">Misc</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="MiscDetails" class="hidden">
+                           <!-- Misc Categories -->
+                       </div>
+                   </div>
+               </div>
+               <!-- Marine Category -->
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="marineCheckbox" name="vehicleType[]" value="MARINE">
+                           <label class="form-check-label" for="marineCheckbox">Marine</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="marineDetails" class="hidden">
+                           <!-- Marine Categories -->
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="tab-pane fade" id="contentTab2">
+               <div class="row ml-4">
+                   <!-- Motor Category Endorsement -->
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="motorEndorsementCheckbox" name="vehicleType[]" value="MOTOR ENDORSEMENTS">
+                           <label class="form-check-label" for="motorEndorsementCheckbox">Motor Endorsement</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="motorEndorsementDetails" class="hidden"></div>
+                   </div>
+               </div>
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="fireEndorsementCheckbox" name="vehicleType[]" value="FIRE Endorsements">
+                           <label class="form-check-label" for="fireEndorsementCheckbox">Fire Endorsement</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="fireEndorsementDetails" class="hidden">
+                           <!-- Fire Endorsement Categories -->
+                       </div>
+                   </div>
+               </div>
+               <!-- Miscellaneous Category -->
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="miscellaneousCheckbox" name="vehicleType[]" value="Miscellaneous Endorsements">
+                           <label class="form-check-label" for="miscellaneousCheckbox">Miscellaneous Endorsements</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="miscellaneousDetails" class="hidden">
+                           <!-- Miscellaneous Categories -->
+                       </div>
+                   </div>
+               </div>
+               <!-- Marine Endorsements Category -->
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="marineEndorsementsCheckbox" name="vehicleType[]" value="Marine Endorsements">
+                           <label class="form-check-label" for="marineEndorsementsCheckbox">Marine Endorsements</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="marineEndorsementsDetails" class="hidden"></div>
+                   </div>
+               </div>
+           </div><!----Tab 2------>
+
+           <div class="tab-pane fade" id="contentTab3">
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="listingCheckbox" name="vehicleType[]" value="Renewal listing">
+                           <label class="form-check-label" for="listingCheckbox">Listing</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="listingDetails" class="hidden"></div>
+                   </div>
+               </div>
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="noticeCheckbox" name="vehicleType[]" value="Renewal notice">
+                           <label class="form-check-label" for="noticeCheckbox">Notice</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="noticeDetails" class="hidden"></div>
+                   </div>
+               </div>
+               <!-- ProcessMotor Category -->
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="processMotorCheckbox" name="vehicleType[]" value="Renewal Process Motor">
+                           <label class="form-check-label" for="processMotorCheckbox">ProcessMotor</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="processMotorDetails" class="hidden">
+
+                       </div>
+                   </div>
+               </div>
+               <!-- ProcessFire Category -->
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="processFireCheckbox" name="vehicleType[]" value="Renewal process Fire">
+                           <label class="form-check-label" for="processFireCheckbox">ProcessFire</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="processFireDetails" class="hidden"></div>
+                   </div>
+               </div>
+               <!-- ProcessMiscellaneous-->
+               <div class="row ml-4">
+                   <div class="col-md-2">
+                       <div class="form-check">
+                           <input type="checkbox" class="form-check-input" id="processMiscellaneousCheckbox" name="vehicleType[]" value="Renewal Process Miscellaneous">
+                           <label class="form-check-label" for="processMiscellaneousCheckbox">ProcessMiscellaneous</label>
+                       </div>
+                   </div>
+                   <div class="col-md-10">
+                       <div id="processMiscellaneousDetails" class="hidden">
+
+                       </div>
+                   </div>
+               </div>
+           </div><!--Tab 3--->
+
+           <div class="tab-pane fade" id="contentTab4">
+               <div class="row ml-4"> <!---Matatus--->
+                  <div class="col-md-3">
+                  <div class="form-check">
+                     <input type="checkbox" class="form-check-input" id="matatuNewBusinessCheckbox" 
+                     name="vehicleType[]" value="matatuNewBusiness">
+                     <label class="form-check-label" for="matatuNewBusinessCheckbox">MatatuNewBusiness</label>
+                  </div>
+                  </div>
+                  <div class="col-md-9">
+                  <div id="matatuNewBusinessDetails" class="hidden">
+                     
+                  </div>
                   </div>
                </div>
-            </div>
-            <!--Saving Page Contents-->
-            <!-- HTML for your loading modal -->
-            <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel">
-               <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <h5 class="modal-title" id="loadingModalLabel">Submitting your Request...</h5>
-                     </div>
-                     <div class="modal-body">
-                        <div class="spinner-border" role="status"><span class="sr-only"></span></div>
-                        Saving...
-                     </div>
+               
+               <div class="row ml-4"><!-- MatatuRenewals Categories -->
+                  <div class="col-md-3">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="matatuRenewalsCheckbox"
+                       name="vehicleType[]" value="matatuRenewals">
+                      <label class="form-check-label" for="matatuRenewalsCheckbox">MatatuRenewals</label>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div id="matatuRenewalsDetails" class="hidden">
+                   
+                    </div>
                   </div>
                </div>
-            </div>
-            <!--Loading Icon-->
-         </div>
-         <!-- /.card -->
-      </div>
-      <!--/.col (left) -->
-      <!-- right column -->
-      <!--/.col (right) -->
-   </div>
-   <!-- /.row -->
-</div>
-<!-- /.container-fluid -->
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<!-- ... Your previous HTML content ... -->
+               <div class="row ml-4"><!-- MatatuEndorsements Categories -->
+                    <div class="col-md-3">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="matatuEndorsementsCheckbox" 
+                        name="vehicleType[]" value="matatuEndorsements">
+                        <label class="form-check-label" for="matatuEndorsementsCheckbox">MatatuEndorsements</label>
+                    </div>
+                    </div>
+                    <div class="col-md-9">
+                    <div id="matatuEndorsementsDetails" class="hidden">
+                        
+                    </div>
+                    </div>
+                </div>
+            </div><!--Tab 4-->
 
-<!-- Update this script to select the correct dropdown element by its ID -->
-<script>
-   $(document).ready(function() {
-         $('#TicketForm').submit(function(e) {
-             e.preventDefault(); // Prevent the form from submitting initially
+            <div class="tab-pane fade" id="contentTab5"><!-- MotorReports Categories -->
+                <div class="row ml-4">
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="motorReportsCheckbox" name="vehicleType" value="motorReports">
+                            <label class="form-check-label" for="motorReportsCheckbox">New Business MotorReports</label>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div id="motorReportsDetails" class="hidden"> 
 
-             // Validation logic
-             var RecordNo = $('#RecordNo').val();
-             var CorrectionCategory = $('#CorrectionCategory').val();
-             var CorrectionType = $('#CorrectionType').val();
-             var CorrectionDetails = $('#CorrectionDetails').val();
-             var formFile = $('#formFile').val();
-             var HodApprovalName = $('#HodApprovalName').val();
-             var isValid = true;
+                        </div>
+                    </div>
+                </div>
+                <div class="row ml-4"><!-- NewBusinessReports Categories -->
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="newBusinessReportsCheckbox" name="vehicleType[]" value="newBusinessReports">
+                            <label class="form-check-label" for="newBusinessReportsCheckbox">NewBusinessReports</label>
+                        </div>
+                    </div>
+            
+                    <div class="col-md-9">
+                        <div id="newBusinessReportsDetails" class="hidden">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row ml-4">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="bordereauxCheckbox" name="vehicleType[]" value="bordereaux">
+                            <label class="form-check-label" for="bordereauxCheckbox">Bordereaux</label>
+                        </div>
+                    </div>
+            
+                    <div class="col-md-9">
+                        <div id="bordereauxDetails" class="hidden">
+                            <!-- Bordereaux Categories -->
+                        </div>
+                    </div>
+                </div>
 
-             // Check if CorrectionType is empty
-             if (CorrectionType.trim() === '') {
-                 $('#CorrectionType').next('.error').remove();
-                 $('#CorrectionType').after('<span class="error">Please Select the Correction Type</span>');
-                 isValid = false;
-             } else {
-                 $('#CorrectionType').next('.error').remove();
-             }
+                <div class="row ml-4"><!-- BordereauxMarine Categories -->
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="bordereauxMarineCheckbox" name="vehicleType[]" value="bordereauxMarine">
+                            <label class="form-check-label" for="bordereauxMarineCheckbox">BordereauxMarine</label>
+                        </div>
+                    </div>
+            
+                    <div class="col-md-9">
+                        <div id="bordereauxMarineDetails" class="hidden">
+                            
+                        </div>
+                    </div>
+                </div> 
+                <div class="row ml-4">  <!-- EBordereaux Category -->
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="eBordereauxCheckbox" name="vehicleType[]" value="eBordereaux">
+                            <label class="form-check-label" for="eBordereauxCheckbox">Endorsement Bordereaux</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="eBordereauxDetails" class="hidden">
+                            <!-- EBordereaux Categories -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row ml-4"><!-- RenewalBordereaux Category -->
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="renewalBordereauxCheckbox" name="vehicleType[]" value="renewalBordereaux">
+                            <label class="form-check-label" for="renewalBordereauxCheckbox">RenewalBordereaux</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="renewalBordereauxDetails" class="hidden">
+                            <!-- RenewalBordereaux Categories -->
+                        </div>
+                    </div>
+                </div>
+                 <!-- Premium Register Category -->
+                <div class="row ml-4">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="premiumRegisterCheckbox" name="vehicleType[]" value="premiumRegister">
+                            <label class="form-check-label" for="premiumRegisterCheckbox">Premium Register</label>
+                        </div>
+                    </div>
 
-             // Check if CorrectionCategory is empty 
-             if (CorrectionCategory.trim() === '') {
-                 $('#CorrectionCategory').next('.error').remove();
-                 $('#CorrectionCategory').after('<span class="error">Please Select the Correction Category</span>');
-                 isValid = false;
-             } else {
-                 $('#CorrectionCategory').next('.error').remove();
-             }
+                    <div class="col-md-9">
+                        <div id="premiumRegisterDetails" class="hidden">
+                            <!-- Reports Categories -->
+                            <div class="row category-checkbox">
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input reports-category" name="premiumRegisterDetails[]" value="Reports">
+                                        <label class="form-check-label">Reports</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1.5">
+                                    <div class="form-check hidden crud-checkbox ReportsCrud">
+                                        <input type="checkbox" class="form-check-input" name="Print[Reports]" value="Print">
+                                        <label class="form-check-label">Print</label>
+                                    </div>
+                                </div>
+                                <!-- Add other CRUD checkboxes as needed -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--Tab-->
+            <div class="tab-pane fade" id="contentTab6">
+      
+         
+                <div class="row ml-4">
+                    <!-- Transaction Category -->
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="transactionCheckbox" name="vehicleType[]" value="TRANSACTION">
+                            <label class="form-check-label" for="transactionCheckbox">Transaction</label>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div id="transactionDetails" class="hidden">
+                            <!-- Content populated by the JavaScript function populateTransactionCategories() -->
+                        </div>
+                    </div>
+                </div>
 
-             // Check if CorrectionDetails is empty
-             if (CorrectionDetails.trim() === '') {
-                 $('#CorrectionDetails').next('.error').remove();
-                 $('#CorrectionDetails').after('<span class="error">Please provide details of your correction request</span>');
-                 isValid = false;
-             } else {
-                 $('#CorrectionDetails').next('.error').remove();
-             }
+                <div class="row ml-4">
+                    <!-- Property Category -->
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="propertyCheckbox" name="vehicleType[]" value="ACCOUNTS PROPERTY">
+                            <label class="form-check-label" for="propertyCheckbox">Property</label>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div id="propertyDetails" class="hidden">
+                            <!-- Content populated by the JavaScript function -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row ml-4">
+                    <!-- Reports Category -->
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="reportsCheckbox" name="vehicleType[]" value="ACCOUNTS REPORTS">
+                            <label class="form-check-label" for="reportsCheckbox">Reports</label>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div id="reportsDetails" class="hidden">
+                            <!-- Content populated by the JavaScript function -->
+                        </div>
+                    </div>
+                </div>
 
-             // Check if HodApprovalName is empty
-             if (HodApprovalName.trim() === '') {
-                 $('#HodApprovalName').next('.error').remove();
-                 $('#HodApprovalName').after('<span class="error">Please select Correction form Approver</span>');
-                 isValid = false;
-             } else {
-                 $('#HodApprovalName').next('.error').remove();
-             }
+                <div class="row ml-4">
+                    <!-- MIS Category -->
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="misCheckbox" name="vehicleType[]" value="MIS">
+                            <label class="form-check-label" for="misCheckbox">MIS</label>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div id="misDetails" class="hidden">
+                            <!-- Content populated by the JavaScript function -->
+                        </div>
+                    </div>
+                </div>
 
-             // Check if formFile is empty
-             if (formFile.trim() === '') {
-                 $('#formFile').next('.error').remove();
-                 $('#formFile').after('<span class="error">Please note that Attachment document is required</span>');
-                 isValid = false;
-             } else {
-                 $('#formFile').next('.error').remove();
-             }
+                <div class="row ml-4">
+                    <!-- Master Category -->
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="masterCheckbox" name="vehicleType[]" value="Master">
+                            <label class="form-check-label" for="masterCheckbox">Master</label>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div id="masterDetails" class="hidden">
+                            <!-- Content populated by the JavaScript function -->
+                        </div>
+                    </div>
+                </div>
 
-             // Valid Form? , submit it
-             if (isValid) {
-                 // The Bootstrap modal
-                 $('#confirmationModal').modal('show');
+        
+            </div><!--Tab-->
+            <div class="tab-pane fade" id="contentTab7">
+                <div class="row ml-4">
+                    <!-- Claims Category -->
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="claimsCheckbox" name="vehicleType[]" value="Claims">
+                            <label class="form-check-label" for="claimsCheckbox">Claims</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="claimsDetails" class="hidden">
+                            <!-- Content populated by the JavaScript function -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row ml-4">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="claimsReportsCheckbox" name="vehicleType[]" value="ClaimsReports">
+                            <label class="form-check-label" for="claimsReportsCheckbox">Claims Reports->Provisonal Bordereau</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="claimsReportsDetails" class="hidden">
+                            <!-- Content populated by the JavaScript function populateClaimsReportsCategories -->
+                        </div>
+                    </div>
+                </div>
 
-                 // Form Submission
-                 $('#confirmButton').click(function() {
-                     $('#confirmationModal').modal('hide');
-                     // Form is confirmed, submit it
-                     $('#TicketForm')[0].submit();
-                     $('#loadingModal').modal('show');
-                 });
-             }
+                <div class="row ml-4">
+                    <div class="col-md-3">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="claimsPaidBordereauCheckbox" name="vehicleType[]" value="ClaimsPaidBordereau">
+                        <label class="form-check-label" for="claimsPaidBordereauCheckbox">ClaimsReports -> Paid Bordereau</label>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div id="claimsPaidBordereauDetails" class="hidden">
+                        <!-- Content populated by the JavaScript function populateClaimsPaidBordereauCategories -->
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="row ml-4">
+                <div class="col-md-3">
+                    <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="claimsVoucherReportsCheckbox" name="vehicleType[]" value="ClaimsVoucherReports">
+                    <label class="form-check-label" for="claimsVoucherReportsCheckbox">Claims Voucher Reports</label>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div id="claimsVoucherReportsDetails" class="hidden">
+                    <!-- Content populated by the JavaScript function populateClaimsVoucherReportsCategories -->
+                    </div>
+                </div>
+                </div>
+
+                <div class="row ml-4">
+                    <div class="col-md-3">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="illicitClaimsCheckbox" name="vehicleType[]" value="IllicitClaimsReport">
+                        <label class="form-check-label" for="illicitClaimsCheckbox">Illicit Claims Report</label>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div id="illicitClaimsDetails" class="hidden">
+                        <!-- Content populated by the JavaScript function populateIllicitClaimsCategories -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row ml-4">
+                    <div class="col-md-3">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="retailClaimsSummaryReportsCheckbox" name="vehicleType[]" value="RetailClaimsSummaryReports">
+                        <label class="form-check-label" for="retailClaimsSummaryReportsCheckbox">Retail Claims Summary Reports</label>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div id="retailClaimsSummaryReportsDetails" class="hidden">
+                        <!-- Content populated by the JavaScript function populateRetailClaimsSummaryReportsCategories -->
+                      </div>
+                    </div>
+                  </div>
+            </div><!--Tab-->
+        </div>
+        <script>
+            document.getElementById('HodApprovalName').addEventListener('change', function() {
+             var selectedApprover = this.options[this.selectedIndex].text;
+             document.getElementById('hiddenApproverName').value = selectedApprover;
          });
-
-         // Function to validate email format
-         function isValidEmail(email) {
-             var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-             return emailRegex.test(email);
-         }
-     });
-</script>
-
-@endsection
+        </script>
+   
+        <div class="card-footer">
+           <button type="submit" class="btn btn-primary" id="saveButton">Submit</button>
+       </div>
+       
+    </form>
+   </div>
+</div>
+<script src="{{asset('js/systemrightsrequest.js')}}"></script> @endsection

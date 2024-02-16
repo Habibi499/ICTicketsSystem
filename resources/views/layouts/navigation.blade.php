@@ -3,7 +3,8 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-            <a href="{{ route('profile.show') }}" class="d-block">{{ Auth::user()->name }}</a>
+            <a href="#">{{ Auth::user()->name }}</a>
+            <!--<a href="{{ route('profile.show') }}" class="d-block">{{ Auth::user()->name }}</a>-->
         </div>
     </div>
 
@@ -47,18 +48,18 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <span class="nav-link" style="pointer-events: none;">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Accounts/Administration</p>
-                        </span>
-                    </li>
-                    <li class="nav-item">
-                        <span class="nav-link" style="pointer-events: none;">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Claims/legal</p>
-                        </span>
-                    </li>
+                  <li class="nav-item">
+                    <a href="{{route('ticket.accountsform')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Accounts/Administration</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('ticket.claimsform')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Claims/legal </p>
+                    </a>
+                  </li>
                   <li class="nav-item">
                     <a href="{{route('ticket.create')}}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
@@ -75,7 +76,22 @@
                 </ul>
               </li>
 
-       
+              <li class="nav-item">
+                <a href="{{ route('ticket.bypass-of-cancellation') }}" class="nav-link">
+                    <i class="nav-icon fas fa-ban"></i>
+                    <p>
+                        {{ __('Authorization for Bypass Of Cancellation') }}
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('ticket.Reinstate-Policy') }}" class="nav-link">
+                    <i class="nav-icon fa fa-plus-circle"></i>
+                    <p>
+                        {{ __('Policy Reinstatement') }}
+                    </p>
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a href="{{ route('ticket.index') }}" class="nav-link">
@@ -103,7 +119,6 @@
                     </p>
                 </a>
             </li>
-
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

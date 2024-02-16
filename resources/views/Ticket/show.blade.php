@@ -1,336 +1,362 @@
 @extends('layouts.app')
-
 @section('content')
-<style type="text/css">
-   input:hover {
-    border-color: transparent;
-  }
-
-  /* Remove the outline when the input is focused */
-  input:focus {
-    outline: none;
-  }
-  .topform{
-    background-color: #e2f2e3;
-    border-bottom: 2px;
-    border-color: black;
-  }
-  .viewtickettopform{
-    background-color: #e2f2e3;
-    border-bottom: 2px;
-    border-color: black;
-    
-  }
-  .topheader{
-    font-size:12px;
-    font-weight: 600;
-  }
-
-  .animate-slow {
-        animation-duration: 60s; /* Adjust the duration as needed for your desired speed */
+<style>
+ .timeline {
+        position: relative;
     }
 
-  .approvalrow{
-    margin-bottom: 20px;
-    color:#1c533d;
-  }
-  .fa, .fas {
-    font-weight: 600;
-}
-.middleTicketDetailsform{
-    padding-left:20px;
-}
-#UserAvatar{
-    background: #db6b57;
-    padding-left: 6px;
-    position: relative;
-    font-size: 14px;
-    margin-right: -5%;
-    top: -2%;
-}
-#TechnicianAvatar{
-    background: #1e293b;
-    color: white;
-    padding-left: 6px;
-    position: relative;
-    font-size: 14px;
-    min-height: 40px;
-    margin-right: -5%;
-    top: 60%;
-}
-#TechnicianComments{
-    top:60%;
-    position: relative;
-    background-color: #ececec;
-    font-size: 13px;
-    padding: 20px;
-}
-.card-body {
-    -webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    min-height:500px;
-    padding: 1.25rem;
-    overflow: auto;
-}
-</style>
-    <!-- Content Header (Page header) -->
+    .timeline-item {
+        display: flex;
+        justify-content:space-evenly;
+ 
     
-        
-    <!-- /.content-header -->
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h5 class="m-0"><i class="fa fa-edit"></i>&ensp;&ensp;Edit tickets</h5>
+    }
+    .timeline-line {
+        position: absolute;
+        top:48%;
+        bottom: 0;
+        left: 55%;
+        height: 90px;
+        width: 2px;
+        background-color: #ccc; /* Adjust the color as needed */
+        transform: translateX(-50%);
+    }
+
+    .timeline-point {
+        position: absolute;
+        top: 30%;
+        left: 55%;
+        width: 15px;
+        height: 15px;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+    .timeline-date,
+    .timeline-action {
+        position: relative;
+        z-index: 2; /* Ensure date and action are above the line and point */
+        margin: 0 10px; /* Adjust the spacing between date, point, and action */
+    }
+    .fa-thumbs-up{
+      color:green;
+    }
+    .fa-thumbs-down{
+      color:red;
+    }
+    .fa-plus{
+      color:#7ebb2b;
+    }
+    .fa-upload{
+      color:green;
+    }
+    .fa-check-circle{
+      color:rgb(15, 163, 196)
+    }
+    .fa-check-circle{
+      color:rgb(15, 163, 196)
+    }
+    .fa-spin{
+      color:rgb(255, 0, 0);
+    }
+</style>
+<link rel="stylesheet" href="{{asset('css/TicketShow.css')}}">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h5 class="m-0"><i class="fa fa-edit"></i>&ensp;&ensp;Edit tickets</h5>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{route('ticket.index')}}">Home</a></li>
+              <li class="breadcrumb-item">Ticket Details</li>
+            </ol>
+          </div>
         </div>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      
-      
-   
-        <!-- /.col -->
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('ticket.index')}}">Home</a></li>
-         
-            <li class="breadcrumb-item">Ticket Details</li>
-          </ol>
-        </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
   </div>
-
-    <div class="row justify-content-center">
-      <!-- left column -->
+<div class="container mt-1 card card-success">
+  <div class="row">
+    <div class="col-md-2 tabsnav">
+      <div class="nav flex-column nav-pills" id="myVerticalTabs">
+        <a class="nav-link active" id="tab1-tab" data-toggle="pill" href="#tab1">Ticket</a>
+        <a class="nav-link" id="tab2-tab" data-toggle="pill" href="#tab2">Statistics</a>
+        <a class="nav-link" id="tab3-tab" data-toggle="pill" href="#tab3">Approvals</a>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="tab-content" id="myVerticalTabsContent">
+        <div class="tab-pane fade show active" id="tab1">
+          <div class="row justify-content-center">
+            <!-- left column -->
+            <div class="col-md-12">
+              <div class="" id="TicketDetails">
+                  <form id="ticketForm" action="/Admin/{{$ticket->id}}" method="POST">
+                    @csrf
+                    @method('PUT') 
+                  <div class="card-body">
+                    <div class="row approvalrow" >
+                      <div class="col-md-12 mx-md-auto animate__animated animate__fadeInDown">
+                          <h6>
+                              <center>Ticket No {{$ticket->id}} Details 
+                              @if($ticket->HodApprovalStatus == 'rejected')
+                                 <i class="fa fa-ban text-danger "> Rejected By Supervisor</i>
+                              @else
       
-      <div class="col-md-11">
-        <!-- jquery validation -->
-
-        <div class="card card-success">
-         
-            <form id="ticketForm" action="/Admin/{{$ticket->id}}" method="POST">
-              @csrf
-              @method('PUT') 
-
-            <div class="card-body">
-              <div class="row approvalrow" >
+                              @endif
+                          </center>
+                          </h6>
+                          <hr>
+                      </div>
+                    </div>
+      
+                    <div class="form-row">
+                      <div class="col-md-9 middleTicketDetailsform">
+                          <div class="row">
+                            <!--Requester Section-->
+                            @include('partials._requester_details')
+                            <!---Requester Section--->
+                          @if($ticket->HodApprovalStatus == 'rejected')
+                          <div class="row">
+                            <div class="col-md-2">
+                                  <div id="TechnicianAvatar">
+                                      {{$ticket->approver->name}}
+                                  </div>
+                              </div><!--Technician--->
+                          
+                              <div class="col-md-10">
+                                  <div id="TechnicianComments">
+                                      {{$ticket->rejectionReason}}
+                                  </div>
+                              </div><!--Reply--->
+                          </div>
+                        @else
+                        @endif
+      
+                          @if($ticket->HodApprovalStatus == 'approved' || $ticket->HodApprovalStatus == 'Approved')
+                          <div class="row">
+                              <div class="col-md-2">
+                                <div id="TechnicianAvatar">
+                                    {{$ticket->Solvedby}}
+                                </div>
+                              </div><!--Technician--->
+                              <div class="col-md-10">
+                                <div id="TechnicianComments">
+                                    {{$ticket->ITTechnicianComments}}
+                                </div>
+                              </div><!--Reply--->  
+                          </div>
+                        @else
+                        @endif
+      
+                      @if($ticket->ReopeningComments >1)
+                        <div class="row mt-5">
+                          <div class="col-md-2 ">
+                                <div id="UserAvatar">
+                                    {{$ticket->section_head1}}
+                                </div>
+                            </div>
+                            <div class="col-md-10 ">
+                                <div id="UserComments">
+                                 
+                                    {{$ticket->ReopeningComments}}
+                                  </span>
+                                </div>
+                            </div><!--Reply--->
+                        </div>
+      
+                        <div class="row mt-1">
+                          <div class="col-md-2 ">
+                                <div id="TechnicianAvatar">
+                                    {{$ticket->Solvedby}}
+                                </div>
+                            </div>
+                            <div class="col-md-10 ">
+                                <div id="TechnicianComments">
+                                 
+                                    {{$ticket->ITTechnicianReply}}
+                                  </span>
+                                </div>
+                            </div><!--Reply--->
+                        </div>
+                      @else
+                      @endif
+      
+                    </div><!---Middle Panel ticket Details-->
+             
+                      <div class="col-md-3" id="RightTicketPanel" >
+                        <div class="form-row">
+                  
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <span class="topheader">Section Head</span>
+                              <input type="text" name="Section_Head" class="form-control" id="" style="font-size:14px;" value="{{$ticket->Section_Head}}" readonly>
+                            </div>
+                          </div>
+                     
+                          <div class="col-md-12">
+                              <div class="form-group">
+                                @if($ticket->HodApprovalStatus=='approved' || $ticket->HodApprovalStatus==='Approved')
+                                <span class="topheader">Chosen Approver</span>
+                                @elseif($ticket->HodApprovalStatus=='rejected' || $ticket->HodApprovalStatus==='rejected')
+                                <span class="topheader">Rejected By</span>
+                                @else
+                                  <!--span class="topheader">Choosen Approver</span>-->
+                                  <span class="topheader">Approved By</span>
+                                @endif
+                              <input type="text" class="form-control" id="" style="font-size:14px;" value="{{{$ticket->approver->name}}}" readonly>
+                                <!--<input type="text" class="form-control" id="" style="font-size:14px;" value="{{$ticket->ApproverName}}" readonly>-->
+                            </div>
+                          </div>
+                       
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <span class="topheader">Automatically Assigned to:</span>
+                            <input type="text" class="form-control" id="" style="font-size:14px;"  value="{{optional($ticket->assignedAdmin)->name}}" readonly>
+                          </div>
+                        </div>  
+                        @if($ticket->HodApprovalStatus=='Approved' || $ticket->HodApprovalStatus=='approved' ) 
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <span class="topheader">Ticket Solved By:</span>
+                            <input type="text" class="form-control" id="" style="font-size:14px;"  value="{{$ticket->Solvedby}}" readonly>
+                          </div>
+                        </div>   
+      
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <span class="topheader">Ticket Status:</span>
+                            <input type="text" class="form-control" id="" style="font-size:14px;"  value="{{$ticket->TicketStatus}}" readonly>
+                          </div>
+                        </div>   
+                        @else
+                        @endif
+                      </div>
+                  </div>           
+                </div>
+               </form> 
+              </div>
+              </div>
+          </div>      
+        </div><!---Tab 1--->
+        <div class="tab-pane fade" id="tab2">
+          <div class="row">
                 <div class="col-md-12 mx-md-auto animate__animated animate__fadeInDown">
                     <h6>
-                        <center>Ticket No {{$ticket->id}} Details 
+                       Ticket No {{$ticket->id}} LifeCycle
                         @if($ticket->HodApprovalStatus == 'rejected')
                            <i class="fa fa-ban text-danger "> Rejected By Supervisor</i>
                         @else
 
                         @endif
-                    </center>
                     </h6>
                     <hr>
-                </div>
-              </div>
+                    <div class="timeline">
+                      @foreach ($ticket->activityLogs as $key => $activityLog)
+                          <div class="timeline-item">
+                              <div class="timeline-date">{{ $activityLog->created_at->format('d-m-Y, H:i:s') }}</div>
+                              @if($key < count($ticket->activityLogs) - 1)
+                              <!-- Render the line only if there is another action -->
+                              <div class="timeline-line"></div>
+                          @endif
+                              <div class="timeline-line"></div>
+                              <div class="timeline-point">
+                                @if($activityLog->action == 'Approved')
+                                <i class="fa fa-thumbs-up"></i>
+                                @elseif($activityLog->action == 'created')
+                                <i class="fa fa-plus"></i>
+                                @elseif($activityLog->action == 'Rejected')
+                                <i class="fa fa-thumbs-down"></i>
+                                @elseif($activityLog->action == 'updated')
+                                <i class="fa fa-upload"></i>
+                                @elseif($activityLog->action == 'Rejected')
+                                <i class="fa fa-thumbs-down"></i>
+                                @elseif($activityLog->action == 'Solved')
+                                <i class="fa fa-check-circle"></i>
+                                @elseif($activityLog->action == 'Reopened')
+                                <i class="fas fa-sync-alt fa-spin"></i>  
+                                @elseif($activityLog->action == 'Escalated')
+                                <i class="fa fa-upload"></i>   
+                                @else
+                                      <!-- Default icon or no icon for other actions -->
+                                @endif
 
-              <div class="form-row">
-               
-                   <div class="col-md-2" style="background-color: #f8f9fa;">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Tickets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Statistics</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Approvals</a>
-                        </li>
-                        <!-- Add more list items for additional navigation links -->
-                    </ul>
 
-
-                </div>
-
-                <div class="col-md-7 middleTicketDetailsform">
-                    <div class="row">
-                      <div class="col-md-2"><!--Requester-->
-                        <div id="UserAvatar">
-                          {{$ticket->section_head1}}
-                        </div>
-                      </div>
-                      <div class="col-md-10"><!---Ticket Details--->
-                        <div class="form-row viewtickettopform">
-                          <div class="col-md-12" style="font-size:10px; ">
-                              <span style="background-color:rgb(168, 201, 157);border-radius:2px; padding:1px;margin:10px;">
-                              Created on:&ensp; <span class="fa fa-clock"></span> {{$ticket->created_at->format('Y-m-d H:i:s')}} 
-                              &ensp;&ensp;&ensp;&ensp;By&ensp;<span class="fa fa-user"></span>  {{$ticket->section_head1}}
-                              </span>  
-                              <span style="background-color:rgb(168, 201, 157);border-radius:2px; padding:2px;margin-bottom:10px;">
-                              Update:&ensp; <span class="fa fa-clock"></span> {{$ticket->updated_at->format('m-d H:i:s')}}
-                              </span> 
+                              </div>
+                              <div class="timeline-action">
+                                
+                                  <p>{{ $activityLog->action }}<span style="font-size:10px; color:#056936; font-weight:bold;">({{$activityLog->user->name }})</span></p></p>
+                              </div>
                           </div>
-                          <br><br>
-                          <div class="col-md-12">
-                             <span class="topheader">Correction Type:
-                            <input type="text" name="Correction_Type" class="form-control1" id="CorrectionType"  value="{{$ticket->Correction_Type}}" style="border: none !important; background:none; font-size:14px; width:80%;" readonly>           
-                          </div>
-                  
-                          <div class="col-md-4">
-                            @if ($ticket->Record_No  == 'Password Change')
-                            <span class="topheader">System Name</span>
-                            <input type="text" class="form-control1" id="RecordNo" value="{{ $ticket->SystemName}}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
-                            @elseif ($ticket->Correction_Type == 'Endorsement')
-                            <span class="topheader">Policy Number</span>
-                            <input type="text" class="form-control1" id="RecordNo" value="{{ $ticket->Record_No  }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
-                            @else
-                            <span class="topheader">Policy Number</span>
-                            <input type="text" class="form-control1" id="RecordNo" value="{{ $ticket->Record_No }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
-                            @endif 
-                          </div>
-                  
-                          <div class="col-md-4">
-                              @if ($ticket->Correction_Type == 'Renewal')
-                              <span class="topheader">  Renewal No</span>
-                              <input type="text" class="form-control1" id="RequesterName" value="{{ $ticket->RenewalNo }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
-                              @elseif ($ticket->Correction_Type == 'Endorsement')
-                              <span class="topheader">Endorsement No</span>
-                              <input type="text" class="form-control1" id="RequesterName" value="{{ $ticket->EndorsementNo }}" style="border: none !important; background:none;font-size:12px; width:100%;" readonly>
-                              @else
-                  
-                              @endif
-                          </div>
-                        </div>
-                  
-                        <div class="form-row topform" style="border-top:1px solid rgb(203, 203, 203);">
-                            <span class="topheader">Ticket Details:</span>
-                            <textarea class="form-control" name="Correction_Details" id="CorrectionDetails" rows="4"  style="border: none !important; background:none; font-size:14px; width:100%;" readonly>{{$ticket->Correction_Details}}{{$ticket->SystemNa}}</textarea>
-                        </div>
-                  
-                        <div class="form-row topform" style="border-top:1px solid rgb(203,203,203);">
-                          @if($ticket->documents)
-                            @php
-                              $attachments = explode(',', $ticket->documents);
-                              $totalAttachments = count($attachments);
-                             @endphp
-                          <span class="topheader">Attachment(s) Associated with ticket: {{ $totalAttachments }} 
-                        
-                          </span>&ensp;&ensp;
-                              <td>
-                                <ul>
-                                  @foreach($attachments as $index => $attachment)
-                                      <li>
-                                          <a href="{{ asset('uploads/' . $attachment) }}" target="_blank">View Document {{ $index + 1 }}</a>
-                                      </li>
-                                  @endforeach
-                                    </ul>
-                            @else
-                                No documents associated with this ticket.
-                            @endif
-                            </td>
-                        </div>
-                      
-                          <div class="form-row topform" style="border-top:1px solid rgb(203,203,203);">
-                            <div class="col-md-12 ">
-                                <span class="topheader">HoD Approval 
-                                <input type="text" name="Correction_Type" class="form-control1" id="CorrectionType"  value="{{$ticket->HodApprovalStatus}}" style="border: none !important; background:none; font-size:14px; width:80%;" readonly>           
-                            </div>
-                          </div>
-                      </div>
-                  
-                    </div><!--Requester---->
-                    @if($ticket->HodApprovalStatus == 'approved' || $ticket->HodApprovalStatus == 'Approved')
-                    <div class="row">
-                      <div class="col-md-2">
-                     
-                            <div id="TechnicianAvatar">
-                                {{$ticket->Solvedby}}
-                            </div>
-                        </div><!--Technician--->
-                    
-                        <div class="col-md-10">
-                            <div id="TechnicianComments">
-                                {{$ticket->ITTechnicianComments}}
-                            </div>
-                        </div><!--Reply--->
-                  
-                    </div>
-                @else
-                @endif
-                  </div><!---Middle Panel ticket Details-->
-       
-                <div class="col-md-3" id="RightTicketPanel" >
-                 
-                  <div class="form-row">
-            
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <span class="topheader">Section Head</span>
-                        <input type="text" name="Section_Head" class="form-control" id="" style="font-size:14px;" value="{{$ticket->Section_Head}}" readonly>
-                      </div>
-                    </div>
-               
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        @if($ticket->HodApprovalStatus=='approved' || $ticket->HodApprovalStatus==='Approved')
-                        <span class="topheader">Approved By</span>
-                        @elseif($ticket->HodApprovalStatus=='rejected' || $ticket->HodApprovalStatus==='rejected')
-                        <span class="topheader">Rejected By</span>
-                        @else
-                        <span class="topheader">Choosen Approver</span>
-
-                        @endif
-                        <input type="text" class="form-control" id="" style="font-size:14px;" value="{{{$ticket->approver->name}}}" readonly>
-                     
-                    </div>
-                    </div>
-                 
+                      @endforeach
                   </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <span class="topheader">Automatically Assigned to:</span>
-                      <input type="text" class="form-control" id="" style="font-size:14px;"  value="{{optional($ticket->assignedAdmin)->name}}" readonly>
-                    </div>
-                  </div>  
-                  @if($ticket->HodApprovalStatus=='Approved' || $ticket->HodApprovalStatus=='approved' ) 
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <span class="topheader">Ticket Solved By:</span>
-                      <input type="text" class="form-control" id="" style="font-size:14px;"  value="{{$ticket->Solvedby}}" readonly>
-                    </div>
-                  </div>   
-
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <span class="topheader">Ticket Status:</span>
-                      <input type="text" class="form-control" id="" style="font-size:14px;"  value="{{$ticket->TicketStatus}}" readonly>
-                    </div>
-                  </div>   
+            </div>    
+        </div>
+   
+      </div>
+      <div class="tab-pane fade" id="tab3">
+        <div class="row">
+          <div class="col-md-12 mx-md-auto animate__animated animate__fadeInDown">
+              <h6>
+                 Ticket No {{$ticket->id}} Approvals
+                  @if($ticket->HodApprovalStatus == 'rejected')
+                    
                   @else
                   @endif
-                </div>
-                  
-                  
-            </div>           
-		      </div>
-         </form>
-
-         
-
+              </h6>
+          </div>
+          <div class="col-md-12 mx-md-auto animate__animated animate__fadeInDown">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">State</th>
+                  <th scope="col">Request Date</th>
+                  <th scope="col">Approval Requester</th>
+                  <th scope="col">Chosen Approver</th>
+                  <th scope="col">Approver Comments</th>
+                  <th scope="col">Date Approved</th>
+              
+              
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  @if($ticket->HodApprovalStatus == 'approved')
+                  <td style="background: #9BA563;">{{$ticket->HodApprovalStatus}}</td>
+                  @elseif ($ticket->HodApprovalStatus == 'rejected')
+                  <td style="background: #cf9b9b;"><i class="fa fa-thumbs-down"></i>{{$ticket->HodApprovalStatus}}</td>
+                  @else
+                    <td style="background: #cbceba;">{{$ticket->HodApprovalStatus}}</td>
+                  @endif
+                  <td>{{$ticket->created_at}}</td>
+                  <td>{{$ticket->section_head1}}</td>
+                  <td>{{$ticket->hiddenApproverName}}</td>
+                  <td>{{$ticket->rejectionReason}}</td>
+                  <td>{{$ticket->updated_at->format('m-Y, H:i:s') }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="col">State</th>
+                  <th scope="col">Request Date</th>
+                  <th scope="col">Approval Requester</th>
+                  <th scope="col">Chosen Approver</th>
+                  <th scope="col">Approver Comments</th>
+                  <th scope="col">Date Approved</th>
+              
+              
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
-
-  
-
-        <!-- /.card -->
-        </div>
-
+      </div><!--Tab 3-->
     </div>
-    <!-- /.row -->
-  </div><!-- /.container-fluid -->
-
-<!-- ... your HTML content ... -->
+  </div>
+</div>
 
 
 

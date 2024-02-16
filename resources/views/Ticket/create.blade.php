@@ -94,7 +94,7 @@
                <div class="form-row">
                   <div class="col-md-6" id="RecordNoField">
                      <label for="RecordNo">Policy Code</label>
-                     <input type="text" name="Record_No" class="form-control" id="RecordNo" placeholder="Record No" value="{{old('Record_No')}}">
+                     <input type="text" name="Record_No" class="form-control" id="RecordNo" placeholder="Record No" value="{{old('Record_No')}}" maxlength="20">
                      @error('Record_No')
                      <span class="text-danger">{{ $message }}</span>
                      @enderror

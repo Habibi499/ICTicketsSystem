@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+       
     @yield('styles')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
@@ -31,7 +32,7 @@
 <!-- Right navbar links -->
 <ul class="navbar-nav ml-auto">
 
-                <!-- Notifications Dropdown Menu -->
+             
                 <li class="nav-item dropdown">
         
                     <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -49,9 +50,6 @@
                             {{ __('Log Out') }}
                         </a>
                     </form>
-                    
-                    
-                 
                 </div>
               </li>
 </ul>
@@ -107,7 +105,7 @@
              &copy; R.
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2023 OIC Digital factory | ITickets Version 1.0.0</strong>
+        <strong>Copyright &copy; 2023 OIC Digital factory | ITickets Version 1.5.0</strong>
     </footer>
 </div>
 <!-- ./wrapper -->

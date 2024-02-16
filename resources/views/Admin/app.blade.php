@@ -18,6 +18,7 @@
       <!--Custom css--->
       <link rel="stylesheet" href="{{ asset('css/main.css') }}">
       <link rel="stylesheet" href="{{asset('css/editform.css')}}">
+   
       @yield('styles')
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
@@ -148,16 +149,15 @@
       &copy; R.
       </div>
       <!-- Default to the left -->
-      <strong>Copyright &copy; 2023 OIC Digital factory | ITickets Version 1.0.0</strong>
+      <strong>Copyright &copy; 2023 OIC Digital factory | ITickets Version 1.5.0</strong>
       </footer>
       </div>
       <!-- ./wrapper -->
       <!-- REQUIRED SCRIPTS -->
       @vite('resources/js/app.js')
-      <!-- AdminLTE App -->
       <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
       <script src="{{ asset('js/adminformpopup.js') }}" defer></script>
-      <!-- jQuery library -->
+      <!-- jQuery -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
       <!-- Latest compiled JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

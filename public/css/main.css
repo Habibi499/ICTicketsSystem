@@ -286,3 +286,28 @@
 	font-size: 15px;
 }
 
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+#blinking-icon {
+    animation: blink 1s infinite; /* Adjust the duration */
+}
+.viewtickettopform{
+    background-color: #e2f2e3;
+    border-bottom: 2px;
+    border-color: black;
+  }
+#ReopenLink{
+ color:#056936;
+  }
+#disabledLink{
+    color:red;
+}
+.spinner {
+    font-size: 1em;
+    color:#ffa200
+  }
+  

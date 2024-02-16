@@ -95,7 +95,8 @@
                           <thead>
                               
                       <tr>
-                          <th>Ticket_No</th>
+                        <th>No</th>
+                        <th>Ticket_No</th>
                           <th>Requester</th>
                           <th>Ticket Details</th>
                           <th>Approved Status</th>
@@ -109,27 +110,26 @@
                       
                       @foreach($tickets as $ticket)
                       <tr>
-                      <td>{{$ticket->id}}</td>
-                      <td>{{$ticket->section_head1}}</td>
-                      <td>{{$ticket->Correction_Type}}</td>
-                      <td>{{$ticket->HodApprovalStatus}}</td>
-                      <td>{{$ticket->TicketStatus}}</td>
-                      @if ($ticket->created_at)
-                      <td>{{ $ticket->created_at->format('Y-m-d H:i:s') }}
-                      @else
-                          <p>No date available</p>
-                      @endif
+                      <td>{{$ticket->invoice_id ?? ''}}</td>
+                      <td>{{$ticket->ticket_No ?? ''}}</td>
+                      <td>{{$ticket->invoice_section_head1?? ''}}</td>
+                      <td>{{$ticket->invoice_ticket_details ?? ''}}</td>
+                      <td>{{$ticket->invoice_approval_status ??''}}</td>
+                      <td>{{$ticket->invoice_ticket_status ??''}}</td>
+                      
+                      <td>{{$ticket->invoice_date_created ??''}}</td>
+                      <td>{{$ticket->approver_name??''}}</td>
+           
                      
-                     
-                          @if($ticket->approver)
-                          <td>
-                             {{$ticket->approver->name}}
-                             @else
-                             <p>No Approver Chosen</p>
-                         </td>
-                         @endif
+                      <td>
+                        @if($ticket->invoice_TicketCategory === 'Correction-Form' || $ticket->invoice_TicketCategory ==='Password_Change')
+                        <a href="/approver/{{$ticket->invoice_id}}/edit">Approve&ensp;<i class="fa fa-check-circle"></i>  </a>
+                        @else
+                      <a href="/Rights/{{$ticket->ticket_No}}/edit">Approve&ensp;<i class="fa fa-check-circle"></i>  </a>
+                        @endif
+                     </td>
 
-                      <td><a href="/approver/{{$ticket->id}}/edit">Approve</a></td>
+                  
                       </tr>
                        
                     @endforeach

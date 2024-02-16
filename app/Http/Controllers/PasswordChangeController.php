@@ -10,12 +10,13 @@ use App\Http\Controllers\TicketController;
 use App\Notifications\NewPasswordChangeRequestNotification;
 use App\Notifications\NewTicketSubmittedNotification;
 use App\Http\Requests\PasswordChangeValidationRequest;
-
-
+use App\Traits\TicketNumberTrait;
+use App\Models\TicketNumbers;
 use App\Jobs\SendTicketApprovedorNotification; 
 use App\Jobs\AssignTicketToAdmin;
 class PasswordChangeController extends Controller
 {
+    use TicketNumberTrait;
     public function index(){
 
         $user = auth()->user();
@@ -55,8 +56,15 @@ class PasswordChangeController extends Controller
                                   $nextAdminUser = $adminUsers->first();
                               }
                             
-
-
+                    // Generate a unique ticket number
+                    $ticketData = $this->generateTicketNumber();
+                    $ticketNumber=$ticketData['ticketNumber'];
+                    // Create a new instance of TicketNumbers for the ticket
+                    $ticket = TicketNumbers::create([
+                        'ticket_category' => 'System Rights Request',  
+                        'ticket_code' => $ticketData['ticketCode'],
+                        'ticket_No' => $ticketData['ticketNumber'],
+                    ]);
 
                                   // Create a new Ticket record with the provided data
             $pass = Ticket::create([
@@ -64,7 +72,8 @@ class PasswordChangeController extends Controller
                 'section_head1' => $request->input('Section_Head1'),
                 'Section_Head' => $request->input('Section_Head'),
                 'TicketStatus' => 'Open',
-                //'Assignedto' => 'TTTT', // Assign the ticket to the selected admin user
+                'ticket_No'=>$ticketNumber,
+              
                 'SystemName'=>$request->input('SystemName'),
                 'Correction_Type' => 'Password-Change',
                 'Correction_Details' => 'Requester UserName' . $request->input('UserName'),

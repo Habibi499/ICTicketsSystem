@@ -29,7 +29,9 @@
    padding-top:10px;
    }
 
-
+   .hidden {
+        display: none !important;
+    }
 
 
 .coming-soon a:hover::before {
@@ -50,7 +52,7 @@ display: block;
    <div class="container-fluid">
       <div class="row mb-2">
          <div class="col-sm-6">
-            <h6 class="m-0">{{ __('Dashboard') }}</h6>
+            <h6 class="m-0 text-success">{{ __('Dashboard') }}</h6>
          </div>
       </div>
    </div>
@@ -136,15 +138,74 @@ display: block;
       <div class="row">
          <div class="col-md-9">
             <div class="card" id="servicescatalogueheader">
-               <div class="row" style="margin-top:16px;">
-                  <div class="col-md-6">
-                     <h6>My  Services Catalogue</h6>
+               <div class="row">
+                  <div class="col-md-6 text-center">
+                     <h6 class="text-success">My Services Catalogue</h6>
+                  
+            </div>
+                  
+               </div>
+               <hr>
+               <div class="row">
+               </div>
+               <div class="row mr-2">
+                  <div class="col-md-12">
+                     <P>(1) Genesys Correction Forms</P>
+                  </div>
+                  <div class="col-md-3">
+                     <a href="{{route('ticket.create')}}">
+                        <div class="card text-center" id="fcard" >
+                           <div class="card-header"> 
+                              <i class="fa fa-4x fa-pen"></i>
+                           </div>
+                           <div class="card-body">
+                              <p>Underwriting/Marine Corrections</p>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+                  <div class="col-md-3">
+                     <a href="{{route('ticket.create')}}">
+                        <div class="card text-center" id="fcard" >
+                           <div class="card-header"> 
+                              <i class="fa fa-4x  fa fa-clone"></i>
+                           </div>
+                           <div class="card-body">
+                              <p>Re-Insurance Correction Forms</p>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+                  <div class="col-md-3">
+                     <a href="{{route('ticket.accountsform')}}">
+                        <div class="card text-center" id="fcard" >
+                           <div class="card-header"> 
+                              <i class="fa fa-4x fa-dollar-sign"></i>
+                           </div>
+                           <div class="card-body">
+                              <p>Accounts/Admin Depts Corrections</p>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+                  <div class="col-md-3">
+                     <a href="{{route('ticket.claimsform')}}">
+                        <div class="card text-center" id="fcard" >
+                           <div class="card-header"> 
+                              <i class="fas fa-4x fa-folder-open"></i>
+                           </div>
+                           <div class="card-body">
+                              <p>Claims/Legal Departments</p>
+                           </div>
+                        </div>
+                     </a>
                   </div>
                </div>
-               <div class="row" style="margin-top:16px;">
-               </div>
-               <div class="row" id="servicescatalogue">
-                  <div class="col-md-4">
+               <div class="row mt-3 mr-2">
+                  <div class="col-md-12">
+                     <P>(2) Requests</P>
+                  </div>
+                  <div class="col-md-3">
                      <a href="{{route('passwordchange.index')}}">
                         <div class="card text-center" id="fcard" >
                            <div class="card-header"> 
@@ -156,70 +217,75 @@ display: block;
                         </div>
                      </a>
                   </div>
-                  <div class="col-md-4">
-                     <a href="{{route('ticket.create')}}">
+        
+                  <div class="col-md-3">
+                     <a href="{{route('ticket.Reinstate-Policy')}}">
                         <div class="card text-center" id="fcard" >
                            <div class="card-header"> 
-                              <i class="fa fa-4x fa-pen"></i>
+                              <i class="fa fa-4x 	fa fa-undo"></i>
                            </div>
                            <div class="card-body">
-                              <p>Underwriting/Re-Insurance Corrections</p>
+                              <p>Policy Reinstatement Request</p>
                            </div>
                         </div>
                      </a>
                   </div>
-                  <div class="col-md-4">
-                     <a href="{{route('ticket.accountsform')}}">
-                        <div class="card text-center" id="fcard" >
-                           <div class="card-header"> 
-                              <i class="fa fa-4x fa-dollar-sign"></i>
-                           </div>
-                           <div class="card-body">
-                              <p>Accounts/Administration Corrections</p>
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-                  <div class="col-md-4">
-                     <a href="{{route('ticket.claimsform')}}">
-                        <div class="card text-center" id="fcard" >
-                           <div class="card-header"> 
-                              <i class="fas fa-4x fa-folder-open"></i>
-                           </div>
-                           <div class="card-body">
-                              <p>Claims/Legal Departments Corrections</p>
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="coming-soon">
-                     <a href="#" class="no-click">
-                        <div class="card text-center" id="fcard" >
-                           <div class="card-header"> 
-                              <i class="fas fa-4x fa-ban"></i>
-                           </div>
-                           <div class="card-body">
-                              <p>Authorisation for Bypass or Cancellation</p>
-                           </div>
-                        </div>
-                     </a>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="coming-soon">
-                     <a href="#" disabled="true">
+                  <div class="col-md-3">
+                    
+                     <a href="{{route('ticket.rightsrequest')}}">
                         <div class="card text-center" id="fcard" >
                            <div class="card-header"> 
                               <i class="fas fa-4x fa-hand-point-right"></i>
                            </div>
                            <div class="card-body">
-                              <p>All Systems Rights Request Form</p>
+                              <p>All Systems' Rights Request Form</p>
                            </div>
                         </div>
                      </a>
                      </div>
+                     <div class="col-md-3">
+                        <a href="{{route('ticket.bypass-of-cancellation')}}">
+                           <div class="card text-center" id="fcard" >
+                              <div class="card-header"> 
+                                 <i class="fas fa-4x fa-ban"></i>
+                              </div>
+                              <div class="card-body">
+                                 <p>Authorisation for Bypass or Cancellation</p>
+                              </div>
+                           </div>
+                        </a>
+                     </div>
+               </div>
+               <div class="row mt-3 mr-2">
+                  <div class="col-md-12">
+                     <P>(3) Human Resource</P>
                   </div>
+               </div>
+               <div class="row mt-3 mr-2">
+               <div class="col-md-3">
+                  <a href="#">
+                     <div class="card text-center" id="fcard" >
+                        <div class="card-header"> 
+                           <i class="fas fa-4x fa-user"></i>
+                        </div>
+                        <div class="card-body">
+                           <p>ICT New Staff Form request</p>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+               <div class="col-md-3">
+                  <a href="#">
+                     <div class="card text-center" id="fcard" >
+                        <div class="card-header"> 
+                           <i class="fas fa-4x fa-street-view"></i>
+                        </div>
+                        <div class="card-body">
+                           <p>Staff Form Transfer request</p>
+                        </div>
+                     </div>
+                  </a>
+               </div>
                </div>
             </div>
          </div>
@@ -279,6 +345,8 @@ display: block;
    </div>
 </div>
 </div>
+
+<script src="{{asset('js/CatalogueSearch.js')}}"></script>
 </div>
 @endsection
 

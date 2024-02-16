@@ -22,10 +22,10 @@ class CheckTicketStatus extends Command
 
         foreach ($tickets as $ticket) {
             // Send a reminder notification to the approver
-            $ticket->approver->notify(new TicketReminder($ticket));
+            //$ticket->approver->notify(new TicketReminder($ticket));
 
             // Optionally, you can update a field in the Ticket model to track the last reminder sent time
-            $ticket->update(['last_reminder_sent_at' => now()]);
+            //$ticket->update(['last_reminder_sent_at' => now()]);
         }
 
         $this->info('Ticket status check completed.');
