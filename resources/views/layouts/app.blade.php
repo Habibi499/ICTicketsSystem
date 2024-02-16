@@ -79,7 +79,7 @@
             <span class="brand-text font-weight-light">ITickets</span>
         </a>
 
-        @include('layouts.navigation')
+        @include('partials._navigation')
     </aside>
 
     <!-- Content Wrapper. Contains page content -->

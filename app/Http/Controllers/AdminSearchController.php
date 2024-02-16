@@ -51,3 +51,4 @@ class AdminSearchController extends Controller
         return $totalRecords;
     }
 }
+?>

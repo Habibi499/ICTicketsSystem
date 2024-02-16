@@ -126,7 +126,8 @@
          style="opacity: .8">
       <span class="brand-text font-weight-light">ITickets</span>
       </a>
-      @include('layouts.adminnavigation')
+      @include('partials._navigation')
+
       </aside>
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
