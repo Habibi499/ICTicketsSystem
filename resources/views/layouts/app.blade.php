@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Simplified Ticketing System - A user-friendly ticketing solution for Occidental Insurance Co Ltd by Robinson M. Mwaura.">
-    <meta name="author" content="Robinson M. Mwaura :email robinsonmungaim@gmail.com Tel: 0702667440">
+    <meta name="description" content="Simplified Ticketing System - A user-friendly ticketing solution for OIC Insurance Company by Samuel Mungai W.">
+    <meta name="author" content="Samuel Mungai W. :email samuelmungai499@gmail.com Tel: 0719546628">
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Laravel') }}</title>
